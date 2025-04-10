@@ -1024,7 +1024,7 @@
             L_VERSION.Name = "L_VERSION";
             L_VERSION.Size = new Size(79, 20);
             L_VERSION.TabIndex = 91;
-            L_VERSION.Text = "12.01.2025";
+            L_VERSION.Text = "10.04.2025";
             // 
             // BT_DELETE_ADD1
             // 
