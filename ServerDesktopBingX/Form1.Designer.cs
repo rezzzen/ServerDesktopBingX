@@ -123,6 +123,12 @@
             BT_DELETE_ADD2 = new Button();
             L_DATE = new Label();
             timer1 = new System.Windows.Forms.Timer(components);
+            label17 = new Label();
+            L_CHANGE_LCO = new Label();
+            L_CHANGE_NG = new Label();
+            L_CHANGE_S = new Label();
+            L_CHANGE_ADD1 = new Label();
+            L_CHANGE_ADD2 = new Label();
             SuspendLayout();
             // 
             // TB_KEY
@@ -131,7 +137,7 @@
             TB_KEY.Location = new Point(104, 45);
             TB_KEY.Name = "TB_KEY";
             TB_KEY.ReadOnly = true;
-            TB_KEY.Size = new Size(833, 27);
+            TB_KEY.Size = new Size(812, 27);
             TB_KEY.TabIndex = 1;
             TB_KEY.UseSystemPasswordChar = true;
             // 
@@ -150,7 +156,7 @@
             TB_SECRET.Location = new Point(104, 78);
             TB_SECRET.Name = "TB_SECRET";
             TB_SECRET.ReadOnly = true;
-            TB_SECRET.Size = new Size(833, 27);
+            TB_SECRET.Size = new Size(812, 27);
             TB_SECRET.TabIndex = 3;
             // 
             // label2
@@ -165,17 +171,17 @@
             // BT_EDIT_KEY
             // 
             BT_EDIT_KEY.Image = (Image)resources.GetObject("BT_EDIT_KEY.Image");
-            BT_EDIT_KEY.Location = new Point(943, 41);
+            BT_EDIT_KEY.Location = new Point(922, 42);
             BT_EDIT_KEY.Name = "BT_EDIT_KEY";
             BT_EDIT_KEY.Size = new Size(32, 32);
-            BT_EDIT_KEY.TabIndex = 5;
+            BT_EDIT_KEY.TabIndex = 0;
             BT_EDIT_KEY.UseVisualStyleBackColor = true;
             BT_EDIT_KEY.Click += BT_EDIT_KEY_Click;
             // 
             // BT_EDIT_SECRET
             // 
             BT_EDIT_SECRET.Image = (Image)resources.GetObject("BT_EDIT_SECRET.Image");
-            BT_EDIT_SECRET.Location = new Point(943, 75);
+            BT_EDIT_SECRET.Location = new Point(922, 75);
             BT_EDIT_SECRET.Name = "BT_EDIT_SECRET";
             BT_EDIT_SECRET.Size = new Size(32, 32);
             BT_EDIT_SECRET.TabIndex = 6;
@@ -185,7 +191,7 @@
             // BT_CHECK_KEY
             // 
             BT_CHECK_KEY.Image = (Image)resources.GetObject("BT_CHECK_KEY.Image");
-            BT_CHECK_KEY.Location = new Point(943, 41);
+            BT_CHECK_KEY.Location = new Point(922, 42);
             BT_CHECK_KEY.Name = "BT_CHECK_KEY";
             BT_CHECK_KEY.Size = new Size(32, 32);
             BT_CHECK_KEY.TabIndex = 7;
@@ -196,7 +202,7 @@
             // BT_CHECK_SECRET
             // 
             BT_CHECK_SECRET.Image = (Image)resources.GetObject("BT_CHECK_SECRET.Image");
-            BT_CHECK_SECRET.Location = new Point(943, 75);
+            BT_CHECK_SECRET.Location = new Point(922, 75);
             BT_CHECK_SECRET.Name = "BT_CHECK_SECRET";
             BT_CHECK_SECRET.Size = new Size(32, 32);
             BT_CHECK_SECRET.TabIndex = 8;
@@ -243,7 +249,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(479, 134);
+            label7.Location = new Point(528, 134);
             label7.Name = "label7";
             label7.Size = new Size(28, 20);
             label7.TabIndex = 15;
@@ -252,7 +258,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(509, 134);
+            label8.Location = new Point(558, 134);
             label8.Name = "label8";
             label8.Size = new Size(28, 20);
             label8.TabIndex = 16;
@@ -261,7 +267,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(538, 134);
+            label9.Location = new Point(587, 134);
             label9.Name = "label9";
             label9.Size = new Size(28, 20);
             label9.TabIndex = 17;
@@ -270,7 +276,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(568, 134);
+            label10.Location = new Point(617, 134);
             label10.Name = "label10";
             label10.Size = new Size(30, 20);
             label10.TabIndex = 18;
@@ -279,7 +285,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(636, 134);
+            label11.Location = new Point(685, 134);
             label11.Name = "label11";
             label11.Size = new Size(59, 20);
             label11.TabIndex = 19;
@@ -288,7 +294,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(831, 134);
+            label12.Location = new Point(880, 134);
             label12.Name = "label12";
             label12.Size = new Size(36, 20);
             label12.TabIndex = 20;
@@ -563,7 +569,7 @@
             // BT_EDIT_ADD1
             // 
             BT_EDIT_ADD1.Image = (Image)resources.GetObject("BT_EDIT_ADD1.Image");
-            BT_EDIT_ADD1.Location = new Point(43, 246);
+            BT_EDIT_ADD1.Location = new Point(42, 246);
             BT_EDIT_ADD1.Name = "BT_EDIT_ADD1";
             BT_EDIT_ADD1.Size = new Size(27, 27);
             BT_EDIT_ADD1.TabIndex = 48;
@@ -583,7 +589,7 @@
             // BT_CHECK_ADD1
             // 
             BT_CHECK_ADD1.Image = (Image)resources.GetObject("BT_CHECK_ADD1.Image");
-            BT_CHECK_ADD1.Location = new Point(42, 247);
+            BT_CHECK_ADD1.Location = new Point(42, 246);
             BT_CHECK_ADD1.Name = "BT_CHECK_ADD1";
             BT_CHECK_ADD1.Size = new Size(27, 27);
             BT_CHECK_ADD1.TabIndex = 50;
@@ -605,7 +611,7 @@
             // D1_LCO
             // 
             D1_LCO.Enabled = false;
-            D1_LCO.Location = new Point(479, 157);
+            D1_LCO.Location = new Point(528, 157);
             D1_LCO.Name = "D1_LCO";
             D1_LCO.ReadOnly = true;
             D1_LCO.Size = new Size(27, 27);
@@ -615,7 +621,7 @@
             // D1_NG
             // 
             D1_NG.Enabled = false;
-            D1_NG.Location = new Point(479, 187);
+            D1_NG.Location = new Point(528, 187);
             D1_NG.Name = "D1_NG";
             D1_NG.ReadOnly = true;
             D1_NG.Size = new Size(27, 27);
@@ -625,7 +631,7 @@
             // D1_S
             // 
             D1_S.Enabled = false;
-            D1_S.Location = new Point(479, 217);
+            D1_S.Location = new Point(528, 217);
             D1_S.Name = "D1_S";
             D1_S.ReadOnly = true;
             D1_S.Size = new Size(27, 27);
@@ -635,7 +641,7 @@
             // D1_ADD1
             // 
             D1_ADD1.Enabled = false;
-            D1_ADD1.Location = new Point(479, 247);
+            D1_ADD1.Location = new Point(528, 247);
             D1_ADD1.Name = "D1_ADD1";
             D1_ADD1.ReadOnly = true;
             D1_ADD1.Size = new Size(27, 27);
@@ -645,7 +651,7 @@
             // D1_ADD2
             // 
             D1_ADD2.Enabled = false;
-            D1_ADD2.Location = new Point(479, 277);
+            D1_ADD2.Location = new Point(528, 277);
             D1_ADD2.Name = "D1_ADD2";
             D1_ADD2.ReadOnly = true;
             D1_ADD2.Size = new Size(27, 27);
@@ -655,7 +661,7 @@
             // H4_LCO
             // 
             H4_LCO.Enabled = false;
-            H4_LCO.Location = new Point(509, 157);
+            H4_LCO.Location = new Point(558, 157);
             H4_LCO.Name = "H4_LCO";
             H4_LCO.ReadOnly = true;
             H4_LCO.Size = new Size(27, 27);
@@ -665,7 +671,7 @@
             // H4_NG
             // 
             H4_NG.Enabled = false;
-            H4_NG.Location = new Point(509, 187);
+            H4_NG.Location = new Point(558, 187);
             H4_NG.Name = "H4_NG";
             H4_NG.ReadOnly = true;
             H4_NG.Size = new Size(27, 27);
@@ -675,7 +681,7 @@
             // H4_S
             // 
             H4_S.Enabled = false;
-            H4_S.Location = new Point(509, 217);
+            H4_S.Location = new Point(558, 217);
             H4_S.Name = "H4_S";
             H4_S.ReadOnly = true;
             H4_S.Size = new Size(27, 27);
@@ -685,7 +691,7 @@
             // H4_ADD1
             // 
             H4_ADD1.Enabled = false;
-            H4_ADD1.Location = new Point(509, 247);
+            H4_ADD1.Location = new Point(558, 247);
             H4_ADD1.Name = "H4_ADD1";
             H4_ADD1.ReadOnly = true;
             H4_ADD1.Size = new Size(27, 27);
@@ -695,7 +701,7 @@
             // H4_ADD2
             // 
             H4_ADD2.Enabled = false;
-            H4_ADD2.Location = new Point(510, 277);
+            H4_ADD2.Location = new Point(559, 277);
             H4_ADD2.Name = "H4_ADD2";
             H4_ADD2.ReadOnly = true;
             H4_ADD2.Size = new Size(27, 27);
@@ -705,7 +711,7 @@
             // H1_LCO
             // 
             H1_LCO.Enabled = false;
-            H1_LCO.Location = new Point(539, 157);
+            H1_LCO.Location = new Point(588, 157);
             H1_LCO.Name = "H1_LCO";
             H1_LCO.ReadOnly = true;
             H1_LCO.Size = new Size(27, 27);
@@ -715,7 +721,7 @@
             // H1_NG
             // 
             H1_NG.Enabled = false;
-            H1_NG.Location = new Point(539, 187);
+            H1_NG.Location = new Point(588, 187);
             H1_NG.Name = "H1_NG";
             H1_NG.ReadOnly = true;
             H1_NG.Size = new Size(27, 27);
@@ -725,7 +731,7 @@
             // H1_S
             // 
             H1_S.Enabled = false;
-            H1_S.Location = new Point(539, 217);
+            H1_S.Location = new Point(588, 217);
             H1_S.Name = "H1_S";
             H1_S.ReadOnly = true;
             H1_S.Size = new Size(27, 27);
@@ -735,7 +741,7 @@
             // H1_ADD1
             // 
             H1_ADD1.Enabled = false;
-            H1_ADD1.Location = new Point(539, 247);
+            H1_ADD1.Location = new Point(588, 247);
             H1_ADD1.Name = "H1_ADD1";
             H1_ADD1.ReadOnly = true;
             H1_ADD1.Size = new Size(27, 27);
@@ -745,7 +751,7 @@
             // H1_ADD2
             // 
             H1_ADD2.Enabled = false;
-            H1_ADD2.Location = new Point(539, 277);
+            H1_ADD2.Location = new Point(588, 277);
             H1_ADD2.Name = "H1_ADD2";
             H1_ADD2.ReadOnly = true;
             H1_ADD2.Size = new Size(27, 27);
@@ -755,7 +761,7 @@
             // M5_ADD2
             // 
             M5_ADD2.Enabled = false;
-            M5_ADD2.Location = new Point(569, 277);
+            M5_ADD2.Location = new Point(618, 277);
             M5_ADD2.Name = "M5_ADD2";
             M5_ADD2.ReadOnly = true;
             M5_ADD2.Size = new Size(27, 27);
@@ -765,7 +771,7 @@
             // M5_ADD1
             // 
             M5_ADD1.Enabled = false;
-            M5_ADD1.Location = new Point(569, 247);
+            M5_ADD1.Location = new Point(618, 247);
             M5_ADD1.Name = "M5_ADD1";
             M5_ADD1.ReadOnly = true;
             M5_ADD1.Size = new Size(27, 27);
@@ -775,7 +781,7 @@
             // M5_S
             // 
             M5_S.Enabled = false;
-            M5_S.Location = new Point(569, 217);
+            M5_S.Location = new Point(618, 217);
             M5_S.Name = "M5_S";
             M5_S.ReadOnly = true;
             M5_S.Size = new Size(27, 27);
@@ -785,7 +791,7 @@
             // M5_NG
             // 
             M5_NG.Enabled = false;
-            M5_NG.Location = new Point(569, 187);
+            M5_NG.Location = new Point(618, 187);
             M5_NG.Name = "M5_NG";
             M5_NG.ReadOnly = true;
             M5_NG.Size = new Size(27, 27);
@@ -795,7 +801,7 @@
             // M5_LCO
             // 
             M5_LCO.Enabled = false;
-            M5_LCO.Location = new Point(569, 157);
+            M5_LCO.Location = new Point(618, 157);
             M5_LCO.Name = "M5_LCO";
             M5_LCO.ReadOnly = true;
             M5_LCO.Size = new Size(27, 27);
@@ -809,7 +815,7 @@
             SW_LCO.BackColorON = Color.YellowGreen;
             SW_LCO.Checked = false;
             SW_LCO.Font = new Font("Verdana", 9F);
-            SW_LCO.Location = new Point(965, 157);
+            SW_LCO.Location = new Point(1014, 157);
             SW_LCO.Name = "SW_LCO";
             SW_LCO.Size = new Size(43, 27);
             SW_LCO.TabIndex = 72;
@@ -823,7 +829,7 @@
             SW_NG.BackColorON = Color.YellowGreen;
             SW_NG.Checked = false;
             SW_NG.Font = new Font("Verdana", 9F);
-            SW_NG.Location = new Point(965, 187);
+            SW_NG.Location = new Point(1014, 187);
             SW_NG.Name = "SW_NG";
             SW_NG.Size = new Size(43, 27);
             SW_NG.TabIndex = 73;
@@ -837,7 +843,7 @@
             SW_S.BackColorON = Color.YellowGreen;
             SW_S.Checked = false;
             SW_S.Font = new Font("Verdana", 9F);
-            SW_S.Location = new Point(965, 217);
+            SW_S.Location = new Point(1014, 217);
             SW_S.Name = "SW_S";
             SW_S.Size = new Size(43, 27);
             SW_S.TabIndex = 74;
@@ -851,7 +857,7 @@
             SW_ADD1.BackColorON = Color.YellowGreen;
             SW_ADD1.Checked = false;
             SW_ADD1.Font = new Font("Verdana", 9F);
-            SW_ADD1.Location = new Point(965, 247);
+            SW_ADD1.Location = new Point(1014, 247);
             SW_ADD1.Name = "SW_ADD1";
             SW_ADD1.Size = new Size(43, 27);
             SW_ADD1.TabIndex = 75;
@@ -865,7 +871,7 @@
             SW_ADD2.BackColorON = Color.YellowGreen;
             SW_ADD2.Checked = false;
             SW_ADD2.Font = new Font("Verdana", 9F);
-            SW_ADD2.Location = new Point(965, 277);
+            SW_ADD2.Location = new Point(1014, 277);
             SW_ADD2.Name = "SW_ADD2";
             SW_ADD2.Size = new Size(43, 27);
             SW_ADD2.TabIndex = 76;
@@ -875,7 +881,7 @@
             // L_STATUS_LCO
             // 
             L_STATUS_LCO.ForeColor = Color.Red;
-            L_STATUS_LCO.Location = new Point(612, 160);
+            L_STATUS_LCO.Location = new Point(661, 160);
             L_STATUS_LCO.Name = "L_STATUS_LCO";
             L_STATUS_LCO.Size = new Size(110, 20);
             L_STATUS_LCO.TabIndex = 77;
@@ -885,7 +891,7 @@
             // L_STATUS_NG
             // 
             L_STATUS_NG.ForeColor = Color.Red;
-            L_STATUS_NG.Location = new Point(612, 190);
+            L_STATUS_NG.Location = new Point(661, 190);
             L_STATUS_NG.Name = "L_STATUS_NG";
             L_STATUS_NG.Size = new Size(110, 20);
             L_STATUS_NG.TabIndex = 78;
@@ -895,7 +901,7 @@
             // L_STATUS_S
             // 
             L_STATUS_S.ForeColor = Color.Red;
-            L_STATUS_S.Location = new Point(612, 220);
+            L_STATUS_S.Location = new Point(661, 220);
             L_STATUS_S.Name = "L_STATUS_S";
             L_STATUS_S.Size = new Size(110, 20);
             L_STATUS_S.TabIndex = 79;
@@ -905,7 +911,7 @@
             // L_STATUS_ADD1
             // 
             L_STATUS_ADD1.ForeColor = Color.Red;
-            L_STATUS_ADD1.Location = new Point(612, 250);
+            L_STATUS_ADD1.Location = new Point(661, 250);
             L_STATUS_ADD1.Name = "L_STATUS_ADD1";
             L_STATUS_ADD1.Size = new Size(110, 20);
             L_STATUS_ADD1.TabIndex = 80;
@@ -915,7 +921,7 @@
             // L_STATUS_ADD2
             // 
             L_STATUS_ADD2.ForeColor = Color.Red;
-            L_STATUS_ADD2.Location = new Point(612, 281);
+            L_STATUS_ADD2.Location = new Point(661, 281);
             L_STATUS_ADD2.Name = "L_STATUS_ADD2";
             L_STATUS_ADD2.Size = new Size(110, 20);
             L_STATUS_ADD2.TabIndex = 81;
@@ -925,7 +931,7 @@
             // L_LOG_LCO
             // 
             L_LOG_LCO.AutoSize = true;
-            L_LOG_LCO.Location = new Point(807, 160);
+            L_LOG_LCO.Location = new Point(856, 160);
             L_LOG_LCO.Name = "L_LOG_LCO";
             L_LOG_LCO.Size = new Size(93, 20);
             L_LOG_LCO.TabIndex = 82;
@@ -935,7 +941,7 @@
             // L_LOG_NG
             // 
             L_LOG_NG.AutoSize = true;
-            L_LOG_NG.Location = new Point(807, 190);
+            L_LOG_NG.Location = new Point(856, 190);
             L_LOG_NG.Name = "L_LOG_NG";
             L_LOG_NG.Size = new Size(93, 20);
             L_LOG_NG.TabIndex = 83;
@@ -945,7 +951,7 @@
             // L_LOG_S
             // 
             L_LOG_S.AutoSize = true;
-            L_LOG_S.Location = new Point(807, 220);
+            L_LOG_S.Location = new Point(856, 220);
             L_LOG_S.Name = "L_LOG_S";
             L_LOG_S.Size = new Size(93, 20);
             L_LOG_S.TabIndex = 84;
@@ -955,7 +961,7 @@
             // L_LOG_ADD1
             // 
             L_LOG_ADD1.AutoSize = true;
-            L_LOG_ADD1.Location = new Point(807, 251);
+            L_LOG_ADD1.Location = new Point(856, 251);
             L_LOG_ADD1.Name = "L_LOG_ADD1";
             L_LOG_ADD1.Size = new Size(93, 20);
             L_LOG_ADD1.TabIndex = 85;
@@ -965,7 +971,7 @@
             // L_LOG_ADD2
             // 
             L_LOG_ADD2.AutoSize = true;
-            L_LOG_ADD2.Location = new Point(807, 280);
+            L_LOG_ADD2.Location = new Point(856, 280);
             L_LOG_ADD2.Name = "L_LOG_ADD2";
             L_LOG_ADD2.Size = new Size(93, 20);
             L_LOG_ADD2.TabIndex = 86;
@@ -1029,7 +1035,7 @@
             // BT_DELETE_ADD1
             // 
             BT_DELETE_ADD1.Image = (Image)resources.GetObject("BT_DELETE_ADD1.Image");
-            BT_DELETE_ADD1.Location = new Point(13, 246);
+            BT_DELETE_ADD1.Location = new Point(12, 246);
             BT_DELETE_ADD1.Name = "BT_DELETE_ADD1";
             BT_DELETE_ADD1.Size = new Size(27, 27);
             BT_DELETE_ADD1.TabIndex = 92;
@@ -1056,11 +1062,71 @@
             L_DATE.Size = new Size(0, 20);
             L_DATE.TabIndex = 94;
             // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(456, 134);
+            label17.Name = "label17";
+            label17.Size = new Size(68, 20);
+            label17.TabIndex = 95;
+            label17.Text = "CHANGE";
+            // 
+            // L_CHANGE_LCO
+            // 
+            L_CHANGE_LCO.AutoSize = true;
+            L_CHANGE_LCO.Location = new Point(461, 160);
+            L_CHANGE_LCO.Name = "L_CHANGE_LCO";
+            L_CHANGE_LCO.Size = new Size(0, 20);
+            L_CHANGE_LCO.TabIndex = 96;
+            L_CHANGE_LCO.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // L_CHANGE_NG
+            // 
+            L_CHANGE_NG.AutoSize = true;
+            L_CHANGE_NG.Location = new Point(461, 190);
+            L_CHANGE_NG.Name = "L_CHANGE_NG";
+            L_CHANGE_NG.Size = new Size(0, 20);
+            L_CHANGE_NG.TabIndex = 97;
+            L_CHANGE_NG.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // L_CHANGE_S
+            // 
+            L_CHANGE_S.AutoSize = true;
+            L_CHANGE_S.Location = new Point(461, 220);
+            L_CHANGE_S.Name = "L_CHANGE_S";
+            L_CHANGE_S.Size = new Size(0, 20);
+            L_CHANGE_S.TabIndex = 98;
+            L_CHANGE_S.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // L_CHANGE_ADD1
+            // 
+            L_CHANGE_ADD1.AutoSize = true;
+            L_CHANGE_ADD1.Location = new Point(461, 250);
+            L_CHANGE_ADD1.Name = "L_CHANGE_ADD1";
+            L_CHANGE_ADD1.Size = new Size(0, 20);
+            L_CHANGE_ADD1.TabIndex = 99;
+            L_CHANGE_ADD1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // L_CHANGE_ADD2
+            // 
+            L_CHANGE_ADD2.AutoSize = true;
+            L_CHANGE_ADD2.Location = new Point(461, 281);
+            L_CHANGE_ADD2.Name = "L_CHANGE_ADD2";
+            L_CHANGE_ADD2.Size = new Size(0, 20);
+            L_CHANGE_ADD2.TabIndex = 100;
+            L_CHANGE_ADD2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1020, 312);
+            ClientSize = new Size(1069, 312);
+            Controls.Add(L_CHANGE_ADD2);
+            Controls.Add(L_CHANGE_ADD1);
+            Controls.Add(L_CHANGE_S);
+            Controls.Add(L_CHANGE_NG);
+            Controls.Add(L_CHANGE_LCO);
+            Controls.Add(label17);
             Controls.Add(L_DATE);
             Controls.Add(BT_DELETE_ADD2);
             Controls.Add(BT_DELETE_ADD1);
@@ -1257,5 +1323,11 @@
         private Button BT_DELETE_ADD2;
         private Label L_DATE;
         private System.Windows.Forms.Timer timer1;
+        private Label label17;
+        private Label L_CHANGE_LCO;
+        private Label L_CHANGE_NG;
+        private Label L_CHANGE_S;
+        private Label L_CHANGE_ADD1;
+        private Label L_CHANGE_ADD2;
     }
 }

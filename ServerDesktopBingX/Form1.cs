@@ -27,7 +27,7 @@ namespace ServerDesktopBingX
             string API_KEY = TB_KEY.Text;
             string API_SECRET = TB_SECRET.Text;
             string HOST = "open-api.bingx.com";
-            
+
 
             async Task UpdateDateTimeAsync()
             {
@@ -54,9 +54,15 @@ namespace ServerDesktopBingX
                 TB_NAME_ADD1.Visible = false;
                 TB_NAME_ADD2.Visible = false;
                 BT_CHECK_ADD1.Visible = false;
+                BT_CHECK_ADD1.Enabled = false;
                 BT_CHECK_ADD2.Visible = false;
+                BT_CHECK_ADD2.Enabled = false;
                 BT_EDIT_ADD1.Visible = false;
+                BT_EDIT_ADD1.Enabled = false;
                 BT_EDIT_ADD2.Visible = false;
+                BT_EDIT_ADD2.Enabled = false;
+                BT_DELETE_ADD1.Enabled = false;
+                BT_DELETE_ADD2.Enabled = false;
                 TB_OPEN_ADD1.Visible = false;
                 TB_OPEN_ADD2.Visible = false;
                 TB_CLOSE_ADD1.Visible = false;
@@ -65,6 +71,8 @@ namespace ServerDesktopBingX
                 TB_MAX_ADD2.Visible = false;
                 TB_MIN_ADD1.Visible = false;
                 TB_MIN_ADD2.Visible = false;
+                L_CHANGE_ADD1.Visible = false;
+                L_CHANGE_ADD2.Visible = false;
                 D1_ADD1.Visible = false;
                 D1_ADD2.Visible = false;
                 H4_ADD1.Visible = false;
@@ -80,9 +88,17 @@ namespace ServerDesktopBingX
                 SW_ADD1.Visible = false;
                 SW_ADD2.Visible = false;
                 BT_ADD_ADD2.Visible = false;
-                this.Size = new System.Drawing.Size(1038, 325);
+                BT_ADD_ADD2.Enabled = false;
+                BT_CHECK_KEY.Visible = false;
+                BT_CHECK_KEY.Enabled = false;
+                BT_CHECK_SECRET.Visible = false;
+                BT_CHECK_SECRET.Enabled = false;
+                this.Size = new System.Drawing.Size(1087, 325);
+                BT_EDIT_KEY.TabIndex = 1;
+                BT_EDIT_SECRET.TabIndex = 2;
+                BT_ADD_ADD1.TabIndex = 3;
             }
-            
+
 
 
         }
@@ -122,7 +138,7 @@ namespace ServerDesktopBingX
                             string API_KEY, string API_SECRET, dynamic payload, string suffix)
         {
             var sw = Controls.Find($"SW_{suffix}", true).FirstOrDefault() as ToggleSwitch;
-                
+
             while (SW_MAIN.Checked == true && sw.Checked == true)
             {
                 long timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
@@ -250,6 +266,12 @@ namespace ServerDesktopBingX
                 }
             }
 
+            void SetColorForChange(Color color)
+            {
+                var change = Controls.Find($"L_CHANGE_{suffix}", true).FirstOrDefault();
+                change.ForeColor = color;
+            }
+
             // Основная логика
             var currentPrice = item.currentPrice.ToString();
             var now = DateTime.Now;
@@ -318,6 +340,36 @@ namespace ServerDesktopBingX
                 var l = Controls.Find($"L_STATUS_{suffix}", true).FirstOrDefault() as Label;
                 l.Text = "Connected";
                 l.ForeColor = Color.Green;
+
+
+                if (openValue == closeValue)
+                {
+                    SetColorForChange(Color.Black);
+                }
+                else if (openValue > closeValue)
+                {
+                    SetColorForChange(Color.Red);
+                }
+                else
+                {
+                    SetColorForChange(Color.Green);
+                }
+
+                // Добавленный код: расчет изменения цены
+                double percentageChange = (closeValue - openValue) / openValue * 100;
+                string changeText = percentageChange >= 0
+                    ? $"+{percentageChange:0.00}%"
+                    : $"{percentageChange:0.00}%";
+
+                // Обновление метки изменения
+                var changeLabel = Controls.Find($"L_CHANGE_{suffix}", true).FirstOrDefault() as Label;
+                if (changeLabel != null)
+                {
+                    if (changeLabel.InvokeRequired)
+                        changeLabel.Invoke((Action)(() => changeLabel.Text = changeText));
+                    else
+                        changeLabel.Text = changeText;
+                }
             }
             catch (Exception ex)
             {
@@ -398,8 +450,11 @@ namespace ServerDesktopBingX
         {
             TB_NAME_ADD1.Visible = true;
             BT_CHECK_ADD1.Visible = true;
+            BT_CHECK_ADD1.Enabled = true;
             BT_EDIT_ADD1.Visible = true;
+            BT_EDIT_ADD1.Enabled = true;
             BT_DELETE_ADD1.Visible = true;
+            BT_DELETE_ADD1.Enabled = true;
             TB_OPEN_ADD1.Visible = true;
             TB_CLOSE_ADD1.Visible = true;
             TB_MAX_ADD1.Visible = true;
@@ -412,16 +467,21 @@ namespace ServerDesktopBingX
             L_LOG_ADD1.Visible = true;
             SW_ADD1.Visible = true;
             BT_ADD_ADD1.Visible = false;
+            BT_ADD_ADD1.Enabled = false;
             BT_ADD_ADD2.Visible = true;
-            this.Size = new System.Drawing.Size(1038, 359);
+            BT_ADD_ADD2.Enabled = true;
+            this.Size = new System.Drawing.Size(1087, 359);
         }
 
         private void BT_ADD_ADD2_Click(object sender, EventArgs e)
         {
             TB_NAME_ADD2.Visible = true;
             BT_CHECK_ADD2.Visible = true;
+            BT_CHECK_ADD2.Enabled = true;
             BT_EDIT_ADD2.Visible = true;
+            BT_EDIT_ADD2.Enabled = true;
             BT_DELETE_ADD2.Visible = true;
+            BT_DELETE_ADD2.Enabled = true;
             TB_OPEN_ADD2.Visible = true;
             TB_CLOSE_ADD2.Visible = true;
             TB_MAX_ADD2.Visible = true;
@@ -434,6 +494,7 @@ namespace ServerDesktopBingX
             L_LOG_ADD2.Visible = true;
             SW_ADD2.Visible = true;
             BT_ADD_ADD2.Visible = false;
+            BT_ADD_ADD2.Enabled = false;
         }
 
         private void BT_EDIT_KEY_Click(object sender, EventArgs e)
@@ -441,7 +502,9 @@ namespace ServerDesktopBingX
             TB_KEY.ReadOnly = false;
             TB_KEY.Enabled = true;
             BT_EDIT_KEY.Visible = false;
+            BT_EDIT_KEY.Enabled = false;
             BT_CHECK_KEY.Visible = true;
+            BT_CHECK_KEY.Enabled = true;
         }
 
         private void BT_CHECK_KEY_Click(object sender, EventArgs e)
@@ -449,7 +512,9 @@ namespace ServerDesktopBingX
             TB_KEY.ReadOnly = true;
             TB_KEY.Enabled = false;
             BT_EDIT_KEY.Visible = true;
+            BT_EDIT_KEY.Enabled = true;
             BT_CHECK_KEY.Visible = false;
+            BT_CHECK_KEY.Enabled = false;
         }
 
         private void BT_EDIT_SECRET_Click(object sender, EventArgs e)
@@ -457,7 +522,9 @@ namespace ServerDesktopBingX
             TB_SECRET.ReadOnly = false;
             TB_SECRET.Enabled = true;
             BT_EDIT_SECRET.Visible = false;
+            BT_EDIT_SECRET.Enabled = false;
             BT_CHECK_SECRET.Visible = true;
+            BT_CHECK_SECRET.Enabled = true;
         }
 
         private void BT_CHECK_SECRET_Click(object sender, EventArgs e)
@@ -465,7 +532,9 @@ namespace ServerDesktopBingX
             TB_SECRET.ReadOnly = true;
             TB_SECRET.Enabled = false;
             BT_EDIT_SECRET.Visible = true;
+            BT_EDIT_SECRET.Enabled = true;
             BT_CHECK_SECRET.Visible = false;
+            BT_CHECK_SECRET.Enabled = false;
         }
 
         private void BT_CHECK_ADD1_Click(object sender, EventArgs e)
@@ -473,7 +542,9 @@ namespace ServerDesktopBingX
             TB_NAME_ADD1.ReadOnly = true;
             TB_NAME_ADD1.Enabled = false;
             BT_EDIT_ADD1.Visible = true;
+            BT_EDIT_ADD1.Enabled = true;
             BT_CHECK_ADD1.Visible = false;
+            BT_CHECK_ADD1.Enabled = false;
         }
 
         private void BT_CHECK_ADD2_Click(object sender, EventArgs e)
@@ -481,7 +552,9 @@ namespace ServerDesktopBingX
             TB_NAME_ADD2.ReadOnly = true;
             TB_NAME_ADD2.Enabled = false;
             BT_EDIT_ADD2.Visible = true;
+            BT_EDIT_ADD2.Enabled = true;
             BT_CHECK_ADD2.Visible = false;
+            BT_CHECK_ADD2.Enabled = false;
         }
 
         private void BT_EDIT_ADD1_Click(object sender, EventArgs e)
@@ -489,7 +562,9 @@ namespace ServerDesktopBingX
             TB_NAME_ADD1.ReadOnly = false;
             TB_NAME_ADD1.Enabled = true;
             BT_EDIT_ADD1.Visible = false;
+            BT_EDIT_ADD1.Enabled = false;
             BT_CHECK_ADD1.Visible = true;
+            BT_CHECK_ADD1.Enabled = true;
         }
 
         private void BT_EDIT_ADD2_Click(object sender, EventArgs e)
@@ -497,7 +572,9 @@ namespace ServerDesktopBingX
             TB_NAME_ADD2.ReadOnly = false;
             TB_NAME_ADD2.Enabled = true;
             BT_EDIT_ADD2.Visible = false;
+            BT_EDIT_ADD2.Enabled = false;
             BT_CHECK_ADD2.Visible = true;
+            BT_CHECK_ADD2.Enabled = true;
         }
 
         private void SW_LCO_Click(object sender, EventArgs e)
@@ -584,8 +661,11 @@ namespace ServerDesktopBingX
                 L_STATUS_ADD1.Text = L_STATUS_ADD2.Text;
                 TB_NAME_ADD2.Visible = false;
                 BT_CHECK_ADD2.Visible = false;
+                BT_CHECK_ADD2.Enabled = false;
                 BT_EDIT_ADD2.Visible = false;
+                BT_EDIT_ADD2.Enabled = false;
                 BT_DELETE_ADD2.Visible = false;
+                BT_DELETE_ADD2.Enabled = false;
                 TB_OPEN_ADD2.Visible = false;
                 TB_CLOSE_ADD2.Visible = false;
                 TB_MAX_ADD2.Visible = false;
@@ -598,6 +678,7 @@ namespace ServerDesktopBingX
                 L_LOG_ADD2.Visible = false;
                 SW_ADD2.Visible = false;
                 BT_ADD_ADD2.Visible = true;
+                BT_ADD_ADD2.Enabled = true;
             }
             else
             {
@@ -607,8 +688,11 @@ namespace ServerDesktopBingX
                 L_STATUS_ADD1.ForeColor = Color.Red;
                 TB_NAME_ADD1.Visible = false;
                 BT_CHECK_ADD1.Visible = false;
+                BT_CHECK_ADD1.Enabled = false;
                 BT_EDIT_ADD1.Visible = false;
+                BT_EDIT_ADD1.Enabled = false;
                 BT_DELETE_ADD1.Visible = false;
+                BT_DELETE_ADD1.Enabled = false;
                 TB_OPEN_ADD1.Visible = false;
                 TB_CLOSE_ADD1.Visible = false;
                 TB_MAX_ADD1.Visible = false;
@@ -621,8 +705,10 @@ namespace ServerDesktopBingX
                 L_LOG_ADD1.Visible = false;
                 SW_ADD1.Visible = false;
                 BT_ADD_ADD1.Visible = true;
+                BT_ADD_ADD1.Enabled = true;
                 BT_ADD_ADD2.Visible = false;
-                this.Size = new System.Drawing.Size(1038, 325);
+                BT_ADD_ADD2.Enabled = false;
+                this.Size = new System.Drawing.Size(1087, 325);
             }
         }
 
@@ -634,8 +720,11 @@ namespace ServerDesktopBingX
             L_STATUS_ADD2.ForeColor = Color.Red;
             TB_NAME_ADD2.Visible = false;
             BT_CHECK_ADD2.Visible = false;
+            BT_CHECK_ADD2.Enabled = false;
             BT_EDIT_ADD2.Visible = false;
+            BT_EDIT_ADD2.Enabled = false;
             BT_DELETE_ADD2.Visible = false;
+            BT_DELETE_ADD2.Enabled = false;
             TB_OPEN_ADD2.Visible = false;
             TB_CLOSE_ADD2.Visible = false;
             TB_MAX_ADD2.Visible = false;
@@ -648,6 +737,7 @@ namespace ServerDesktopBingX
             L_LOG_ADD2.Visible = false;
             SW_ADD2.Visible = false;
             BT_ADD_ADD2.Visible = true;
+            BT_ADD_ADD2.Enabled = true;
         }
     }
 }
