@@ -1153,7 +1153,9 @@
             Controls.Add(BT_CHECK_SECRET);
             Controls.Add(BT_CHECK_ADD1);
             Controls.Add(BT_CHECK_ADD2);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Form1";
             Text = "CDA - Commodity Data Analysis";
             Load += Form1_Load;
