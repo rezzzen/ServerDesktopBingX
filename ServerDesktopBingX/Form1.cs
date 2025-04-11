@@ -11,6 +11,8 @@ using System.Runtime.CompilerServices;
 using System.Globalization;
 using System.Linq.Expressions;
 using ServerDesktopBingX.Controls;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace ServerDesktopBingX
 {
@@ -23,7 +25,9 @@ namespace ServerDesktopBingX
             UpdateDateTimeAsync();
             TB_KEY.Text = "w1RI3Q6HD5Q5Xu2bphWC6G1YnKRl6xR6pZvlbbWhGIxc68yhHg8B6pIwoWd8nrxyYPxpLydOPrsDWz0KAVHBw";
             TB_SECRET.Text = "O7bPmfWDsIrEn5NO4mE0kNSjVQMj7P66NzJPrI1TjN1HoA9hDLCrtgBKleU5KGwt5XhwH9z8coLUz6vSg";
-            L_VERSION.Text = "12.01.2025";
+            TB_DBNAME.Text = "CDA";
+            TB_LOCALHOST.Text = "27017";
+            L_VERSION.Text = "11.04.2025";
             string API_KEY = TB_KEY.Text;
             string API_SECRET = TB_SECRET.Text;
             string HOST = "open-api.bingx.com";
@@ -86,14 +90,20 @@ namespace ServerDesktopBingX
                 L_LOG_ADD1.Visible = false;
                 L_LOG_ADD2.Visible = false;
                 SW_ADD1.Visible = false;
+                SW_DB_ADD1.Visible = false;
                 SW_ADD2.Visible = false;
+                SW_DB_ADD2.Visible = false;
                 BT_ADD_ADD2.Visible = false;
                 BT_ADD_ADD2.Enabled = false;
                 BT_CHECK_KEY.Visible = false;
                 BT_CHECK_KEY.Enabled = false;
                 BT_CHECK_SECRET.Visible = false;
                 BT_CHECK_SECRET.Enabled = false;
-                this.Size = new System.Drawing.Size(1087, 325);
+                BT_CHECK_DBNAME.Visible = false;
+                BT_CHECK_DBNAME.Enabled = false;
+                BT_CHECK_LOCALHOST.Visible = false;
+                BT_CHECK_LOCALHOST.Enabled = false;
+                this.Size = new System.Drawing.Size(1206, 325);
                 BT_EDIT_KEY.TabIndex = 1;
                 BT_EDIT_SECRET.TabIndex = 2;
                 BT_ADD_ADD1.TabIndex = 3;
@@ -130,7 +140,7 @@ namespace ServerDesktopBingX
                     suffix
                 );
 
-                await Task.Delay(5000, ct); // Обновление каждые 5 секунд
+                await Task.Delay(1000, ct); // Обновление каждые 5 секунд
             }
         }
 
@@ -225,12 +235,46 @@ namespace ServerDesktopBingX
                         }
                     }
                 }
-                await Task.Delay(1000); // Задержка между запросами
+                await Task.Delay(500); // Задержка между запросами
             }
+        }
+
+        private bool IsTradingTime(DateTime moscowTime)
+        {
+            // Проверка выходных
+            if (moscowTime.DayOfWeek == DayOfWeek.Saturday ||
+                moscowTime.DayOfWeek == DayOfWeek.Sunday)
+                return false;
+
+            TimeSpan time = moscowTime.TimeOfDay;
+            DayOfWeek day = moscowTime.DayOfWeek;
+
+            // Логика для понедельника
+            if (day == DayOfWeek.Monday)
+            {
+                return time >= new TimeSpan(4, 0, 0) && time < new TimeSpan(24, 0, 0);
+            }
+
+            // Логика для вторника-пятницы
+            if (day >= DayOfWeek.Tuesday && day <= DayOfWeek.Friday)
+            {
+                bool firstSession = time >= new TimeSpan(0, 0, 0) && time < new TimeSpan(0, 30, 0);
+                bool secondSession = time >= new TimeSpan(4, 0, 0) && time < new TimeSpan(24, 0, 0);
+
+                return firstSession || secondSession;
+            }
+
+            return false;
         }
 
         void UpdateUIElements(string suffix, dynamic item)
         {
+            var moscowTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Russian Standard Time"); // Для Linux используйте "Europe/Moscow"
+            DateTime now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, moscowTimeZone);
+
+            // MongoDB
+            var mongoClient = new MongoClient($"mongodb://localhost:{TB_LOCALHOST.Text}");
+            var database = mongoClient.GetDatabase($"{TB_DBNAME.Text}");
             // Вспомогательные функции для работы с элементами UI
             string GetTextBoxValue(string type)
             {
@@ -272,21 +316,79 @@ namespace ServerDesktopBingX
                 change.ForeColor = color;
             }
 
+
+
+
+
+
             // Основная логика
             var currentPrice = item.currentPrice.ToString();
-            var now = DateTime.Now;
 
             if (now.Minute % 5 == 0 && now.Second == 0)
             {
-                SafeSetTextBox("OPEN", currentPrice);
-                SafeSetTextBox("CLOSE", currentPrice);
-                SafeSetTextBox("MAX", currentPrice);
-                SafeSetTextBox("MIN", currentPrice);
+                DateTime barStart = now.AddMinutes(-5);
+                // Сбор данных предыдущего бара
+                var previousOpen = GetTextBoxValue("OPEN");
+                var previousClose = GetTextBoxValue("CLOSE");
+                var previousMax = GetTextBoxValue("MAX");
+                var previousMin = GetTextBoxValue("MIN");
+                var log = Controls.Find($"L_LOG_{suffix}", true).FirstOrDefault();
+                var sw_db = Controls.Find($"SW_DB_{suffix}", true).FirstOrDefault() as ToggleSwitch;
+                if (IsTradingTime(barStart) && (sw_db.Checked == true))
+                {
+                    if (!string.IsNullOrEmpty(previousOpen)
+                    && !string.IsNullOrEmpty(previousClose)
+                    && !string.IsNullOrEmpty(previousMax)
+                    && !string.IsNullOrEmpty(previousMin))
+                    {
+                        try
+                        {
+                            // Вычисление времени начала предыдущего бара (5 минут назад)
+
+
+                            // Формируем документ
+                            var document = new BsonDocument
+                {
+                    { "Date", barStart.ToString("yyyy-MM-dd") },
+                    { "Time", barStart.ToString("HH:mm") },
+                    { "Open", Convert.ToDouble(previousOpen) },
+                    { "Close", Convert.ToDouble(previousClose) },
+                    { "High", Convert.ToDouble(previousMax) },
+                    { "Low", Convert.ToDouble(previousMin) },
+                    { "Change", Math.Round(
+                        (Convert.ToDouble(previousClose) - Convert.ToDouble(previousOpen))
+                        / Convert.ToDouble(previousOpen) * 100,
+                        2 // Округление до 2 знаков
+                        )  }
+                };
+
+                            // Имя коллекции: "NG_5M" (пример для suffix = "NG")
+                            var collection = database.GetCollection<BsonDocument>($"{suffix}_5M");
+
+                            // Асинхронная вставка
+                            var _ = collection.InsertOneAsync(document);
+                            log.Text = $"Бар {barStart.ToString("HH:mm")} сохранён";
+                        }
+
+                        catch (Exception ex)
+                        {
+
+                            log.Text = "Ошибка MongoDB";
+                        }
+                    }
+
+                    // Сброс значений для нового бара
+                    SafeSetTextBox("OPEN", currentPrice);
+                    SafeSetTextBox("CLOSE", currentPrice);
+                    SafeSetTextBox("MAX", currentPrice);
+                    SafeSetTextBox("MIN", currentPrice);
+                }
             }
             else
             {
                 SafeSetTextBox("CLOSE", currentPrice);
             }
+
 
             // Обновление MAX и MIN
             try
@@ -470,7 +572,7 @@ namespace ServerDesktopBingX
             BT_ADD_ADD1.Enabled = false;
             BT_ADD_ADD2.Visible = true;
             BT_ADD_ADD2.Enabled = true;
-            this.Size = new System.Drawing.Size(1087, 359);
+            this.Size = new System.Drawing.Size(1206, 359);
         }
 
         private void BT_ADD_ADD2_Click(object sender, EventArgs e)
@@ -501,6 +603,7 @@ namespace ServerDesktopBingX
         {
             TB_KEY.ReadOnly = false;
             TB_KEY.Enabled = true;
+            TB_KEY.UseSystemPasswordChar = false;
             BT_EDIT_KEY.Visible = false;
             BT_EDIT_KEY.Enabled = false;
             BT_CHECK_KEY.Visible = true;
@@ -511,6 +614,7 @@ namespace ServerDesktopBingX
         {
             TB_KEY.ReadOnly = true;
             TB_KEY.Enabled = false;
+            TB_KEY.UseSystemPasswordChar = true;
             BT_EDIT_KEY.Visible = true;
             BT_EDIT_KEY.Enabled = true;
             BT_CHECK_KEY.Visible = false;
@@ -521,6 +625,7 @@ namespace ServerDesktopBingX
         {
             TB_SECRET.ReadOnly = false;
             TB_SECRET.Enabled = true;
+            TB_SECRET.UseSystemPasswordChar = false;
             BT_EDIT_SECRET.Visible = false;
             BT_EDIT_SECRET.Enabled = false;
             BT_CHECK_SECRET.Visible = true;
@@ -531,6 +636,7 @@ namespace ServerDesktopBingX
         {
             TB_SECRET.ReadOnly = true;
             TB_SECRET.Enabled = false;
+            TB_SECRET.UseSystemPasswordChar = true;
             BT_EDIT_SECRET.Visible = true;
             BT_EDIT_SECRET.Enabled = true;
             BT_CHECK_SECRET.Visible = false;
@@ -677,6 +783,7 @@ namespace ServerDesktopBingX
                 L_STATUS_ADD2.Visible = false;
                 L_LOG_ADD2.Visible = false;
                 SW_ADD2.Visible = false;
+                SW_DB_ADD2.Visible = false;
                 BT_ADD_ADD2.Visible = true;
                 BT_ADD_ADD2.Enabled = true;
             }
@@ -704,11 +811,12 @@ namespace ServerDesktopBingX
                 L_STATUS_ADD1.Visible = false;
                 L_LOG_ADD1.Visible = false;
                 SW_ADD1.Visible = false;
+                SW_DB_ADD1.Visible = false;
                 BT_ADD_ADD1.Visible = true;
                 BT_ADD_ADD1.Enabled = true;
                 BT_ADD_ADD2.Visible = false;
                 BT_ADD_ADD2.Enabled = false;
-                this.Size = new System.Drawing.Size(1087, 325);
+                this.Size = new System.Drawing.Size(1206, 325);
             }
         }
 
@@ -736,8 +844,50 @@ namespace ServerDesktopBingX
             L_STATUS_ADD2.Visible = false;
             L_LOG_ADD2.Visible = false;
             SW_ADD2.Visible = false;
+            SW_DB_ADD2.Visible = false;
             BT_ADD_ADD2.Visible = true;
             BT_ADD_ADD2.Enabled = true;
+            
+        }
+
+        private void BT_EDIT_DBNAME_Click(object sender, EventArgs e)
+        {
+            TB_DBNAME.ReadOnly = false;
+            TB_DBNAME.Enabled = true;
+            BT_EDIT_DBNAME.Visible = false;
+            BT_EDIT_DBNAME.Enabled = false;
+            BT_CHECK_DBNAME.Visible = true;
+            BT_CHECK_DBNAME.Enabled = true;
+        }
+
+        private void BT_CHECK_DBNAME_Click(object sender, EventArgs e)
+        {
+            TB_DBNAME.ReadOnly = true;
+            TB_DBNAME.Enabled = false;
+            BT_EDIT_DBNAME.Visible = true;
+            BT_EDIT_DBNAME.Enabled = true;
+            BT_CHECK_DBNAME.Visible = false;
+            BT_CHECK_DBNAME.Enabled = false;
+        }
+
+        private void BT_EDIT_LOCALHOST_Click(object sender, EventArgs e)
+        {
+            TB_LOCALHOST.ReadOnly = false;
+            TB_LOCALHOST.Enabled = true;
+            BT_EDIT_LOCALHOST.Visible = false;
+            BT_EDIT_LOCALHOST.Enabled = false;
+            BT_CHECK_LOCALHOST.Visible = true;
+            BT_CHECK_LOCALHOST.Enabled = true;
+        }
+
+        private void BT_CHECK_LOCALHOST_Click(object sender, EventArgs e)
+        {
+            TB_LOCALHOST.ReadOnly = true;
+            TB_LOCALHOST.Enabled = false;
+            BT_EDIT_LOCALHOST.Visible = true;
+            BT_EDIT_LOCALHOST.Enabled = true;
+            BT_CHECK_LOCALHOST.Visible = false;
+            BT_CHECK_LOCALHOST.Enabled = false;
         }
     }
 }

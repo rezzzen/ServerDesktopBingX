@@ -129,6 +129,23 @@
             L_CHANGE_S = new Label();
             L_CHANGE_ADD1 = new Label();
             L_CHANGE_ADD2 = new Label();
+            label18 = new Label();
+            label19 = new Label();
+            groupBox1 = new GroupBox();
+            BT_EDIT_LOCALHOST = new Button();
+            BT_CHECK_LOCALHOST = new Button();
+            BT_EDIT_DBNAME = new Button();
+            TB_LOCALHOST = new TextBox();
+            BT_CHECK_DBNAME = new Button();
+            TB_DBNAME = new TextBox();
+            label20 = new Label();
+            label21 = new Label();
+            SW_DB_LCO = new Controls.ToggleSwitch();
+            SW_DB_NG = new Controls.ToggleSwitch();
+            SW_DB_S = new Controls.ToggleSwitch();
+            SW_DB_ADD1 = new Controls.ToggleSwitch();
+            SW_DB_ADD2 = new Controls.ToggleSwitch();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // TB_KEY
@@ -158,6 +175,7 @@
             TB_SECRET.ReadOnly = true;
             TB_SECRET.Size = new Size(812, 27);
             TB_SECRET.TabIndex = 3;
+            TB_SECRET.UseSystemPasswordChar = true;
             // 
             // label2
             // 
@@ -294,7 +312,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(880, 134);
+            label12.Location = new Point(873, 134);
             label12.Name = "label12";
             label12.Size = new Size(36, 20);
             label12.TabIndex = 20;
@@ -930,52 +948,42 @@
             // 
             // L_LOG_LCO
             // 
-            L_LOG_LCO.AutoSize = true;
-            L_LOG_LCO.Location = new Point(856, 160);
+            L_LOG_LCO.Location = new Point(780, 160);
             L_LOG_LCO.Name = "L_LOG_LCO";
-            L_LOG_LCO.Size = new Size(93, 20);
+            L_LOG_LCO.Size = new Size(217, 20);
             L_LOG_LCO.TabIndex = 82;
-            L_LOG_LCO.Text = "Connecting...";
             L_LOG_LCO.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // L_LOG_NG
             // 
-            L_LOG_NG.AutoSize = true;
-            L_LOG_NG.Location = new Point(856, 190);
+            L_LOG_NG.Location = new Point(780, 190);
             L_LOG_NG.Name = "L_LOG_NG";
-            L_LOG_NG.Size = new Size(93, 20);
+            L_LOG_NG.Size = new Size(217, 20);
             L_LOG_NG.TabIndex = 83;
-            L_LOG_NG.Text = "Connecting...";
             L_LOG_NG.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // L_LOG_S
             // 
-            L_LOG_S.AutoSize = true;
-            L_LOG_S.Location = new Point(856, 220);
+            L_LOG_S.Location = new Point(780, 220);
             L_LOG_S.Name = "L_LOG_S";
-            L_LOG_S.Size = new Size(93, 20);
+            L_LOG_S.Size = new Size(217, 20);
             L_LOG_S.TabIndex = 84;
-            L_LOG_S.Text = "Connecting...";
             L_LOG_S.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // L_LOG_ADD1
             // 
-            L_LOG_ADD1.AutoSize = true;
-            L_LOG_ADD1.Location = new Point(856, 251);
+            L_LOG_ADD1.Location = new Point(780, 251);
             L_LOG_ADD1.Name = "L_LOG_ADD1";
-            L_LOG_ADD1.Size = new Size(93, 20);
+            L_LOG_ADD1.Size = new Size(217, 20);
             L_LOG_ADD1.TabIndex = 85;
-            L_LOG_ADD1.Text = "Connecting...";
             L_LOG_ADD1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // L_LOG_ADD2
             // 
-            L_LOG_ADD2.AutoSize = true;
-            L_LOG_ADD2.Location = new Point(856, 280);
+            L_LOG_ADD2.Location = new Point(780, 280);
             L_LOG_ADD2.Name = "L_LOG_ADD2";
-            L_LOG_ADD2.Size = new Size(93, 20);
+            L_LOG_ADD2.Size = new Size(217, 20);
             L_LOG_ADD2.TabIndex = 86;
-            L_LOG_ADD2.Text = "Connecting...";
             L_LOG_ADD2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // L_BX_STATUS
@@ -1116,11 +1124,197 @@
             L_CHANGE_ADD2.TabIndex = 100;
             L_CHANGE_ADD2.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(7, 66);
+            label18.Name = "label18";
+            label18.Size = new Size(69, 20);
+            label18.TabIndex = 101;
+            label18.Text = "localhost";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(6, 33);
+            label19.Name = "label19";
+            label19.Size = new Size(70, 20);
+            label19.TabIndex = 102;
+            label19.Text = "DB name";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(BT_EDIT_LOCALHOST);
+            groupBox1.Controls.Add(BT_CHECK_LOCALHOST);
+            groupBox1.Controls.Add(BT_EDIT_DBNAME);
+            groupBox1.Controls.Add(TB_LOCALHOST);
+            groupBox1.Controls.Add(BT_CHECK_DBNAME);
+            groupBox1.Controls.Add(TB_DBNAME);
+            groupBox1.Controls.Add(label19);
+            groupBox1.Controls.Add(label18);
+            groupBox1.Location = new Point(972, 15);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(204, 99);
+            groupBox1.TabIndex = 103;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Database settings";
+            // 
+            // BT_EDIT_LOCALHOST
+            // 
+            BT_EDIT_LOCALHOST.Image = (Image)resources.GetObject("BT_EDIT_LOCALHOST.Image");
+            BT_EDIT_LOCALHOST.Location = new Point(166, 61);
+            BT_EDIT_LOCALHOST.Name = "BT_EDIT_LOCALHOST";
+            BT_EDIT_LOCALHOST.Size = new Size(32, 32);
+            BT_EDIT_LOCALHOST.TabIndex = 106;
+            BT_EDIT_LOCALHOST.UseVisualStyleBackColor = true;
+            BT_EDIT_LOCALHOST.Click += BT_EDIT_LOCALHOST_Click;
+            // 
+            // BT_CHECK_LOCALHOST
+            // 
+            BT_CHECK_LOCALHOST.Image = (Image)resources.GetObject("BT_CHECK_LOCALHOST.Image");
+            BT_CHECK_LOCALHOST.Location = new Point(166, 61);
+            BT_CHECK_LOCALHOST.Name = "BT_CHECK_LOCALHOST";
+            BT_CHECK_LOCALHOST.Size = new Size(32, 32);
+            BT_CHECK_LOCALHOST.TabIndex = 107;
+            BT_CHECK_LOCALHOST.UseVisualStyleBackColor = true;
+            BT_CHECK_LOCALHOST.Visible = false;
+            BT_CHECK_LOCALHOST.Click += BT_CHECK_LOCALHOST_Click;
+            // 
+            // BT_EDIT_DBNAME
+            // 
+            BT_EDIT_DBNAME.Image = (Image)resources.GetObject("BT_EDIT_DBNAME.Image");
+            BT_EDIT_DBNAME.Location = new Point(166, 27);
+            BT_EDIT_DBNAME.Name = "BT_EDIT_DBNAME";
+            BT_EDIT_DBNAME.Size = new Size(32, 32);
+            BT_EDIT_DBNAME.TabIndex = 104;
+            BT_EDIT_DBNAME.UseVisualStyleBackColor = true;
+            BT_EDIT_DBNAME.Click += BT_EDIT_DBNAME_Click;
+            // 
+            // TB_LOCALHOST
+            // 
+            TB_LOCALHOST.Enabled = false;
+            TB_LOCALHOST.Location = new Point(82, 63);
+            TB_LOCALHOST.Name = "TB_LOCALHOST";
+            TB_LOCALHOST.ReadOnly = true;
+            TB_LOCALHOST.Size = new Size(80, 27);
+            TB_LOCALHOST.TabIndex = 105;
+            // 
+            // BT_CHECK_DBNAME
+            // 
+            BT_CHECK_DBNAME.Image = (Image)resources.GetObject("BT_CHECK_DBNAME.Image");
+            BT_CHECK_DBNAME.Location = new Point(166, 27);
+            BT_CHECK_DBNAME.Name = "BT_CHECK_DBNAME";
+            BT_CHECK_DBNAME.Size = new Size(32, 32);
+            BT_CHECK_DBNAME.TabIndex = 104;
+            BT_CHECK_DBNAME.UseVisualStyleBackColor = true;
+            BT_CHECK_DBNAME.Visible = false;
+            BT_CHECK_DBNAME.Click += BT_CHECK_DBNAME_Click;
+            // 
+            // TB_DBNAME
+            // 
+            TB_DBNAME.Enabled = false;
+            TB_DBNAME.Location = new Point(82, 30);
+            TB_DBNAME.Name = "TB_DBNAME";
+            TB_DBNAME.ReadOnly = true;
+            TB_DBNAME.Size = new Size(80, 27);
+            TB_DBNAME.TabIndex = 104;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(1009, 134);
+            label20.Name = "label20";
+            label20.Size = new Size(49, 20);
+            label20.TabIndex = 104;
+            label20.Text = "STATE";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(1093, 134);
+            label21.Name = "label21";
+            label21.Size = new Size(89, 20);
+            label21.TabIndex = 105;
+            label21.Text = "SAVE TO DB";
+            // 
+            // SW_DB_LCO
+            // 
+            SW_DB_LCO.BackColor = Color.White;
+            SW_DB_LCO.BackColorOFF = Color.Red;
+            SW_DB_LCO.BackColorON = Color.YellowGreen;
+            SW_DB_LCO.Checked = false;
+            SW_DB_LCO.Font = new Font("Verdana", 9F);
+            SW_DB_LCO.Location = new Point(1117, 157);
+            SW_DB_LCO.Name = "SW_DB_LCO";
+            SW_DB_LCO.Size = new Size(43, 27);
+            SW_DB_LCO.TabIndex = 106;
+            SW_DB_LCO.TextOnChecked = "";
+            // 
+            // SW_DB_NG
+            // 
+            SW_DB_NG.BackColor = Color.White;
+            SW_DB_NG.BackColorOFF = Color.Red;
+            SW_DB_NG.BackColorON = Color.YellowGreen;
+            SW_DB_NG.Checked = false;
+            SW_DB_NG.Font = new Font("Verdana", 9F);
+            SW_DB_NG.Location = new Point(1117, 187);
+            SW_DB_NG.Name = "SW_DB_NG";
+            SW_DB_NG.Size = new Size(43, 27);
+            SW_DB_NG.TabIndex = 107;
+            SW_DB_NG.TextOnChecked = "";
+            // 
+            // SW_DB_S
+            // 
+            SW_DB_S.BackColor = Color.White;
+            SW_DB_S.BackColorOFF = Color.Red;
+            SW_DB_S.BackColorON = Color.YellowGreen;
+            SW_DB_S.Checked = false;
+            SW_DB_S.Font = new Font("Verdana", 9F);
+            SW_DB_S.Location = new Point(1117, 217);
+            SW_DB_S.Name = "SW_DB_S";
+            SW_DB_S.Size = new Size(43, 27);
+            SW_DB_S.TabIndex = 108;
+            SW_DB_S.TextOnChecked = "";
+            // 
+            // SW_DB_ADD1
+            // 
+            SW_DB_ADD1.BackColor = Color.White;
+            SW_DB_ADD1.BackColorOFF = Color.Red;
+            SW_DB_ADD1.BackColorON = Color.YellowGreen;
+            SW_DB_ADD1.Checked = false;
+            SW_DB_ADD1.Font = new Font("Verdana", 9F);
+            SW_DB_ADD1.Location = new Point(1117, 246);
+            SW_DB_ADD1.Name = "SW_DB_ADD1";
+            SW_DB_ADD1.Size = new Size(43, 27);
+            SW_DB_ADD1.TabIndex = 109;
+            SW_DB_ADD1.TextOnChecked = "";
+            // 
+            // SW_DB_ADD2
+            // 
+            SW_DB_ADD2.BackColor = Color.White;
+            SW_DB_ADD2.BackColorOFF = Color.Red;
+            SW_DB_ADD2.BackColorON = Color.YellowGreen;
+            SW_DB_ADD2.Checked = false;
+            SW_DB_ADD2.Font = new Font("Verdana", 9F);
+            SW_DB_ADD2.Location = new Point(1117, 277);
+            SW_DB_ADD2.Name = "SW_DB_ADD2";
+            SW_DB_ADD2.Size = new Size(43, 27);
+            SW_DB_ADD2.TabIndex = 110;
+            SW_DB_ADD2.TextOnChecked = "";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1069, 312);
+            ClientSize = new Size(1188, 312);
+            Controls.Add(SW_DB_ADD2);
+            Controls.Add(SW_DB_ADD1);
+            Controls.Add(SW_DB_S);
+            Controls.Add(SW_DB_NG);
+            Controls.Add(SW_DB_LCO);
+            Controls.Add(label21);
+            Controls.Add(label20);
+            Controls.Add(groupBox1);
             Controls.Add(L_CHANGE_ADD2);
             Controls.Add(L_CHANGE_ADD1);
             Controls.Add(L_CHANGE_S);
@@ -1225,6 +1419,8 @@
             Name = "Form1";
             Text = "CDA - Commodity Data Analysis";
             Load += Form1_Load;
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1329,5 +1525,21 @@
         private Label L_CHANGE_S;
         private Label L_CHANGE_ADD1;
         private Label L_CHANGE_ADD2;
+        private Label label18;
+        private Label label19;
+        private GroupBox groupBox1;
+        private Button BT_CHECK_LOCALHOST;
+        private Button BT_CHECK_DBNAME;
+        private Button BT_EDIT_LOCALHOST;
+        private Button BT_EDIT_DBNAME;
+        private TextBox TB_LOCALHOST;
+        private TextBox TB_DBNAME;
+        private Label label20;
+        private Label label21;
+        private Controls.ToggleSwitch SW_DB_LCO;
+        private Controls.ToggleSwitch SW_DB_NG;
+        private Controls.ToggleSwitch SW_DB_S;
+        private Controls.ToggleSwitch SW_DB_ADD1;
+        private Controls.ToggleSwitch SW_DB_ADD2;
     }
 }
