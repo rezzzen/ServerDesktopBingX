@@ -23,11 +23,11 @@ namespace ServerDesktopBingX
             InitializeComponent();
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
             UpdateDateTimeAsync();
-            TB_KEY.Text = "w1RI3Q6HD5Q5Xu2bphWC6G1YnKRl6xR6pZvlbbWhGIxc68yhHg8B6pIwoWd8nrxyYPxpLydOPrsDWz0KAVHBw";
-            TB_SECRET.Text = "O7bPmfWDsIrEn5NO4mE0kNSjVQMj7P66NzJPrI1TjN1HoA9hDLCrtgBKleU5KGwt5XhwH9z8coLUz6vSg";
-            TB_DBNAME.Text = "CDA";
-            TB_LOCALHOST.Text = "27017";
-            L_VERSION.Text = "11.04.2025";
+            //TB_KEY.Text = "w1RI3Q6HD5Q5Xu2bphWC6G1YnKRl6xR6pZvlbbWhGIxc68yhHg8B6pIwoWd8nrxyYPxpLydOPrsDWz0KAVHBw";
+            //TB_SECRET.Text = "O7bPmfWDsIrEn5NO4mE0kNSjVQMj7P66NzJPrI1TjN1HoA9hDLCrtgBKleU5KGwt5XhwH9z8coLUz6vSg";
+            //TB_DBNAME.Text = "CDA";
+            //TB_LOCALHOST.Text = "27017";
+            L_VERSION.Text = "15.04.2025";
             string API_KEY = TB_KEY.Text;
             string API_SECRET = TB_SECRET.Text;
             string HOST = "open-api.bingx.com";
@@ -55,46 +55,144 @@ namespace ServerDesktopBingX
 
             if (true)
             {
-                TB_NAME_ADD1.Visible = false;
-                TB_NAME_ADD2.Visible = false;
-                BT_CHECK_ADD1.Visible = false;
-                BT_CHECK_ADD1.Enabled = false;
-                BT_CHECK_ADD2.Visible = false;
-                BT_CHECK_ADD2.Enabled = false;
-                BT_EDIT_ADD1.Visible = false;
-                BT_EDIT_ADD1.Enabled = false;
-                BT_EDIT_ADD2.Visible = false;
-                BT_EDIT_ADD2.Enabled = false;
-                BT_DELETE_ADD1.Enabled = false;
-                BT_DELETE_ADD2.Enabled = false;
-                TB_OPEN_ADD1.Visible = false;
-                TB_OPEN_ADD2.Visible = false;
-                TB_CLOSE_ADD1.Visible = false;
-                TB_CLOSE_ADD2.Visible = false;
-                TB_MAX_ADD1.Visible = false;
-                TB_MAX_ADD2.Visible = false;
-                TB_MIN_ADD1.Visible = false;
-                TB_MIN_ADD2.Visible = false;
-                L_CHANGE_ADD1.Visible = false;
-                L_CHANGE_ADD2.Visible = false;
-                D1_ADD1.Visible = false;
-                D1_ADD2.Visible = false;
-                H4_ADD1.Visible = false;
-                H4_ADD2.Visible = false;
-                H1_ADD1.Visible = false;
-                H1_ADD2.Visible = false;
-                M5_ADD1.Visible = false;
-                M5_ADD2.Visible = false;
-                L_STATUS_ADD1.Visible = false;
-                L_STATUS_ADD2.Visible = false;
-                L_LOG_ADD1.Visible = false;
-                L_LOG_ADD2.Visible = false;
-                SW_ADD1.Visible = false;
-                SW_DB_ADD1.Visible = false;
-                SW_ADD2.Visible = false;
-                SW_DB_ADD2.Visible = false;
-                BT_ADD_ADD2.Visible = false;
-                BT_ADD_ADD2.Enabled = false;
+                SW_MAIN.Checked = Properties.Settings.Default.SW_MAIN;
+                if (SW_MAIN.Checked == true)
+                {
+                    L_BINGX_STATUS.Text = "Connecting...";
+                    L_BINGX_STATUS.ForeColor = Color.DarkOrange;
+                }
+
+                SW_LCO.Checked = Properties.Settings.Default.SW_LCO;
+                if (SW_LCO.Checked == true)
+                {
+                    L_STATUS_LCO.Text = "Connecting...";
+                    L_STATUS_LCO.ForeColor = Color.DarkOrange;
+                }
+                SW_DB_LCO.Checked = Properties.Settings.Default.SW_DB_LCO;
+
+                SW_NG.Checked = Properties.Settings.Default.SW_NG;
+                if (SW_NG.Checked == true)
+                {
+                    L_STATUS_NG.Text = "Connecting...";
+                    L_STATUS_NG.ForeColor = Color.DarkOrange;
+                }
+                SW_DB_NG.Checked = Properties.Settings.Default.SW_DB_NG;
+
+                SW_S.Checked = Properties.Settings.Default.SW_S;
+                if (SW_S.Checked == true)
+                {
+                    L_STATUS_S.Text = "Connecting...";
+                    L_STATUS_S.ForeColor = Color.DarkOrange;
+                }
+                SW_DB_S.Checked = Properties.Settings.Default.SW_DB_S;
+
+                if (Properties.Settings.Default.TB_NAME_ADD1 != "")
+                {
+                    TB_NAME_ADD1.Text = Properties.Settings.Default.TB_NAME_ADD1;
+                    SW_ADD1.Checked = Properties.Settings.Default.SW_ADD1;
+                    if (SW_ADD1.Checked == true)
+                    {
+                        L_STATUS_ADD1.Text = "Connecting...";
+                        L_STATUS_ADD1.ForeColor = Color.DarkOrange;
+                    }
+                    SW_DB_ADD1.Checked = Properties.Settings.Default.SW_DB_ADD1;
+                }
+
+                if (Properties.Settings.Default.TB_NAME_ADD2 != "")
+                {
+                    TB_NAME_ADD2.Text = Properties.Settings.Default.TB_NAME_ADD2;
+                    SW_ADD2.Checked = Properties.Settings.Default.SW_ADD2;
+                    if (SW_ADD1.Checked == true)
+                    {
+                        L_STATUS_ADD2.Text = "Connecting...";
+                        L_STATUS_ADD2.ForeColor = Color.DarkOrange;
+                    }
+                    SW_DB_ADD2.Checked = Properties.Settings.Default.SW_DB_ADD2;
+                }
+
+                if (Properties.Settings.Default.TB_KEY != "")
+                    TB_KEY.Text = Properties.Settings.Default.TB_KEY;
+                if (Properties.Settings.Default.TB_SECRET != "")
+                    TB_SECRET.Text = Properties.Settings.Default.TB_SECRET;
+                if (Properties.Settings.Default.TB_DBNAME != "")
+                    TB_DBNAME.Text = Properties.Settings.Default.TB_DBNAME;
+                else
+                    TB_DBNAME.Text = "CDA";
+                if (Properties.Settings.Default.TB_LOCALHOST != "")
+                    TB_LOCALHOST.Text = Properties.Settings.Default.TB_LOCALHOST;
+                else
+                    TB_LOCALHOST.Text = "27017";
+
+                if (TB_NAME_ADD1.Text == "")
+                {
+                    TB_NAME_ADD1.Visible = false;
+                    BT_CHECK_ADD1.Visible = false;
+                    BT_CHECK_ADD1.Enabled = false;
+                    BT_EDIT_ADD1.Visible = false;
+                    BT_EDIT_ADD1.Enabled = false;
+                    BT_DELETE_ADD1.Enabled = false;
+                    TB_OPEN_ADD1.Visible = false;
+                    TB_CLOSE_ADD1.Visible = false;
+                    TB_MAX_ADD1.Visible = false;
+                    TB_MIN_ADD1.Visible = false;
+                    L_CHANGE_ADD1.Visible = false;
+                    D1_ADD1.Visible = false;
+                    H4_ADD1.Visible = false;
+                    H1_ADD1.Visible = false;
+                    M5_ADD1.Visible = false;
+                    L_STATUS_ADD1.Visible = false;
+                    L_LOG_ADD1.Visible = false;
+                    SW_ADD1.Visible = false;
+                    SW_DB_ADD1.Visible = false;
+                    this.Size = new System.Drawing.Size(1206, 325);
+                }
+                else
+                {
+                    BT_ADD_ADD1.Visible = false;
+                    BT_ADD_ADD1.Enabled = false;
+                    this.Size = new System.Drawing.Size(1206, 359);
+                    BT_DELETE_ADD1.Visible = true;
+                    BT_DELETE_ADD1.Enabled = true;
+
+                }
+
+
+                if (TB_NAME_ADD2.Text == "")
+                {
+
+
+                    TB_NAME_ADD2.Visible = false;
+                    BT_CHECK_ADD2.Visible = false;
+                    BT_CHECK_ADD2.Enabled = false;
+                    BT_EDIT_ADD2.Visible = false;
+                    BT_EDIT_ADD2.Enabled = false;
+                    BT_DELETE_ADD2.Enabled = false;
+                    TB_OPEN_ADD2.Visible = false;
+                    TB_CLOSE_ADD2.Visible = false;
+                    TB_MAX_ADD2.Visible = false;
+                    TB_MIN_ADD2.Visible = false;
+                    L_CHANGE_ADD2.Visible = false;
+                    D1_ADD2.Visible = false;
+                    H4_ADD2.Visible = false;
+                    H1_ADD2.Visible = false;
+                    M5_ADD2.Visible = false;
+                    L_STATUS_ADD2.Visible = false;
+                    L_LOG_ADD2.Visible = false;
+                    SW_ADD2.Visible = false;
+                    SW_DB_ADD2.Visible = false;
+                    BT_ADD_ADD2.Visible = true;
+                    BT_ADD_ADD2.Enabled = true;
+                }
+                else
+                {
+                    BT_ADD_ADD2.Visible = false;
+                    BT_ADD_ADD2.Enabled = false;
+                    BT_DELETE_ADD1.Visible = false;
+                    BT_DELETE_ADD1.Enabled = false;
+                    BT_DELETE_ADD2.Visible = true;
+                    BT_DELETE_ADD2.Enabled = true;
+                }
+
                 BT_CHECK_KEY.Visible = false;
                 BT_CHECK_KEY.Enabled = false;
                 BT_CHECK_SECRET.Visible = false;
@@ -103,10 +201,6 @@ namespace ServerDesktopBingX
                 BT_CHECK_DBNAME.Enabled = false;
                 BT_CHECK_LOCALHOST.Visible = false;
                 BT_CHECK_LOCALHOST.Enabled = false;
-                this.Size = new System.Drawing.Size(1206, 325);
-                BT_EDIT_KEY.TabIndex = 1;
-                BT_EDIT_SECRET.TabIndex = 2;
-                BT_ADD_ADD1.TabIndex = 3;
             }
 
 
@@ -116,15 +210,53 @@ namespace ServerDesktopBingX
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            var tasks = new List<Task>
-            {
-            RunAssetUpdate("Oil - Brent Crude", "LCO", _cts.Token),
-            RunAssetUpdate("Silver", "S", _cts.Token)
-            };
-
-            await Task.WhenAll(tasks);
+            StartMonitoring();
         }
 
+        async void StartMonitoring()
+        {
+            try
+            {
+                var tasks = new List<Task> { };
+                if (TB_NAME_ADD1.Text != "" && TB_NAME_ADD2.Text == "")
+                {
+                    tasks = new List<Task>
+                {
+                RunAssetUpdate("Oil - Brent Crude", "LCO", _cts.Token),
+                RunAssetUpdate("Silver", "S", _cts.Token),
+                RunAssetUpdate(TB_NAME_ADD1.Text, "ADD1", _cts.Token)
+                };
+                }
+                else if (TB_NAME_ADD1.Text != "" && TB_NAME_ADD2.Text != "")
+                {
+                    tasks = new List<Task>
+                {
+                RunAssetUpdate("Oil - Brent Crude", "LCO", _cts.Token),
+                RunAssetUpdate("Silver", "S", _cts.Token),
+                RunAssetUpdate(TB_NAME_ADD1.Text, "ADD1", _cts.Token),
+                RunAssetUpdate(TB_NAME_ADD2.Text, "ADD2", _cts.Token)
+                };
+                }
+                else
+                {
+                    tasks = new List<Task>
+                {
+                RunAssetUpdate("Oil - Brent Crude", "LCO", _cts.Token),
+                RunAssetUpdate("Silver", "S", _cts.Token),
+                };
+                }
+                await Task.WhenAll(tasks);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Произошла ошибка: {ex.Message}",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
         async Task RunAssetUpdate(string symbol, string suffix, CancellationToken ct)
         {
             while (!ct.IsCancellationRequested)
@@ -235,11 +367,11 @@ namespace ServerDesktopBingX
                         }
                     }
                 }
-                await Task.Delay(500); // Задержка между запросами
+                await Task.Delay(700); // Задержка между запросами
             }
         }
 
-        private bool IsTradingTime(DateTime moscowTime)
+        private bool IsTradingTimeResources(DateTime moscowTime)
         {
             // Проверка выходных
             if (moscowTime.DayOfWeek == DayOfWeek.Saturday ||
@@ -248,23 +380,21 @@ namespace ServerDesktopBingX
 
             TimeSpan time = moscowTime.TimeOfDay;
             DayOfWeek day = moscowTime.DayOfWeek;
+            return time >= new TimeSpan(4, 0, 0) && time < new TimeSpan(24, 0, 0);
+            
+        }
 
-            // Логика для понедельника
-            if (day == DayOfWeek.Monday)
-            {
-                return time >= new TimeSpan(4, 0, 0) && time < new TimeSpan(24, 0, 0);
-            }
+        private bool IsTradingTimeMetal(DateTime moscowTime)
+        {
+            // Проверка выходных
+            if (moscowTime.DayOfWeek == DayOfWeek.Saturday ||
+                moscowTime.DayOfWeek == DayOfWeek.Sunday)
+                return false;
 
-            // Логика для вторника-пятницы
-            if (day >= DayOfWeek.Tuesday && day <= DayOfWeek.Friday)
-            {
-                bool firstSession = time >= new TimeSpan(0, 0, 0) && time < new TimeSpan(0, 30, 0);
-                bool secondSession = time >= new TimeSpan(4, 0, 0) && time < new TimeSpan(24, 0, 0);
+            TimeSpan time = moscowTime.TimeOfDay;
+            DayOfWeek day = moscowTime.DayOfWeek;
+            return time >= new TimeSpan(2, 0, 0) && time < new TimeSpan(24, 0, 0);
 
-                return firstSession || secondSession;
-            }
-
-            return false;
         }
 
         void UpdateUIElements(string suffix, dynamic item)
@@ -334,7 +464,20 @@ namespace ServerDesktopBingX
                 var previousMin = GetTextBoxValue("MIN");
                 var log = Controls.Find($"L_LOG_{suffix}", true).FirstOrDefault();
                 var sw_db = Controls.Find($"SW_DB_{suffix}", true).FirstOrDefault() as ToggleSwitch;
-                if (IsTradingTime(barStart) && (sw_db.Checked == true))
+                bool Session = true;
+                if (suffix == "S" || suffix == "G" || suffix == "P")
+                {
+                    Session = IsTradingTimeMetal(barStart);
+                }
+                else if (suffix == "LCO" || suffix == "NG")
+                {
+                    Session = IsTradingTimeResources(barStart);
+                }
+                else
+                {
+                    Session = true;
+                }
+                if ((Session == true) && (sw_db.Checked == true))
                 {
                     if (!string.IsNullOrEmpty(previousOpen)
                     && !string.IsNullOrEmpty(previousClose)
@@ -567,7 +710,9 @@ namespace ServerDesktopBingX
             M5_ADD1.Visible = true;
             L_STATUS_ADD1.Visible = true;
             L_LOG_ADD1.Visible = true;
+            L_CHANGE_ADD1.Visible = true;
             SW_ADD1.Visible = true;
+            SW_DB_ADD1.Visible = true;
             BT_ADD_ADD1.Visible = false;
             BT_ADD_ADD1.Enabled = false;
             BT_ADD_ADD2.Visible = true;
@@ -594,9 +739,13 @@ namespace ServerDesktopBingX
             M5_ADD2.Visible = true;
             L_STATUS_ADD2.Visible = true;
             L_LOG_ADD2.Visible = true;
+            L_CHANGE_ADD2.Visible = true;
             SW_ADD2.Visible = true;
+            SW_DB_ADD2.Visible = true; 
             BT_ADD_ADD2.Visible = false;
             BT_ADD_ADD2.Enabled = false;
+            BT_DELETE_ADD1.Visible = false;
+            BT_DELETE_ADD1.Enabled = false;
         }
 
         private void BT_EDIT_KEY_Click(object sender, EventArgs e)
@@ -651,6 +800,7 @@ namespace ServerDesktopBingX
             BT_EDIT_ADD1.Enabled = true;
             BT_CHECK_ADD1.Visible = false;
             BT_CHECK_ADD1.Enabled = false;
+            StartMonitoring();
         }
 
         private void BT_CHECK_ADD2_Click(object sender, EventArgs e)
@@ -661,6 +811,7 @@ namespace ServerDesktopBingX
             BT_EDIT_ADD2.Enabled = true;
             BT_CHECK_ADD2.Visible = false;
             BT_CHECK_ADD2.Enabled = false;
+            StartMonitoring();
         }
 
         private void BT_EDIT_ADD1_Click(object sender, EventArgs e)
@@ -760,6 +911,21 @@ namespace ServerDesktopBingX
 
         private void BT_DELETE_ADD1_Click(object sender, EventArgs e)
         {
+            TB_NAME_ADD1.Text = "";
+            TB_OPEN_ADD1.Text = "";
+            TB_OPEN_ADD1.BackColor = Color.WhiteSmoke;
+            TB_CLOSE_ADD1.Text = "";
+            TB_CLOSE_ADD1.BackColor = Color.WhiteSmoke;
+            TB_MAX_ADD1.Text = "";
+            TB_MAX_ADD1.BackColor = Color.WhiteSmoke;
+            TB_MIN_ADD1.Text = "";
+            TB_MIN_ADD1.BackColor = Color.WhiteSmoke;
+            L_CHANGE_ADD1.Text = "";
+            L_STATUS_ADD1.Text = "Stopped";
+            L_STATUS_ADD1.ForeColor = Color.Red;
+            L_LOG_ADD1.Text = "";
+            SW_ADD1.Checked = false;
+            SW_DB_ADD1.Checked = false;
             if (TB_NAME_ADD2.Visible == true)
             {
                 TB_NAME_ADD1.Text = TB_NAME_ADD2.Text;
@@ -822,8 +988,19 @@ namespace ServerDesktopBingX
 
         private void BT_DELETE_ADD2_Click(object sender, EventArgs e)
         {
-            TB_NAME_ADD2.Text = null;
+            TB_NAME_ADD2.Text = "";
+            TB_OPEN_ADD2.Text = "";
+            TB_OPEN_ADD2.BackColor = Color.WhiteSmoke;
+            TB_CLOSE_ADD2.Text = "";
+            TB_CLOSE_ADD2.BackColor = Color.WhiteSmoke;
+            TB_MAX_ADD2.Text = "";
+            TB_MAX_ADD2.BackColor = Color.WhiteSmoke;
+            TB_MIN_ADD2.Text = "";
+            TB_MIN_ADD2.BackColor = Color.WhiteSmoke;
+            L_CHANGE_ADD2.Text = "";
+            L_LOG_ADD2.Text = "";
             SW_ADD2.Checked = false;
+            SW_DB_ADD2.Checked = false;
             L_STATUS_ADD2.Text = "Stopped";
             L_STATUS_ADD2.ForeColor = Color.Red;
             TB_NAME_ADD2.Visible = false;
@@ -847,7 +1024,7 @@ namespace ServerDesktopBingX
             SW_DB_ADD2.Visible = false;
             BT_ADD_ADD2.Visible = true;
             BT_ADD_ADD2.Enabled = true;
-            
+
         }
 
         private void BT_EDIT_DBNAME_Click(object sender, EventArgs e)
@@ -888,6 +1065,28 @@ namespace ServerDesktopBingX
             BT_EDIT_LOCALHOST.Enabled = true;
             BT_CHECK_LOCALHOST.Visible = false;
             BT_CHECK_LOCALHOST.Enabled = false;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.SW_MAIN = SW_MAIN.Checked;
+            Properties.Settings.Default.SW_LCO = SW_LCO.Checked;
+            Properties.Settings.Default.SW_DB_LCO = SW_DB_LCO.Checked;
+            Properties.Settings.Default.SW_NG = SW_NG.Checked;
+            Properties.Settings.Default.SW_DB_NG = SW_DB_NG.Checked;
+            Properties.Settings.Default.SW_S = SW_S.Checked;
+            Properties.Settings.Default.SW_DB_S = SW_DB_S.Checked;
+            Properties.Settings.Default.TB_KEY = TB_KEY.Text;
+            Properties.Settings.Default.TB_SECRET = TB_SECRET.Text;
+            Properties.Settings.Default.TB_DBNAME = TB_DBNAME.Text;
+            Properties.Settings.Default.TB_LOCALHOST = TB_LOCALHOST.Text;
+            Properties.Settings.Default.TB_NAME_ADD1 = TB_NAME_ADD1.Text;
+            Properties.Settings.Default.TB_NAME_ADD2 = TB_NAME_ADD2.Text;
+            Properties.Settings.Default.SW_ADD1 = SW_ADD1.Checked;
+            Properties.Settings.Default.SW_ADD2 = SW_ADD2.Checked;
+            Properties.Settings.Default.SW_DB_ADD1 = SW_DB_ADD1.Checked;
+            Properties.Settings.Default.SW_DB_ADD2 = SW_DB_ADD2.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

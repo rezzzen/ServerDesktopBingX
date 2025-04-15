@@ -1129,9 +1129,9 @@
             label18.AutoSize = true;
             label18.Location = new Point(7, 66);
             label18.Name = "label18";
-            label18.Size = new Size(69, 20);
+            label18.Size = new Size(35, 20);
             label18.TabIndex = 101;
-            label18.Text = "localhost";
+            label18.Text = "Port";
             // 
             // label19
             // 
@@ -1418,6 +1418,7 @@
             MaximizeBox = false;
             Name = "Form1";
             Text = "CDA - Commodity Data Analysis";
+            FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
