@@ -27,7 +27,7 @@ namespace ServerDesktopBingX
             //TB_SECRET.Text = "O7bPmfWDsIrEn5NO4mE0kNSjVQMj7P66NzJPrI1TjN1HoA9hDLCrtgBKleU5KGwt5XhwH9z8coLUz6vSg";
             //TB_DBNAME.Text = "CDA";
             //TB_LOCALHOST.Text = "27017";
-            L_VERSION.Text = "16.04.2025";
+            L_VERSION.Text = "24.04.2025";
             string API_KEY = TB_KEY.Text;
             string API_SECRET = TB_SECRET.Text;
             string HOST = "open-api.bingx.com";
@@ -136,10 +136,6 @@ namespace ServerDesktopBingX
                     TB_MAX_ADD1.Visible = false;
                     TB_MIN_ADD1.Visible = false;
                     L_CHANGE_ADD1.Visible = false;
-                    D1_ADD1.Visible = false;
-                    H4_ADD1.Visible = false;
-                    H1_ADD1.Visible = false;
-                    M5_ADD1.Visible = false;
                     L_STATUS_ADD1.Visible = false;
                     L_LOG_ADD1.Visible = false;
                     SW_ADD1.Visible = false;
@@ -172,10 +168,6 @@ namespace ServerDesktopBingX
                     TB_MAX_ADD2.Visible = false;
                     TB_MIN_ADD2.Visible = false;
                     L_CHANGE_ADD2.Visible = false;
-                    D1_ADD2.Visible = false;
-                    H4_ADD2.Visible = false;
-                    H1_ADD2.Visible = false;
-                    M5_ADD2.Visible = false;
                     L_STATUS_ADD2.Visible = false;
                     L_LOG_ADD2.Visible = false;
                     SW_ADD2.Visible = false;
@@ -725,10 +717,6 @@ namespace ServerDesktopBingX
             TB_CLOSE_ADD1.Visible = true;
             TB_MAX_ADD1.Visible = true;
             TB_MIN_ADD1.Visible = true;
-            D1_ADD1.Visible = true;
-            H4_ADD1.Visible = true;
-            H1_ADD1.Visible = true;
-            M5_ADD1.Visible = true;
             L_STATUS_ADD1.Visible = true;
             L_LOG_ADD1.Visible = true;
             L_CHANGE_ADD1.Visible = true;
@@ -754,10 +742,6 @@ namespace ServerDesktopBingX
             TB_CLOSE_ADD2.Visible = true;
             TB_MAX_ADD2.Visible = true;
             TB_MIN_ADD2.Visible = true;
-            D1_ADD2.Visible = true;
-            H4_ADD2.Visible = true;
-            H1_ADD2.Visible = true;
-            M5_ADD2.Visible = true;
             L_STATUS_ADD2.Visible = true;
             L_LOG_ADD2.Visible = true;
             L_CHANGE_ADD2.Visible = true;
@@ -963,10 +947,6 @@ namespace ServerDesktopBingX
                 TB_CLOSE_ADD2.Visible = false;
                 TB_MAX_ADD2.Visible = false;
                 TB_MIN_ADD2.Visible = false;
-                D1_ADD2.Visible = false;
-                H4_ADD2.Visible = false;
-                H1_ADD2.Visible = false;
-                M5_ADD2.Visible = false;
                 L_STATUS_ADD2.Visible = false;
                 L_LOG_ADD2.Visible = false;
                 L_CHANGE_ADD1.Visible = false;
@@ -992,10 +972,6 @@ namespace ServerDesktopBingX
                 TB_CLOSE_ADD1.Visible = false;
                 TB_MAX_ADD1.Visible = false;
                 TB_MIN_ADD1.Visible = false;
-                D1_ADD1.Visible = false;
-                H4_ADD1.Visible = false;
-                H1_ADD1.Visible = false;
-                M5_ADD1.Visible = false;
                 L_STATUS_ADD1.Visible = false;
                 L_LOG_ADD1.Visible = false;
                 SW_ADD1.Visible = false;
@@ -1036,10 +1012,6 @@ namespace ServerDesktopBingX
             TB_CLOSE_ADD2.Visible = false;
             TB_MAX_ADD2.Visible = false;
             TB_MIN_ADD2.Visible = false;
-            D1_ADD2.Visible = false;
-            H4_ADD2.Visible = false;
-            H1_ADD2.Visible = false;
-            M5_ADD2.Visible = false;
             L_STATUS_ADD2.Visible = false;
             L_LOG_ADD2.Visible = false;
             L_CHANGE_ADD2.Visible = false;

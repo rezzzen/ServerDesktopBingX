@@ -42,10 +42,6 @@
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
-            label9 = new Label();
-            label10 = new Label();
             label11 = new Label();
             label12 = new Label();
             label13 = new Label();
@@ -79,26 +75,6 @@
             BT_EDIT_ADD2 = new Button();
             BT_CHECK_ADD1 = new Button();
             BT_CHECK_ADD2 = new Button();
-            D1_LCO = new TextBox();
-            D1_NG = new TextBox();
-            D1_S = new TextBox();
-            D1_ADD1 = new TextBox();
-            D1_ADD2 = new TextBox();
-            H4_LCO = new TextBox();
-            H4_NG = new TextBox();
-            H4_S = new TextBox();
-            H4_ADD1 = new TextBox();
-            H4_ADD2 = new TextBox();
-            H1_LCO = new TextBox();
-            H1_NG = new TextBox();
-            H1_S = new TextBox();
-            H1_ADD1 = new TextBox();
-            H1_ADD2 = new TextBox();
-            M5_ADD2 = new TextBox();
-            M5_ADD1 = new TextBox();
-            M5_S = new TextBox();
-            M5_NG = new TextBox();
-            M5_LCO = new TextBox();
             SW_LCO = new Controls.ToggleSwitch();
             SW_NG = new Controls.ToggleSwitch();
             SW_S = new Controls.ToggleSwitch();
@@ -264,46 +240,10 @@
             label6.TabIndex = 14;
             label6.Text = "MIN";
             // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(528, 134);
-            label7.Name = "label7";
-            label7.Size = new Size(28, 20);
-            label7.TabIndex = 15;
-            label7.Text = "1D";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(558, 134);
-            label8.Name = "label8";
-            label8.Size = new Size(28, 20);
-            label8.TabIndex = 16;
-            label8.Text = "4H";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(587, 134);
-            label9.Name = "label9";
-            label9.Size = new Size(28, 20);
-            label9.TabIndex = 17;
-            label9.Text = "1H";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(617, 134);
-            label10.Name = "label10";
-            label10.Size = new Size(30, 20);
-            label10.TabIndex = 18;
-            label10.Text = "5M";
-            // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(685, 134);
+            label11.Location = new Point(556, 134);
             label11.Name = "label11";
             label11.Size = new Size(59, 20);
             label11.TabIndex = 19;
@@ -312,7 +252,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(873, 134);
+            label12.Location = new Point(752, 134);
             label12.Name = "label12";
             label12.Size = new Size(36, 20);
             label12.TabIndex = 20;
@@ -626,206 +566,6 @@
             BT_CHECK_ADD2.Visible = false;
             BT_CHECK_ADD2.Click += BT_CHECK_ADD2_Click;
             // 
-            // D1_LCO
-            // 
-            D1_LCO.Enabled = false;
-            D1_LCO.Location = new Point(528, 157);
-            D1_LCO.Name = "D1_LCO";
-            D1_LCO.ReadOnly = true;
-            D1_LCO.Size = new Size(27, 27);
-            D1_LCO.TabIndex = 52;
-            D1_LCO.TextAlign = HorizontalAlignment.Center;
-            // 
-            // D1_NG
-            // 
-            D1_NG.Enabled = false;
-            D1_NG.Location = new Point(528, 187);
-            D1_NG.Name = "D1_NG";
-            D1_NG.ReadOnly = true;
-            D1_NG.Size = new Size(27, 27);
-            D1_NG.TabIndex = 53;
-            D1_NG.TextAlign = HorizontalAlignment.Center;
-            // 
-            // D1_S
-            // 
-            D1_S.Enabled = false;
-            D1_S.Location = new Point(528, 217);
-            D1_S.Name = "D1_S";
-            D1_S.ReadOnly = true;
-            D1_S.Size = new Size(27, 27);
-            D1_S.TabIndex = 54;
-            D1_S.TextAlign = HorizontalAlignment.Center;
-            // 
-            // D1_ADD1
-            // 
-            D1_ADD1.Enabled = false;
-            D1_ADD1.Location = new Point(528, 247);
-            D1_ADD1.Name = "D1_ADD1";
-            D1_ADD1.ReadOnly = true;
-            D1_ADD1.Size = new Size(27, 27);
-            D1_ADD1.TabIndex = 55;
-            D1_ADD1.TextAlign = HorizontalAlignment.Center;
-            // 
-            // D1_ADD2
-            // 
-            D1_ADD2.Enabled = false;
-            D1_ADD2.Location = new Point(528, 277);
-            D1_ADD2.Name = "D1_ADD2";
-            D1_ADD2.ReadOnly = true;
-            D1_ADD2.Size = new Size(27, 27);
-            D1_ADD2.TabIndex = 56;
-            D1_ADD2.TextAlign = HorizontalAlignment.Center;
-            // 
-            // H4_LCO
-            // 
-            H4_LCO.Enabled = false;
-            H4_LCO.Location = new Point(558, 157);
-            H4_LCO.Name = "H4_LCO";
-            H4_LCO.ReadOnly = true;
-            H4_LCO.Size = new Size(27, 27);
-            H4_LCO.TabIndex = 57;
-            H4_LCO.TextAlign = HorizontalAlignment.Center;
-            // 
-            // H4_NG
-            // 
-            H4_NG.Enabled = false;
-            H4_NG.Location = new Point(558, 187);
-            H4_NG.Name = "H4_NG";
-            H4_NG.ReadOnly = true;
-            H4_NG.Size = new Size(27, 27);
-            H4_NG.TabIndex = 58;
-            H4_NG.TextAlign = HorizontalAlignment.Center;
-            // 
-            // H4_S
-            // 
-            H4_S.Enabled = false;
-            H4_S.Location = new Point(558, 217);
-            H4_S.Name = "H4_S";
-            H4_S.ReadOnly = true;
-            H4_S.Size = new Size(27, 27);
-            H4_S.TabIndex = 59;
-            H4_S.TextAlign = HorizontalAlignment.Center;
-            // 
-            // H4_ADD1
-            // 
-            H4_ADD1.Enabled = false;
-            H4_ADD1.Location = new Point(558, 247);
-            H4_ADD1.Name = "H4_ADD1";
-            H4_ADD1.ReadOnly = true;
-            H4_ADD1.Size = new Size(27, 27);
-            H4_ADD1.TabIndex = 60;
-            H4_ADD1.TextAlign = HorizontalAlignment.Center;
-            // 
-            // H4_ADD2
-            // 
-            H4_ADD2.Enabled = false;
-            H4_ADD2.Location = new Point(559, 277);
-            H4_ADD2.Name = "H4_ADD2";
-            H4_ADD2.ReadOnly = true;
-            H4_ADD2.Size = new Size(27, 27);
-            H4_ADD2.TabIndex = 61;
-            H4_ADD2.TextAlign = HorizontalAlignment.Center;
-            // 
-            // H1_LCO
-            // 
-            H1_LCO.Enabled = false;
-            H1_LCO.Location = new Point(588, 157);
-            H1_LCO.Name = "H1_LCO";
-            H1_LCO.ReadOnly = true;
-            H1_LCO.Size = new Size(27, 27);
-            H1_LCO.TabIndex = 62;
-            H1_LCO.TextAlign = HorizontalAlignment.Center;
-            // 
-            // H1_NG
-            // 
-            H1_NG.Enabled = false;
-            H1_NG.Location = new Point(588, 187);
-            H1_NG.Name = "H1_NG";
-            H1_NG.ReadOnly = true;
-            H1_NG.Size = new Size(27, 27);
-            H1_NG.TabIndex = 63;
-            H1_NG.TextAlign = HorizontalAlignment.Center;
-            // 
-            // H1_S
-            // 
-            H1_S.Enabled = false;
-            H1_S.Location = new Point(588, 217);
-            H1_S.Name = "H1_S";
-            H1_S.ReadOnly = true;
-            H1_S.Size = new Size(27, 27);
-            H1_S.TabIndex = 64;
-            H1_S.TextAlign = HorizontalAlignment.Center;
-            // 
-            // H1_ADD1
-            // 
-            H1_ADD1.Enabled = false;
-            H1_ADD1.Location = new Point(588, 247);
-            H1_ADD1.Name = "H1_ADD1";
-            H1_ADD1.ReadOnly = true;
-            H1_ADD1.Size = new Size(27, 27);
-            H1_ADD1.TabIndex = 65;
-            H1_ADD1.TextAlign = HorizontalAlignment.Center;
-            // 
-            // H1_ADD2
-            // 
-            H1_ADD2.Enabled = false;
-            H1_ADD2.Location = new Point(588, 277);
-            H1_ADD2.Name = "H1_ADD2";
-            H1_ADD2.ReadOnly = true;
-            H1_ADD2.Size = new Size(27, 27);
-            H1_ADD2.TabIndex = 66;
-            H1_ADD2.TextAlign = HorizontalAlignment.Center;
-            // 
-            // M5_ADD2
-            // 
-            M5_ADD2.Enabled = false;
-            M5_ADD2.Location = new Point(618, 277);
-            M5_ADD2.Name = "M5_ADD2";
-            M5_ADD2.ReadOnly = true;
-            M5_ADD2.Size = new Size(27, 27);
-            M5_ADD2.TabIndex = 71;
-            M5_ADD2.TextAlign = HorizontalAlignment.Center;
-            // 
-            // M5_ADD1
-            // 
-            M5_ADD1.Enabled = false;
-            M5_ADD1.Location = new Point(618, 247);
-            M5_ADD1.Name = "M5_ADD1";
-            M5_ADD1.ReadOnly = true;
-            M5_ADD1.Size = new Size(27, 27);
-            M5_ADD1.TabIndex = 70;
-            M5_ADD1.TextAlign = HorizontalAlignment.Center;
-            // 
-            // M5_S
-            // 
-            M5_S.Enabled = false;
-            M5_S.Location = new Point(618, 217);
-            M5_S.Name = "M5_S";
-            M5_S.ReadOnly = true;
-            M5_S.Size = new Size(27, 27);
-            M5_S.TabIndex = 69;
-            M5_S.TextAlign = HorizontalAlignment.Center;
-            // 
-            // M5_NG
-            // 
-            M5_NG.Enabled = false;
-            M5_NG.Location = new Point(618, 187);
-            M5_NG.Name = "M5_NG";
-            M5_NG.ReadOnly = true;
-            M5_NG.Size = new Size(27, 27);
-            M5_NG.TabIndex = 68;
-            M5_NG.TextAlign = HorizontalAlignment.Center;
-            // 
-            // M5_LCO
-            // 
-            M5_LCO.Enabled = false;
-            M5_LCO.Location = new Point(618, 157);
-            M5_LCO.Name = "M5_LCO";
-            M5_LCO.ReadOnly = true;
-            M5_LCO.Size = new Size(27, 27);
-            M5_LCO.TabIndex = 67;
-            M5_LCO.TextAlign = HorizontalAlignment.Center;
-            // 
             // SW_LCO
             // 
             SW_LCO.BackColor = Color.White;
@@ -833,7 +573,7 @@
             SW_LCO.BackColorON = Color.YellowGreen;
             SW_LCO.Checked = false;
             SW_LCO.Font = new Font("Verdana", 9F);
-            SW_LCO.Location = new Point(1014, 157);
+            SW_LCO.Location = new Point(907, 157);
             SW_LCO.Name = "SW_LCO";
             SW_LCO.Size = new Size(43, 27);
             SW_LCO.TabIndex = 72;
@@ -847,7 +587,7 @@
             SW_NG.BackColorON = Color.YellowGreen;
             SW_NG.Checked = false;
             SW_NG.Font = new Font("Verdana", 9F);
-            SW_NG.Location = new Point(1014, 187);
+            SW_NG.Location = new Point(907, 187);
             SW_NG.Name = "SW_NG";
             SW_NG.Size = new Size(43, 27);
             SW_NG.TabIndex = 73;
@@ -861,7 +601,7 @@
             SW_S.BackColorON = Color.YellowGreen;
             SW_S.Checked = false;
             SW_S.Font = new Font("Verdana", 9F);
-            SW_S.Location = new Point(1014, 217);
+            SW_S.Location = new Point(907, 217);
             SW_S.Name = "SW_S";
             SW_S.Size = new Size(43, 27);
             SW_S.TabIndex = 74;
@@ -875,7 +615,7 @@
             SW_ADD1.BackColorON = Color.YellowGreen;
             SW_ADD1.Checked = false;
             SW_ADD1.Font = new Font("Verdana", 9F);
-            SW_ADD1.Location = new Point(1014, 247);
+            SW_ADD1.Location = new Point(907, 247);
             SW_ADD1.Name = "SW_ADD1";
             SW_ADD1.Size = new Size(43, 27);
             SW_ADD1.TabIndex = 75;
@@ -889,7 +629,7 @@
             SW_ADD2.BackColorON = Color.YellowGreen;
             SW_ADD2.Checked = false;
             SW_ADD2.Font = new Font("Verdana", 9F);
-            SW_ADD2.Location = new Point(1014, 277);
+            SW_ADD2.Location = new Point(907, 277);
             SW_ADD2.Name = "SW_ADD2";
             SW_ADD2.Size = new Size(43, 27);
             SW_ADD2.TabIndex = 76;
@@ -899,7 +639,7 @@
             // L_STATUS_LCO
             // 
             L_STATUS_LCO.ForeColor = Color.Red;
-            L_STATUS_LCO.Location = new Point(661, 160);
+            L_STATUS_LCO.Location = new Point(532, 160);
             L_STATUS_LCO.Name = "L_STATUS_LCO";
             L_STATUS_LCO.Size = new Size(110, 20);
             L_STATUS_LCO.TabIndex = 77;
@@ -909,7 +649,7 @@
             // L_STATUS_NG
             // 
             L_STATUS_NG.ForeColor = Color.Red;
-            L_STATUS_NG.Location = new Point(661, 190);
+            L_STATUS_NG.Location = new Point(532, 190);
             L_STATUS_NG.Name = "L_STATUS_NG";
             L_STATUS_NG.Size = new Size(110, 20);
             L_STATUS_NG.TabIndex = 78;
@@ -919,7 +659,7 @@
             // L_STATUS_S
             // 
             L_STATUS_S.ForeColor = Color.Red;
-            L_STATUS_S.Location = new Point(661, 220);
+            L_STATUS_S.Location = new Point(532, 220);
             L_STATUS_S.Name = "L_STATUS_S";
             L_STATUS_S.Size = new Size(110, 20);
             L_STATUS_S.TabIndex = 79;
@@ -929,7 +669,7 @@
             // L_STATUS_ADD1
             // 
             L_STATUS_ADD1.ForeColor = Color.Red;
-            L_STATUS_ADD1.Location = new Point(661, 250);
+            L_STATUS_ADD1.Location = new Point(532, 250);
             L_STATUS_ADD1.Name = "L_STATUS_ADD1";
             L_STATUS_ADD1.Size = new Size(110, 20);
             L_STATUS_ADD1.TabIndex = 80;
@@ -939,7 +679,7 @@
             // L_STATUS_ADD2
             // 
             L_STATUS_ADD2.ForeColor = Color.Red;
-            L_STATUS_ADD2.Location = new Point(661, 281);
+            L_STATUS_ADD2.Location = new Point(532, 281);
             L_STATUS_ADD2.Name = "L_STATUS_ADD2";
             L_STATUS_ADD2.Size = new Size(110, 20);
             L_STATUS_ADD2.TabIndex = 81;
@@ -948,7 +688,7 @@
             // 
             // L_LOG_LCO
             // 
-            L_LOG_LCO.Location = new Point(780, 160);
+            L_LOG_LCO.Location = new Point(659, 160);
             L_LOG_LCO.Name = "L_LOG_LCO";
             L_LOG_LCO.Size = new Size(217, 20);
             L_LOG_LCO.TabIndex = 82;
@@ -956,7 +696,7 @@
             // 
             // L_LOG_NG
             // 
-            L_LOG_NG.Location = new Point(780, 190);
+            L_LOG_NG.Location = new Point(659, 190);
             L_LOG_NG.Name = "L_LOG_NG";
             L_LOG_NG.Size = new Size(217, 20);
             L_LOG_NG.TabIndex = 83;
@@ -964,7 +704,7 @@
             // 
             // L_LOG_S
             // 
-            L_LOG_S.Location = new Point(780, 220);
+            L_LOG_S.Location = new Point(659, 220);
             L_LOG_S.Name = "L_LOG_S";
             L_LOG_S.Size = new Size(217, 20);
             L_LOG_S.TabIndex = 84;
@@ -972,7 +712,7 @@
             // 
             // L_LOG_ADD1
             // 
-            L_LOG_ADD1.Location = new Point(780, 251);
+            L_LOG_ADD1.Location = new Point(659, 251);
             L_LOG_ADD1.Name = "L_LOG_ADD1";
             L_LOG_ADD1.Size = new Size(217, 20);
             L_LOG_ADD1.TabIndex = 85;
@@ -980,7 +720,7 @@
             // 
             // L_LOG_ADD2
             // 
-            L_LOG_ADD2.Location = new Point(780, 280);
+            L_LOG_ADD2.Location = new Point(659, 280);
             L_LOG_ADD2.Name = "L_LOG_ADD2";
             L_LOG_ADD2.Size = new Size(217, 20);
             L_LOG_ADD2.TabIndex = 86;
@@ -1154,7 +894,7 @@
             groupBox1.Controls.Add(label18);
             groupBox1.Location = new Point(972, 15);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(204, 99);
+            groupBox1.Size = new Size(204, 298);
             groupBox1.TabIndex = 103;
             groupBox1.TabStop = false;
             groupBox1.Text = "Database settings";
@@ -1222,7 +962,7 @@
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new Point(1009, 134);
+            label20.Location = new Point(902, 134);
             label20.Name = "label20";
             label20.Size = new Size(49, 20);
             label20.TabIndex = 104;
@@ -1231,7 +971,7 @@
             // label21
             // 
             label21.AutoSize = true;
-            label21.Location = new Point(1093, 134);
+            label21.Location = new Point(1031, 134);
             label21.Name = "label21";
             label21.Size = new Size(89, 20);
             label21.TabIndex = 105;
@@ -1244,7 +984,7 @@
             SW_DB_LCO.BackColorON = Color.YellowGreen;
             SW_DB_LCO.Checked = false;
             SW_DB_LCO.Font = new Font("Verdana", 9F);
-            SW_DB_LCO.Location = new Point(1117, 157);
+            SW_DB_LCO.Location = new Point(1055, 157);
             SW_DB_LCO.Name = "SW_DB_LCO";
             SW_DB_LCO.Size = new Size(43, 27);
             SW_DB_LCO.TabIndex = 106;
@@ -1257,7 +997,7 @@
             SW_DB_NG.BackColorON = Color.YellowGreen;
             SW_DB_NG.Checked = false;
             SW_DB_NG.Font = new Font("Verdana", 9F);
-            SW_DB_NG.Location = new Point(1117, 187);
+            SW_DB_NG.Location = new Point(1055, 187);
             SW_DB_NG.Name = "SW_DB_NG";
             SW_DB_NG.Size = new Size(43, 27);
             SW_DB_NG.TabIndex = 107;
@@ -1270,7 +1010,7 @@
             SW_DB_S.BackColorON = Color.YellowGreen;
             SW_DB_S.Checked = false;
             SW_DB_S.Font = new Font("Verdana", 9F);
-            SW_DB_S.Location = new Point(1117, 217);
+            SW_DB_S.Location = new Point(1055, 217);
             SW_DB_S.Name = "SW_DB_S";
             SW_DB_S.Size = new Size(43, 27);
             SW_DB_S.TabIndex = 108;
@@ -1283,7 +1023,7 @@
             SW_DB_ADD1.BackColorON = Color.YellowGreen;
             SW_DB_ADD1.Checked = false;
             SW_DB_ADD1.Font = new Font("Verdana", 9F);
-            SW_DB_ADD1.Location = new Point(1117, 246);
+            SW_DB_ADD1.Location = new Point(1055, 246);
             SW_DB_ADD1.Name = "SW_DB_ADD1";
             SW_DB_ADD1.Size = new Size(43, 27);
             SW_DB_ADD1.TabIndex = 109;
@@ -1296,7 +1036,7 @@
             SW_DB_ADD2.BackColorON = Color.YellowGreen;
             SW_DB_ADD2.Checked = false;
             SW_DB_ADD2.Font = new Font("Verdana", 9F);
-            SW_DB_ADD2.Location = new Point(1117, 277);
+            SW_DB_ADD2.Location = new Point(1055, 277);
             SW_DB_ADD2.Name = "SW_DB_ADD2";
             SW_DB_ADD2.Size = new Size(43, 27);
             SW_DB_ADD2.TabIndex = 110;
@@ -1306,7 +1046,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1188, 312);
+            ClientSize = new Size(1188, 320);
             Controls.Add(SW_DB_ADD2);
             Controls.Add(SW_DB_ADD1);
             Controls.Add(SW_DB_S);
@@ -1330,10 +1070,6 @@
             Controls.Add(L_LOG_ADD2);
             Controls.Add(TB_MAX_ADD2);
             Controls.Add(L_STATUS_ADD2);
-            Controls.Add(M5_ADD2);
-            Controls.Add(H1_ADD2);
-            Controls.Add(H4_ADD2);
-            Controls.Add(D1_ADD2);
             Controls.Add(TB_MIN_ADD2);
             Controls.Add(TB_CLOSE_ADD2);
             Controls.Add(TB_NAME_ADD2);
@@ -1354,22 +1090,6 @@
             Controls.Add(SW_S);
             Controls.Add(SW_NG);
             Controls.Add(SW_LCO);
-            Controls.Add(M5_ADD1);
-            Controls.Add(M5_S);
-            Controls.Add(M5_NG);
-            Controls.Add(M5_LCO);
-            Controls.Add(H1_ADD1);
-            Controls.Add(H1_S);
-            Controls.Add(H1_NG);
-            Controls.Add(H1_LCO);
-            Controls.Add(H4_ADD1);
-            Controls.Add(H4_S);
-            Controls.Add(H4_NG);
-            Controls.Add(H4_LCO);
-            Controls.Add(D1_ADD1);
-            Controls.Add(D1_S);
-            Controls.Add(D1_NG);
-            Controls.Add(D1_LCO);
             Controls.Add(BT_EDIT_ADD1);
             Controls.Add(BT_ADD_ADD2);
             Controls.Add(TB_NAME_ADD1);
@@ -1395,10 +1115,6 @@
             Controls.Add(label13);
             Controls.Add(label12);
             Controls.Add(label11);
-            Controls.Add(label10);
-            Controls.Add(label9);
-            Controls.Add(label8);
-            Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -1439,10 +1155,6 @@
         private Label label4;
         private Label label5;
         private Label label6;
-        private Label label7;
-        private Label label8;
-        private Label label9;
-        private Label label10;
         private Label label11;
         private Label label12;
         private Label label13;
@@ -1476,26 +1188,6 @@
         private Button BT_EDIT_ADD2;
         private Button BT_CHECK_ADD1;
         private Button BT_CHECK_ADD2;
-        private TextBox D1_LCO;
-        private TextBox D1_NG;
-        private TextBox D1_S;
-        private TextBox D1_ADD1;
-        private TextBox D1_ADD2;
-        private TextBox H4_LCO;
-        private TextBox H4_NG;
-        private TextBox H4_S;
-        private TextBox H4_ADD1;
-        private TextBox H4_ADD2;
-        private TextBox H1_LCO;
-        private TextBox H1_NG;
-        private TextBox H1_S;
-        private TextBox H1_ADD1;
-        private TextBox H1_ADD2;
-        private TextBox M5_ADD2;
-        private TextBox M5_ADD1;
-        private TextBox M5_S;
-        private TextBox M5_NG;
-        private TextBox M5_LCO;
         private Controls.ToggleSwitch SW_LCO;
         private Controls.ToggleSwitch SW_NG;
         private Controls.ToggleSwitch SW_S;
