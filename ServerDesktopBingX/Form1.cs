@@ -27,7 +27,7 @@ namespace ServerDesktopBingX
             //TB_SECRET.Text = "O7bPmfWDsIrEn5NO4mE0kNSjVQMj7P66NzJPrI1TjN1HoA9hDLCrtgBKleU5KGwt5XhwH9z8coLUz6vSg";
             //TB_DBNAME.Text = "CDA";
             //TB_LOCALHOST.Text = "27017";
-            L_VERSION.Text = "15.04.2025";
+            L_VERSION.Text = "16.04.2025";
             string API_KEY = TB_KEY.Text;
             string API_SECRET = TB_SECRET.Text;
             string HOST = "open-api.bingx.com";
@@ -367,7 +367,7 @@ namespace ServerDesktopBingX
                         }
                     }
                 }
-                await Task.Delay(700); // Задержка между запросами
+                await Task.Delay(1000); // Задержка между запросами
             }
         }
 
@@ -397,15 +397,114 @@ namespace ServerDesktopBingX
 
         }
 
-        void UpdateUIElements(string suffix, dynamic item)
+
+        private static readonly object _lock = new object();
+        private static Dictionary<string, DateTime> _lastSavedBarTimes = new Dictionary<string, DateTime>();
+
+
+
+        async void UpdateUIElements(string suffix, dynamic item)
         {
-            var moscowTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Russian Standard Time"); // Для Linux используйте "Europe/Moscow"
+            var moscowTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Russian Standard Time");
             DateTime now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, moscowTimeZone);
 
-            // MongoDB
-            var mongoClient = new MongoClient($"mongodb://localhost:{TB_LOCALHOST.Text}");
-            var database = mongoClient.GetDatabase($"{TB_DBNAME.Text}");
-            // Вспомогательные функции для работы с элементами UI
+            var currentPrice = item.currentPrice.ToString();
+            // Вычисляем начало текущего пятиминутного бара
+            int minutes = now.Minute - (now.Minute % 5);
+            DateTime currentBarStart = new DateTime(now.Year, now.Month, now.Day, now.Hour, minutes, 0);
+
+            // Блокируем для потокобезопасности
+            lock (_lock)
+            {
+                if (!_lastSavedBarTimes.ContainsKey(suffix))
+                {
+                    _lastSavedBarTimes[suffix] = currentBarStart;
+                    return;
+                }
+            }
+
+            DateTime lastSaved;
+            lock (_lock)
+            {
+                lastSaved = _lastSavedBarTimes[suffix];
+            }
+
+            if (currentBarStart > lastSaved)
+            {
+                // Основная логика сохранения
+                var previousOpen = GetTextBoxValue("OPEN");
+                var previousClose = GetTextBoxValue("CLOSE");
+                var previousMax = GetTextBoxValue("MAX");
+                var previousMin = GetTextBoxValue("MIN");
+
+                if (previousMax != previousMin)
+                {
+                    var log = Controls.Find($"L_LOG_{suffix}", true).FirstOrDefault();
+                    var sw_db = Controls.Find($"SW_DB_{suffix}", true).FirstOrDefault() as ToggleSwitch;
+
+                    bool Session = true;
+                    if (suffix == "S" || suffix == "G" || suffix == "P")
+                    {
+                        Session = IsTradingTimeMetal(lastSaved); // Используем начало предыдущего бара
+                    }
+                    else if (suffix == "LCO" || suffix == "NG")
+                    {
+                        Session = IsTradingTimeResources(lastSaved);
+                    }
+
+                    if (Session && sw_db.Checked)
+                    {
+                        if (!string.IsNullOrEmpty(previousOpen) &&
+                            !string.IsNullOrEmpty(previousClose) &&
+                            !string.IsNullOrEmpty(previousMax) &&
+                            !string.IsNullOrEmpty(previousMin))
+                        {
+                            try
+                            {
+                                var document = new BsonDocument
+                        {
+                            { "Date", lastSaved.ToString("yyyy-MM-dd") },
+                            { "Time", lastSaved.ToString("HH:mm") },
+                            { "Open", Convert.ToDouble(previousOpen) },
+                            { "Close", Convert.ToDouble(previousClose) },
+                            { "High", Convert.ToDouble(previousMax) },
+                            { "Low", Convert.ToDouble(previousMin) },
+                            { "Change", Math.Round(
+                                (Convert.ToDouble(previousClose) - Convert.ToDouble(previousOpen)) /
+                                Convert.ToDouble(previousOpen) * 100, 2) }
+                        };
+
+                                var mongoClient = new MongoClient($"mongodb://localhost:{TB_LOCALHOST.Text}");
+                                var database = mongoClient.GetDatabase($"{TB_DBNAME.Text}");
+                                var collection = database.GetCollection<BsonDocument>($"{suffix}_5M");
+
+                                await collection.InsertOneAsync(document);
+                                log.Text = $"Бар {lastSaved:HH:mm} сохранён";
+                            }
+                            catch (Exception ex)
+                            {
+                                log.Text = "Ошибка MongoDB";
+                            }
+                        }
+
+                        // Обновляем время последнего сохранения
+                        lock (_lock)
+                        {
+                            _lastSavedBarTimes[suffix] = currentBarStart;
+                        }
+
+                        // Сброс значений для нового бара
+                        SafeSetTextBox("OPEN", item.currentPrice.ToString());
+                        SafeSetTextBox("CLOSE", item.currentPrice.ToString());
+                        SafeSetTextBox("MAX", item.currentPrice.ToString());
+                        SafeSetTextBox("MIN", item.currentPrice.ToString());
+                    }
+                }
+            }
+            else
+            {
+                SafeSetTextBox("CLOSE", currentPrice);
+            }
             string GetTextBoxValue(string type)
             {
                 var tb = Controls.Find($"TB_{type}_{suffix}", true).FirstOrDefault() as TextBox;
@@ -452,85 +551,7 @@ namespace ServerDesktopBingX
 
 
             // Основная логика
-            var currentPrice = item.currentPrice.ToString();
-
-            if (now.Minute % 5 == 0 && now.Second == 0)
-            {
-                DateTime barStart = now.AddMinutes(-5);
-                // Сбор данных предыдущего бара
-                var previousOpen = GetTextBoxValue("OPEN");
-                var previousClose = GetTextBoxValue("CLOSE");
-                var previousMax = GetTextBoxValue("MAX");
-                var previousMin = GetTextBoxValue("MIN");
-                var log = Controls.Find($"L_LOG_{suffix}", true).FirstOrDefault();
-                var sw_db = Controls.Find($"SW_DB_{suffix}", true).FirstOrDefault() as ToggleSwitch;
-                bool Session = true;
-                if (suffix == "S" || suffix == "G" || suffix == "P")
-                {
-                    Session = IsTradingTimeMetal(barStart);
-                }
-                else if (suffix == "LCO" || suffix == "NG")
-                {
-                    Session = IsTradingTimeResources(barStart);
-                }
-                else
-                {
-                    Session = true;
-                }
-                if ((Session == true) && (sw_db.Checked == true))
-                {
-                    if (!string.IsNullOrEmpty(previousOpen)
-                    && !string.IsNullOrEmpty(previousClose)
-                    && !string.IsNullOrEmpty(previousMax)
-                    && !string.IsNullOrEmpty(previousMin))
-                    {
-                        try
-                        {
-                            // Вычисление времени начала предыдущего бара (5 минут назад)
-
-
-                            // Формируем документ
-                            var document = new BsonDocument
-                {
-                    { "Date", barStart.ToString("yyyy-MM-dd") },
-                    { "Time", barStart.ToString("HH:mm") },
-                    { "Open", Convert.ToDouble(previousOpen) },
-                    { "Close", Convert.ToDouble(previousClose) },
-                    { "High", Convert.ToDouble(previousMax) },
-                    { "Low", Convert.ToDouble(previousMin) },
-                    { "Change", Math.Round(
-                        (Convert.ToDouble(previousClose) - Convert.ToDouble(previousOpen))
-                        / Convert.ToDouble(previousOpen) * 100,
-                        2 // Округление до 2 знаков
-                        )  }
-                };
-
-                            // Имя коллекции: "NG_5M" (пример для suffix = "NG")
-                            var collection = database.GetCollection<BsonDocument>($"{suffix}_5M");
-
-                            // Асинхронная вставка
-                            var _ = collection.InsertOneAsync(document);
-                            log.Text = $"Бар {barStart.ToString("HH:mm")} сохранён";
-                        }
-
-                        catch (Exception ex)
-                        {
-
-                            log.Text = "Ошибка MongoDB";
-                        }
-                    }
-
-                    // Сброс значений для нового бара
-                    SafeSetTextBox("OPEN", currentPrice);
-                    SafeSetTextBox("CLOSE", currentPrice);
-                    SafeSetTextBox("MAX", currentPrice);
-                    SafeSetTextBox("MIN", currentPrice);
-                }
-            }
-            else
-            {
-                SafeSetTextBox("CLOSE", currentPrice);
-            }
+            
 
 
             // Обновление MAX и MIN
@@ -948,6 +969,7 @@ namespace ServerDesktopBingX
                 M5_ADD2.Visible = false;
                 L_STATUS_ADD2.Visible = false;
                 L_LOG_ADD2.Visible = false;
+                L_CHANGE_ADD1.Visible = false;
                 SW_ADD2.Visible = false;
                 SW_DB_ADD2.Visible = false;
                 BT_ADD_ADD2.Visible = true;
@@ -1020,10 +1042,13 @@ namespace ServerDesktopBingX
             M5_ADD2.Visible = false;
             L_STATUS_ADD2.Visible = false;
             L_LOG_ADD2.Visible = false;
+            L_CHANGE_ADD2.Visible = false;
             SW_ADD2.Visible = false;
             SW_DB_ADD2.Visible = false;
             BT_ADD_ADD2.Visible = true;
             BT_ADD_ADD2.Enabled = true;
+            BT_DELETE_ADD1.Visible = true;
+            BT_DELETE_ADD1.Enabled = true;
 
         }
 
