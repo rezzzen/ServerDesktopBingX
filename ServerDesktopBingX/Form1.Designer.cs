@@ -121,7 +121,45 @@
             SW_DB_S = new Controls.ToggleSwitch();
             SW_DB_ADD1 = new Controls.ToggleSwitch();
             SW_DB_ADD2 = new Controls.ToggleSwitch();
+            groupBox2 = new GroupBox();
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN = new Button();
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN = new Button();
+            TB_LOG_BOT_TELEGRAM_TOKEN = new TextBox();
+            label10 = new Label();
+            label9 = new Label();
+            SW_LOG_BOT_TELEGRAM = new Controls.ToggleSwitch();
+            SW_NOT_BOT_TELEGRAM = new Controls.ToggleSwitch();
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN = new Button();
+            label8 = new Label();
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN = new Button();
+            TB_NOT_BOT_TELEGRAM_TOKEN = new TextBox();
+            label7 = new Label();
+            groupBox3 = new GroupBox();
+            UD_NOT_CHANGE_ADD2 = new NumericUpDown();
+            UD_NOT_CHANGE_ADD1 = new NumericUpDown();
+            UD_NOT_CHANGE_S = new NumericUpDown();
+            UD_NOT_CHANGE_NG = new NumericUpDown();
+            UD_NOT_CHANGE_LCO = new NumericUpDown();
+            SW_LOG_ADD2 = new Controls.ToggleSwitch();
+            SW_LOG_ADD1 = new Controls.ToggleSwitch();
+            SW_LOG_S = new Controls.ToggleSwitch();
+            SW_LOG_NG = new Controls.ToggleSwitch();
+            SW_LOG_LCO = new Controls.ToggleSwitch();
+            SW_NOT_CHANGE_ADD2 = new Controls.ToggleSwitch();
+            SW_NOT_CHANGE_ADD1 = new Controls.ToggleSwitch();
+            SW_NOT_CHANGE_S = new Controls.ToggleSwitch();
+            SW_NOT_CHANGE_NG = new Controls.ToggleSwitch();
+            SW_NOT_CHANGE_LCO = new Controls.ToggleSwitch();
+            label23 = new Label();
+            label22 = new Label();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_S).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_NG).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_LCO).BeginInit();
             SuspendLayout();
             // 
             // TB_KEY
@@ -1042,11 +1080,378 @@
             SW_DB_ADD2.TabIndex = 110;
             SW_DB_ADD2.TextOnChecked = "";
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(BT_EDIT_LOG_BOT_TELEGRAM_TOKEN);
+            groupBox2.Controls.Add(BT_CHECK_LOG_BOT_TELEGRAM_TOKEN);
+            groupBox2.Controls.Add(TB_LOG_BOT_TELEGRAM_TOKEN);
+            groupBox2.Controls.Add(label10);
+            groupBox2.Controls.Add(label9);
+            groupBox2.Controls.Add(SW_LOG_BOT_TELEGRAM);
+            groupBox2.Controls.Add(SW_NOT_BOT_TELEGRAM);
+            groupBox2.Controls.Add(BT_EDIT_NOT_BOT_TELEGRAM_TOKEN);
+            groupBox2.Controls.Add(label8);
+            groupBox2.Controls.Add(BT_CHECK_NOT_BOT_TELEGRAM_TOKEN);
+            groupBox2.Controls.Add(TB_NOT_BOT_TELEGRAM_TOKEN);
+            groupBox2.Controls.Add(label7);
+            groupBox2.Location = new Point(13, 310);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(698, 152);
+            groupBox2.TabIndex = 111;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Telegram settings";
+            // 
+            // BT_EDIT_LOG_BOT_TELEGRAM_TOKEN
+            // 
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Image = (Image)resources.GetObject("BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Image");
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Location = new Point(648, 114);
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Name = "BT_EDIT_LOG_BOT_TELEGRAM_TOKEN";
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Size = new Size(32, 32);
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.TabIndex = 119;
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.UseVisualStyleBackColor = true;
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Click += TB_EDIT_LOG_BOT_TELEGRAM_Click;
+            // 
+            // BT_CHECK_LOG_BOT_TELEGRAM_TOKEN
+            // 
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Image = (Image)resources.GetObject("BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Image");
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Location = new Point(648, 113);
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Name = "BT_CHECK_LOG_BOT_TELEGRAM_TOKEN";
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Size = new Size(32, 32);
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.TabIndex = 118;
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.UseVisualStyleBackColor = true;
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Visible = false;
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Click += BT_CHECK_LOG_BOT_TELEGRAM_TOKEN_Click;
+            // 
+            // TB_LOG_BOT_TELEGRAM_TOKEN
+            // 
+            TB_LOG_BOT_TELEGRAM_TOKEN.Enabled = false;
+            TB_LOG_BOT_TELEGRAM_TOKEN.Location = new Point(64, 115);
+            TB_LOG_BOT_TELEGRAM_TOKEN.Name = "TB_LOG_BOT_TELEGRAM_TOKEN";
+            TB_LOG_BOT_TELEGRAM_TOKEN.ReadOnly = true;
+            TB_LOG_BOT_TELEGRAM_TOKEN.Size = new Size(578, 27);
+            TB_LOG_BOT_TELEGRAM_TOKEN.TabIndex = 117;
+            TB_LOG_BOT_TELEGRAM_TOKEN.UseSystemPasswordChar = true;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(62, 88);
+            label10.Name = "label10";
+            label10.Size = new Size(67, 20);
+            label10.TabIndex = 116;
+            label10.Text = "LOG BOT";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(6, 119);
+            label9.Name = "label9";
+            label9.Size = new Size(55, 20);
+            label9.TabIndex = 115;
+            label9.Text = "TOKEN";
+            // 
+            // SW_LOG_BOT_TELEGRAM
+            // 
+            SW_LOG_BOT_TELEGRAM.BackColor = Color.White;
+            SW_LOG_BOT_TELEGRAM.BackColorOFF = Color.Red;
+            SW_LOG_BOT_TELEGRAM.BackColorON = Color.YellowGreen;
+            SW_LOG_BOT_TELEGRAM.Checked = false;
+            SW_LOG_BOT_TELEGRAM.Font = new Font("Verdana", 9F);
+            SW_LOG_BOT_TELEGRAM.Location = new Point(13, 85);
+            SW_LOG_BOT_TELEGRAM.Name = "SW_LOG_BOT_TELEGRAM";
+            SW_LOG_BOT_TELEGRAM.Size = new Size(43, 27);
+            SW_LOG_BOT_TELEGRAM.TabIndex = 114;
+            SW_LOG_BOT_TELEGRAM.TextOnChecked = "";
+            // 
+            // SW_NOT_BOT_TELEGRAM
+            // 
+            SW_NOT_BOT_TELEGRAM.BackColor = Color.White;
+            SW_NOT_BOT_TELEGRAM.BackColorOFF = Color.Red;
+            SW_NOT_BOT_TELEGRAM.BackColorON = Color.YellowGreen;
+            SW_NOT_BOT_TELEGRAM.Checked = false;
+            SW_NOT_BOT_TELEGRAM.Font = new Font("Verdana", 9F);
+            SW_NOT_BOT_TELEGRAM.Location = new Point(13, 23);
+            SW_NOT_BOT_TELEGRAM.Name = "SW_NOT_BOT_TELEGRAM";
+            SW_NOT_BOT_TELEGRAM.Size = new Size(43, 27);
+            SW_NOT_BOT_TELEGRAM.TabIndex = 112;
+            SW_NOT_BOT_TELEGRAM.TextOnChecked = "";
+            // 
+            // BT_EDIT_NOT_BOT_TELEGRAM_TOKEN
+            // 
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Image = (Image)resources.GetObject("BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Image");
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Location = new Point(648, 50);
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Name = "BT_EDIT_NOT_BOT_TELEGRAM_TOKEN";
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Size = new Size(32, 32);
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.TabIndex = 112;
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.UseVisualStyleBackColor = true;
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Click += BT_EDIT_NOT_BOT_TELEGRAM_TOKEN_Click;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(62, 28);
+            label8.Name = "label8";
+            label8.Size = new Size(119, 20);
+            label8.TabIndex = 113;
+            label8.Text = "Notification BOT";
+            // 
+            // BT_CHECK_NOT_BOT_TELEGRAM_TOKEN
+            // 
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Image = (Image)resources.GetObject("BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Image");
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Location = new Point(648, 50);
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Name = "BT_CHECK_NOT_BOT_TELEGRAM_TOKEN";
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Size = new Size(32, 32);
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.TabIndex = 112;
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.UseVisualStyleBackColor = true;
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Visible = false;
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Click += BT_CHECK_NOT_BOT_TELEGRAM_TOKEN_Click;
+            // 
+            // TB_NOT_BOT_TELEGRAM_TOKEN
+            // 
+            TB_NOT_BOT_TELEGRAM_TOKEN.Enabled = false;
+            TB_NOT_BOT_TELEGRAM_TOKEN.Location = new Point(64, 53);
+            TB_NOT_BOT_TELEGRAM_TOKEN.Name = "TB_NOT_BOT_TELEGRAM_TOKEN";
+            TB_NOT_BOT_TELEGRAM_TOKEN.ReadOnly = true;
+            TB_NOT_BOT_TELEGRAM_TOKEN.Size = new Size(578, 27);
+            TB_NOT_BOT_TELEGRAM_TOKEN.TabIndex = 112;
+            TB_NOT_BOT_TELEGRAM_TOKEN.UseSystemPasswordChar = true;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(6, 56);
+            label7.Name = "label7";
+            label7.Size = new Size(55, 20);
+            label7.TabIndex = 112;
+            label7.Text = "TOKEN";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(UD_NOT_CHANGE_ADD2);
+            groupBox3.Controls.Add(UD_NOT_CHANGE_ADD1);
+            groupBox3.Controls.Add(UD_NOT_CHANGE_S);
+            groupBox3.Controls.Add(UD_NOT_CHANGE_NG);
+            groupBox3.Controls.Add(UD_NOT_CHANGE_LCO);
+            groupBox3.Controls.Add(SW_LOG_ADD2);
+            groupBox3.Controls.Add(SW_LOG_ADD1);
+            groupBox3.Controls.Add(SW_LOG_S);
+            groupBox3.Controls.Add(SW_LOG_NG);
+            groupBox3.Controls.Add(SW_LOG_LCO);
+            groupBox3.Controls.Add(SW_NOT_CHANGE_ADD2);
+            groupBox3.Controls.Add(SW_NOT_CHANGE_ADD1);
+            groupBox3.Controls.Add(SW_NOT_CHANGE_S);
+            groupBox3.Controls.Add(SW_NOT_CHANGE_NG);
+            groupBox3.Controls.Add(SW_NOT_CHANGE_LCO);
+            groupBox3.Controls.Add(label23);
+            groupBox3.Controls.Add(label22);
+            groupBox3.Location = new Point(1182, 16);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(198, 297);
+            groupBox3.TabIndex = 112;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Notifications settings";
+            // 
+            // UD_NOT_CHANGE_ADD2
+            // 
+            UD_NOT_CHANGE_ADD2.DecimalPlaces = 2;
+            UD_NOT_CHANGE_ADD2.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            UD_NOT_CHANGE_ADD2.Location = new Point(11, 261);
+            UD_NOT_CHANGE_ADD2.Name = "UD_NOT_CHANGE_ADD2";
+            UD_NOT_CHANGE_ADD2.Size = new Size(57, 27);
+            UD_NOT_CHANGE_ADD2.TabIndex = 128;
+            UD_NOT_CHANGE_ADD2.ThousandsSeparator = true;
+            // 
+            // UD_NOT_CHANGE_ADD1
+            // 
+            UD_NOT_CHANGE_ADD1.DecimalPlaces = 2;
+            UD_NOT_CHANGE_ADD1.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            UD_NOT_CHANGE_ADD1.Location = new Point(11, 230);
+            UD_NOT_CHANGE_ADD1.Name = "UD_NOT_CHANGE_ADD1";
+            UD_NOT_CHANGE_ADD1.Size = new Size(57, 27);
+            UD_NOT_CHANGE_ADD1.TabIndex = 127;
+            // 
+            // UD_NOT_CHANGE_S
+            // 
+            UD_NOT_CHANGE_S.DecimalPlaces = 2;
+            UD_NOT_CHANGE_S.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            UD_NOT_CHANGE_S.Location = new Point(11, 201);
+            UD_NOT_CHANGE_S.Name = "UD_NOT_CHANGE_S";
+            UD_NOT_CHANGE_S.Size = new Size(57, 27);
+            UD_NOT_CHANGE_S.TabIndex = 126;
+            // 
+            // UD_NOT_CHANGE_NG
+            // 
+            UD_NOT_CHANGE_NG.DecimalPlaces = 2;
+            UD_NOT_CHANGE_NG.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            UD_NOT_CHANGE_NG.Location = new Point(11, 171);
+            UD_NOT_CHANGE_NG.Name = "UD_NOT_CHANGE_NG";
+            UD_NOT_CHANGE_NG.Size = new Size(57, 27);
+            UD_NOT_CHANGE_NG.TabIndex = 125;
+            // 
+            // UD_NOT_CHANGE_LCO
+            // 
+            UD_NOT_CHANGE_LCO.DecimalPlaces = 2;
+            UD_NOT_CHANGE_LCO.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            UD_NOT_CHANGE_LCO.Location = new Point(11, 141);
+            UD_NOT_CHANGE_LCO.Name = "UD_NOT_CHANGE_LCO";
+            UD_NOT_CHANGE_LCO.Size = new Size(57, 27);
+            UD_NOT_CHANGE_LCO.TabIndex = 124;
+            // 
+            // SW_LOG_ADD2
+            // 
+            SW_LOG_ADD2.BackColor = Color.White;
+            SW_LOG_ADD2.BackColorOFF = Color.Red;
+            SW_LOG_ADD2.BackColorON = Color.YellowGreen;
+            SW_LOG_ADD2.Checked = false;
+            SW_LOG_ADD2.Font = new Font("Verdana", 9F);
+            SW_LOG_ADD2.Location = new Point(141, 261);
+            SW_LOG_ADD2.Name = "SW_LOG_ADD2";
+            SW_LOG_ADD2.Size = new Size(43, 27);
+            SW_LOG_ADD2.TabIndex = 123;
+            SW_LOG_ADD2.TextOnChecked = "";
+            // 
+            // SW_LOG_ADD1
+            // 
+            SW_LOG_ADD1.BackColor = Color.White;
+            SW_LOG_ADD1.BackColorOFF = Color.Red;
+            SW_LOG_ADD1.BackColorON = Color.YellowGreen;
+            SW_LOG_ADD1.Checked = false;
+            SW_LOG_ADD1.Font = new Font("Verdana", 9F);
+            SW_LOG_ADD1.Location = new Point(141, 231);
+            SW_LOG_ADD1.Name = "SW_LOG_ADD1";
+            SW_LOG_ADD1.Size = new Size(43, 27);
+            SW_LOG_ADD1.TabIndex = 122;
+            SW_LOG_ADD1.TextOnChecked = "";
+            // 
+            // SW_LOG_S
+            // 
+            SW_LOG_S.BackColor = Color.White;
+            SW_LOG_S.BackColorOFF = Color.Red;
+            SW_LOG_S.BackColorON = Color.YellowGreen;
+            SW_LOG_S.Checked = false;
+            SW_LOG_S.Font = new Font("Verdana", 9F);
+            SW_LOG_S.Location = new Point(141, 201);
+            SW_LOG_S.Name = "SW_LOG_S";
+            SW_LOG_S.Size = new Size(43, 27);
+            SW_LOG_S.TabIndex = 121;
+            SW_LOG_S.TextOnChecked = "";
+            // 
+            // SW_LOG_NG
+            // 
+            SW_LOG_NG.BackColor = Color.White;
+            SW_LOG_NG.BackColorOFF = Color.Red;
+            SW_LOG_NG.BackColorON = Color.YellowGreen;
+            SW_LOG_NG.Checked = false;
+            SW_LOG_NG.Font = new Font("Verdana", 9F);
+            SW_LOG_NG.Location = new Point(141, 171);
+            SW_LOG_NG.Name = "SW_LOG_NG";
+            SW_LOG_NG.Size = new Size(43, 27);
+            SW_LOG_NG.TabIndex = 120;
+            SW_LOG_NG.TextOnChecked = "";
+            // 
+            // SW_LOG_LCO
+            // 
+            SW_LOG_LCO.BackColor = Color.White;
+            SW_LOG_LCO.BackColorOFF = Color.Red;
+            SW_LOG_LCO.BackColorON = Color.YellowGreen;
+            SW_LOG_LCO.Checked = false;
+            SW_LOG_LCO.Font = new Font("Verdana", 9F);
+            SW_LOG_LCO.Location = new Point(141, 141);
+            SW_LOG_LCO.Name = "SW_LOG_LCO";
+            SW_LOG_LCO.Size = new Size(43, 27);
+            SW_LOG_LCO.TabIndex = 119;
+            SW_LOG_LCO.TextOnChecked = "";
+            // 
+            // SW_NOT_CHANGE_ADD2
+            // 
+            SW_NOT_CHANGE_ADD2.BackColor = Color.White;
+            SW_NOT_CHANGE_ADD2.BackColorOFF = Color.Red;
+            SW_NOT_CHANGE_ADD2.BackColorON = Color.YellowGreen;
+            SW_NOT_CHANGE_ADD2.Checked = false;
+            SW_NOT_CHANGE_ADD2.Font = new Font("Verdana", 9F);
+            SW_NOT_CHANGE_ADD2.Location = new Point(74, 261);
+            SW_NOT_CHANGE_ADD2.Name = "SW_NOT_CHANGE_ADD2";
+            SW_NOT_CHANGE_ADD2.Size = new Size(43, 27);
+            SW_NOT_CHANGE_ADD2.TabIndex = 118;
+            SW_NOT_CHANGE_ADD2.TextOnChecked = "";
+            // 
+            // SW_NOT_CHANGE_ADD1
+            // 
+            SW_NOT_CHANGE_ADD1.BackColor = Color.White;
+            SW_NOT_CHANGE_ADD1.BackColorOFF = Color.Red;
+            SW_NOT_CHANGE_ADD1.BackColorON = Color.YellowGreen;
+            SW_NOT_CHANGE_ADD1.Checked = false;
+            SW_NOT_CHANGE_ADD1.Font = new Font("Verdana", 9F);
+            SW_NOT_CHANGE_ADD1.Location = new Point(74, 230);
+            SW_NOT_CHANGE_ADD1.Name = "SW_NOT_CHANGE_ADD1";
+            SW_NOT_CHANGE_ADD1.Size = new Size(43, 27);
+            SW_NOT_CHANGE_ADD1.TabIndex = 117;
+            SW_NOT_CHANGE_ADD1.TextOnChecked = "";
+            // 
+            // SW_NOT_CHANGE_S
+            // 
+            SW_NOT_CHANGE_S.BackColor = Color.White;
+            SW_NOT_CHANGE_S.BackColorOFF = Color.Red;
+            SW_NOT_CHANGE_S.BackColorON = Color.YellowGreen;
+            SW_NOT_CHANGE_S.Checked = false;
+            SW_NOT_CHANGE_S.Font = new Font("Verdana", 9F);
+            SW_NOT_CHANGE_S.Location = new Point(74, 201);
+            SW_NOT_CHANGE_S.Name = "SW_NOT_CHANGE_S";
+            SW_NOT_CHANGE_S.Size = new Size(43, 27);
+            SW_NOT_CHANGE_S.TabIndex = 116;
+            SW_NOT_CHANGE_S.TextOnChecked = "";
+            // 
+            // SW_NOT_CHANGE_NG
+            // 
+            SW_NOT_CHANGE_NG.BackColor = Color.White;
+            SW_NOT_CHANGE_NG.BackColorOFF = Color.Red;
+            SW_NOT_CHANGE_NG.BackColorON = Color.YellowGreen;
+            SW_NOT_CHANGE_NG.Checked = false;
+            SW_NOT_CHANGE_NG.Font = new Font("Verdana", 9F);
+            SW_NOT_CHANGE_NG.Location = new Point(74, 171);
+            SW_NOT_CHANGE_NG.Name = "SW_NOT_CHANGE_NG";
+            SW_NOT_CHANGE_NG.Size = new Size(43, 27);
+            SW_NOT_CHANGE_NG.TabIndex = 115;
+            SW_NOT_CHANGE_NG.TextOnChecked = "";
+            // 
+            // SW_NOT_CHANGE_LCO
+            // 
+            SW_NOT_CHANGE_LCO.BackColor = Color.White;
+            SW_NOT_CHANGE_LCO.BackColorOFF = Color.Red;
+            SW_NOT_CHANGE_LCO.BackColorON = Color.YellowGreen;
+            SW_NOT_CHANGE_LCO.Checked = false;
+            SW_NOT_CHANGE_LCO.Font = new Font("Verdana", 9F);
+            SW_NOT_CHANGE_LCO.Location = new Point(74, 141);
+            SW_NOT_CHANGE_LCO.Name = "SW_NOT_CHANGE_LCO";
+            SW_NOT_CHANGE_LCO.Size = new Size(43, 27);
+            SW_NOT_CHANGE_LCO.TabIndex = 113;
+            SW_NOT_CHANGE_LCO.TextOnChecked = "";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(143, 118);
+            label23.Name = "label23";
+            label23.Size = new Size(36, 20);
+            label23.TabIndex = 114;
+            label23.Text = "LOG";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(11, 118);
+            label22.Name = "label22";
+            label22.Size = new Size(108, 20);
+            label22.TabIndex = 113;
+            label22.Text = "CHANGE > (%)";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1188, 320);
+            ClientSize = new Size(1386, 472);
+            Controls.Add(groupBox3);
+            Controls.Add(groupBox2);
             Controls.Add(SW_DB_ADD2);
             Controls.Add(SW_DB_ADD1);
             Controls.Add(SW_DB_S);
@@ -1138,6 +1543,15 @@
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_S).EndInit();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_NG).EndInit();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_LCO).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1234,5 +1648,36 @@
         private Controls.ToggleSwitch SW_DB_S;
         private Controls.ToggleSwitch SW_DB_ADD1;
         private Controls.ToggleSwitch SW_DB_ADD2;
+        private GroupBox groupBox2;
+        private Label label7;
+        private Button BT_EDIT_NOT_BOT_TELEGRAM_TOKEN;
+        private Button BT_CHECK_NOT_BOT_TELEGRAM_TOKEN;
+        private TextBox TB_NOT_BOT_TELEGRAM_TOKEN;
+        private Label label8;
+        private Controls.ToggleSwitch SW_NOT_BOT_TELEGRAM;
+        private Button BT_EDIT_LOG_BOT_TELEGRAM_TOKEN;
+        private Button BT_CHECK_LOG_BOT_TELEGRAM_TOKEN;
+        private TextBox TB_LOG_BOT_TELEGRAM_TOKEN;
+        private Label label10;
+        private Label label9;
+        private Controls.ToggleSwitch SW_LOG_BOT_TELEGRAM;
+        private GroupBox groupBox3;
+        private Controls.ToggleSwitch SW_NOT_CHANGE_NG;
+        private Controls.ToggleSwitch SW_NOT_CHANGE_LCO;
+        private Label label23;
+        private Label label22;
+        private NumericUpDown UD_NOT_CHANGE_LCO;
+        private Controls.ToggleSwitch SW_LOG_ADD2;
+        private Controls.ToggleSwitch SW_LOG_ADD1;
+        private Controls.ToggleSwitch SW_LOG_S;
+        private Controls.ToggleSwitch SW_LOG_NG;
+        private Controls.ToggleSwitch SW_LOG_LCO;
+        private Controls.ToggleSwitch SW_NOT_CHANGE_ADD2;
+        private Controls.ToggleSwitch SW_NOT_CHANGE_ADD1;
+        private Controls.ToggleSwitch SW_NOT_CHANGE_S;
+        private NumericUpDown UD_NOT_CHANGE_ADD2;
+        private NumericUpDown UD_NOT_CHANGE_ADD1;
+        private NumericUpDown UD_NOT_CHANGE_S;
+        private NumericUpDown UD_NOT_CHANGE_NG;
     }
 }

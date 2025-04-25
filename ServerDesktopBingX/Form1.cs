@@ -13,11 +13,19 @@ using System.Linq.Expressions;
 using ServerDesktopBingX.Controls;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Telegram.Bot.Types;
+using Telegram.Bot;
+using System.Windows.Forms;
+
+
+
 
 namespace ServerDesktopBingX
 {
+
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
@@ -27,6 +35,8 @@ namespace ServerDesktopBingX
             //TB_SECRET.Text = "O7bPmfWDsIrEn5NO4mE0kNSjVQMj7P66NzJPrI1TjN1HoA9hDLCrtgBKleU5KGwt5XhwH9z8coLUz6vSg";
             //TB_DBNAME.Text = "CDA";
             //TB_LOCALHOST.Text = "27017";
+            
+
             L_VERSION.Text = "24.04.2025";
             string API_KEY = TB_KEY.Text;
             string API_SECRET = TB_SECRET.Text;
@@ -59,14 +69,14 @@ namespace ServerDesktopBingX
                 if (SW_MAIN.Checked == true)
                 {
                     L_BINGX_STATUS.Text = "Connecting...";
-                    L_BINGX_STATUS.ForeColor = Color.DarkOrange;
+                    L_BINGX_STATUS.ForeColor = System.Drawing.Color.DarkOrange;
                 }
 
                 SW_LCO.Checked = Properties.Settings.Default.SW_LCO;
                 if (SW_LCO.Checked == true)
                 {
                     L_STATUS_LCO.Text = "Connecting...";
-                    L_STATUS_LCO.ForeColor = Color.DarkOrange;
+                    L_STATUS_LCO.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 SW_DB_LCO.Checked = Properties.Settings.Default.SW_DB_LCO;
 
@@ -74,7 +84,7 @@ namespace ServerDesktopBingX
                 if (SW_NG.Checked == true)
                 {
                     L_STATUS_NG.Text = "Connecting...";
-                    L_STATUS_NG.ForeColor = Color.DarkOrange;
+                    L_STATUS_NG.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 SW_DB_NG.Checked = Properties.Settings.Default.SW_DB_NG;
 
@@ -82,7 +92,7 @@ namespace ServerDesktopBingX
                 if (SW_S.Checked == true)
                 {
                     L_STATUS_S.Text = "Connecting...";
-                    L_STATUS_S.ForeColor = Color.DarkOrange;
+                    L_STATUS_S.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 SW_DB_S.Checked = Properties.Settings.Default.SW_DB_S;
 
@@ -93,7 +103,7 @@ namespace ServerDesktopBingX
                     if (SW_ADD1.Checked == true)
                     {
                         L_STATUS_ADD1.Text = "Connecting...";
-                        L_STATUS_ADD1.ForeColor = Color.DarkOrange;
+                        L_STATUS_ADD1.ForeColor = System.Drawing.Color.DarkOrange;
                     }
                     SW_DB_ADD1.Checked = Properties.Settings.Default.SW_DB_ADD1;
                 }
@@ -105,7 +115,7 @@ namespace ServerDesktopBingX
                     if (SW_ADD1.Checked == true)
                     {
                         L_STATUS_ADD2.Text = "Connecting...";
-                        L_STATUS_ADD2.ForeColor = Color.DarkOrange;
+                        L_STATUS_ADD2.ForeColor = System.Drawing.Color.DarkOrange;
                     }
                     SW_DB_ADD2.Checked = Properties.Settings.Default.SW_DB_ADD2;
                 }
@@ -122,6 +132,67 @@ namespace ServerDesktopBingX
                     TB_LOCALHOST.Text = Properties.Settings.Default.TB_LOCALHOST;
                 else
                     TB_LOCALHOST.Text = "27017";
+
+                if (Properties.Settings.Default.TB_NOT_BOT_TELEGRAM_TOKEN != "")
+                    TB_NOT_BOT_TELEGRAM_TOKEN.Text = Properties.Settings.Default.TB_NOT_BOT_TELEGRAM_TOKEN;
+
+                if (Properties.Settings.Default.TB_LOG_BOT_TELEGRAM_TOKEN != "")
+                    TB_LOG_BOT_TELEGRAM_TOKEN.Text = Properties.Settings.Default.TB_LOG_BOT_TELEGRAM_TOKEN;
+
+                SW_NOT_BOT_TELEGRAM.Checked = Properties.Settings.Default.SW_NOT_BOT_TELEGRAM;
+                SW_LOG_BOT_TELEGRAM.Checked = Properties.Settings.Default.SW_LOG_BOT_TELEGRAM;
+
+                SW_NOT_CHANGE_LCO.Checked = Properties.Settings.Default.SW_NOT_CHANGE_LCO;
+                SW_NOT_CHANGE_NG.Checked = Properties.Settings.Default.SW_NOT_CHANGE_NG;
+                SW_NOT_CHANGE_S.Checked = Properties.Settings.Default.SW_NOT_CHANGE_S;
+                SW_NOT_CHANGE_ADD1.Checked = Properties.Settings.Default.SW_NOT_CHANGE_ADD1;
+                SW_NOT_CHANGE_ADD2.Checked = Properties.Settings.Default.SW_NOT_CHANGE_ADD2;
+
+
+                SW_LOG_LCO.Checked = Properties.Settings.Default.SW_LOG_LCO;
+                SW_LOG_NG.Checked = Properties.Settings.Default.SW_LOG_NG;
+                SW_LOG_S.Checked = Properties.Settings.Default.SW_LOG_S;
+                SW_LOG_ADD1.Checked = Properties.Settings.Default.SW_LOG_ADD1;
+                SW_LOG_ADD2.Checked = Properties.Settings.Default.SW_LOG_ADD2;
+
+
+                UD_NOT_CHANGE_LCO.Value = Properties.Settings.Default.UD_NOT_CHANGE_LCO;
+                UD_NOT_CHANGE_NG.Value = Properties.Settings.Default.UD_NOT_CHANGE_NG;
+                UD_NOT_CHANGE_S.Value = Properties.Settings.Default.UD_NOT_CHANGE_S;
+                UD_NOT_CHANGE_ADD1.Value = Properties.Settings.Default.UD_NOT_CHANGE_ADD1;
+                UD_NOT_CHANGE_ADD2.Value = Properties.Settings.Default.UD_NOT_CHANGE_ADD2;
+
+
+
+                try
+                {
+                    if (TB_NOT_BOT_TELEGRAM_TOKEN.Text != "" && SW_NOT_BOT_TELEGRAM.Checked)
+                    {
+                        NotificationTelegramBot.Init(TB_NOT_BOT_TELEGRAM_TOKEN.Text);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string message = "Произошла ошибка при запуске Notification Telegram бота, проверьте введенный TOKEN";
+                    MessageBox.Show(message);
+                    LogTelegramBot.Send(message).ConfigureAwait(false);
+                }
+
+                try
+                {
+                    if (TB_LOG_BOT_TELEGRAM_TOKEN.Text != "" && SW_LOG_BOT_TELEGRAM.Checked)
+                    {
+                        LogTelegramBot.Init(TB_LOG_BOT_TELEGRAM_TOKEN.Text);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string message = "Произошла ошибка при запуске Log Telegram бота, проверьте введенный TOKEN";
+                    MessageBox.Show(message);
+                    LogTelegramBot.Send(message).ConfigureAwait(false);
+                }
+
+
 
                 if (TB_NAME_ADD1.Text == "")
                 {
@@ -146,7 +217,7 @@ namespace ServerDesktopBingX
                 {
                     BT_ADD_ADD1.Visible = false;
                     BT_ADD_ADD1.Enabled = false;
-                    this.Size = new System.Drawing.Size(1206, 359);
+                    this.Size = new System.Drawing.Size(1404, 519);
                     BT_DELETE_ADD1.Visible = true;
                     BT_DELETE_ADD1.Enabled = true;
 
@@ -241,12 +312,14 @@ namespace ServerDesktopBingX
             }
             catch (Exception ex)
             {
+                string message = $"Произошла ошибка: {ex.Message}";
                 MessageBox.Show(
-                    $"Произошла ошибка: {ex.Message}",
+                   message,
                     "Ошибка",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
+                await LogTelegramBot.Send(message).ConfigureAwait(false);
             }
         }
         async Task RunAssetUpdate(string symbol, string suffix, CancellationToken ct)
@@ -353,7 +426,7 @@ namespace ServerDesktopBingX
                                 if (label.Text == "Connected")
                                 {
                                     label.Text = "Disconnected";
-                                    label.ForeColor = Color.Red;
+                                    label.ForeColor = System.Drawing.Color.Red;
                                 }
                             }
                         }
@@ -373,7 +446,7 @@ namespace ServerDesktopBingX
             TimeSpan time = moscowTime.TimeOfDay;
             DayOfWeek day = moscowTime.DayOfWeek;
             return time >= new TimeSpan(4, 0, 0) && time < new TimeSpan(24, 0, 0);
-            
+
         }
 
         private bool IsTradingTimeMetal(DateTime moscowTime)
@@ -433,6 +506,11 @@ namespace ServerDesktopBingX
                 {
                     var log = Controls.Find($"L_LOG_{suffix}", true).FirstOrDefault();
                     var sw_db = Controls.Find($"SW_DB_{suffix}", true).FirstOrDefault() as ToggleSwitch;
+                    var sw_not = Controls.Find($"SW_NOT_CHANGE_{suffix}", true).FirstOrDefault() as ToggleSwitch;
+
+                    var ud = Controls.Find($"UD_NOT_CHANGE_{suffix}", true).FirstOrDefault() as NumericUpDown;
+
+                    var sw_log = Controls.Find($"SW_LOG_{suffix}", true).FirstOrDefault() as ToggleSwitch;
 
                     bool Session = true;
                     if (suffix == "S" || suffix == "G" || suffix == "P")
@@ -472,11 +550,65 @@ namespace ServerDesktopBingX
 
                                 await collection.InsertOneAsync(document);
                                 log.Text = $"Бар {lastSaved:HH:mm} сохранён";
+                                if (sw_log.Checked)
+                                {
+                                    var instrumentNames = new Dictionary<string, string>
+                                    {
+                                        { "ADD1", TB_NAME_ADD1?.Text ?? "ADD1" },
+                                        { "ADD2", TB_NAME_ADD2?.Text ?? "ADD2" }
+                                    };
+
+                                    var instrumentName = instrumentNames.TryGetValue(suffix, out var name)
+                                        ? name
+                                        : suffix;
+
+                                    await LogTelegramBot.Send($"Бар по инструменту {instrumentName} в {lastSaved:HH:mm} сохранён")
+                                        .ConfigureAwait(false);
+                                }
+                                
+
                             }
                             catch (Exception ex)
                             {
                                 log.Text = "Ошибка MongoDB";
+                                if (sw_log.Checked)
+                                {
+                                    var instrumentNames = new Dictionary<string, string>
+                                    {
+                                        { "ADD1", TB_NAME_ADD1?.Text ?? "ADD1" },
+                                        { "ADD2", TB_NAME_ADD2?.Text ?? "ADD2" }
+                                    };
+
+                                    var instrumentName = instrumentNames.TryGetValue(suffix, out var name)
+                                        ? name
+                                        : suffix;
+
+                                    await LogTelegramBot.Send($"Произошла ошибка при сохранении бара в {lastSaved:HH:mm} по инструменту {instrumentName}")
+                                        .ConfigureAwait(false);
+                                }
+                                
                             }
+                            decimal change = Convert.ToDecimal(Math.Round(
+                                (Convert.ToDouble(previousClose) - Convert.ToDouble(previousOpen)) /
+                                Convert.ToDouble(previousOpen) * 100, 2));
+                            if (ud.Value <= Math.Abs(change))
+                            {
+                                var instrumentNames = new Dictionary<string, string>
+                                {
+                                    { "ADD1", TB_NAME_ADD1.Text },
+                                    { "ADD2", TB_NAME_ADD2.Text }
+                                };
+
+                                var sign = change > 0 ? "+" : "-";
+                                var instrumentName = instrumentNames.TryGetValue(suffix, out var name)
+                                    ? name
+                                    : suffix;
+
+                                var message = $"Там капец! {instrumentName} изменился на {sign}{Math.Abs(change):0.00}%!";
+                                await NotificationTelegramBot.Send(message).ConfigureAwait(false);
+                            }
+
+
                         }
 
                         // Обновляем время последнего сохранения
@@ -515,7 +647,7 @@ namespace ServerDesktopBingX
                 }
             }
 
-            void SetColorForAll(Color color)
+            void SetColorForAll(System.Drawing.Color color)
             {
                 string[] types = { "OPEN", "CLOSE", "MAX", "MIN" };
                 foreach (var type in types)
@@ -531,7 +663,7 @@ namespace ServerDesktopBingX
                 }
             }
 
-            void SetColorForChange(Color color)
+            void SetColorForChange(System.Drawing.Color color)
             {
                 var change = Controls.Find($"L_CHANGE_{suffix}", true).FirstOrDefault();
                 change.ForeColor = color;
@@ -543,7 +675,7 @@ namespace ServerDesktopBingX
 
 
             // Основная логика
-            
+
 
 
             // Обновление MAX и MIN
@@ -583,34 +715,34 @@ namespace ServerDesktopBingX
 
                 if (openValue == closeValue)
                 {
-                    SetColorForAll(Color.White);
+                    SetColorForAll(System.Drawing.Color.White);
                 }
                 else if (openValue > closeValue)
                 {
-                    SetColorForAll(Color.LightPink);
+                    SetColorForAll(System.Drawing.Color.LightPink);
                 }
                 else
                 {
-                    SetColorForAll(Color.LightGreen);
+                    SetColorForAll(System.Drawing.Color.LightGreen);
                 }
                 L_BINGX_STATUS.Text = "Connected";
-                L_BINGX_STATUS.ForeColor = Color.Green;
+                L_BINGX_STATUS.ForeColor = System.Drawing.Color.Green;
                 var l = Controls.Find($"L_STATUS_{suffix}", true).FirstOrDefault() as Label;
                 l.Text = "Connected";
-                l.ForeColor = Color.Green;
+                l.ForeColor = System.Drawing.Color.Green;
 
 
                 if (openValue == closeValue)
                 {
-                    SetColorForChange(Color.Black);
+                    SetColorForChange(System.Drawing.Color.Black);
                 }
                 else if (openValue > closeValue)
                 {
-                    SetColorForChange(Color.Red);
+                    SetColorForChange(System.Drawing.Color.Red);
                 }
                 else
                 {
-                    SetColorForChange(Color.Green);
+                    SetColorForChange(System.Drawing.Color.Green);
                 }
 
                 // Добавленный код: расчет изменения цены
@@ -659,47 +791,47 @@ namespace ServerDesktopBingX
             if (SW_MAIN.Checked == false)
             {
                 L_BINGX_STATUS.Text = "Stopped";
-                L_BINGX_STATUS.ForeColor = Color.Red;
+                L_BINGX_STATUS.ForeColor = System.Drawing.Color.Red;
                 L_STATUS_LCO.Text = "Stopped";
-                L_STATUS_LCO.ForeColor = Color.Red;
+                L_STATUS_LCO.ForeColor = System.Drawing.Color.Red;
                 L_STATUS_NG.Text = "Stopped";
-                L_STATUS_NG.ForeColor = Color.Red;
+                L_STATUS_NG.ForeColor = System.Drawing.Color.Red;
                 L_STATUS_S.Text = "Stopped";
-                L_STATUS_S.ForeColor = Color.Red;
+                L_STATUS_S.ForeColor = System.Drawing.Color.Red;
                 L_STATUS_ADD1.Text = "Stopped";
-                L_STATUS_ADD1.ForeColor = Color.Red;
+                L_STATUS_ADD1.ForeColor = System.Drawing.Color.Red;
                 L_STATUS_ADD2.Text = "Stopped";
-                L_STATUS_ADD2.ForeColor = Color.Red;
+                L_STATUS_ADD2.ForeColor = System.Drawing.Color.Red;
 
             }
             else
             {
                 L_BINGX_STATUS.Text = "Connecting...";
-                L_BINGX_STATUS.ForeColor = Color.DarkOrange;
+                L_BINGX_STATUS.ForeColor = System.Drawing.Color.DarkOrange;
                 if (SW_LCO.Checked == true)
                 {
                     L_STATUS_LCO.Text = "Connecting...";
-                    L_STATUS_LCO.ForeColor = Color.DarkOrange;
+                    L_STATUS_LCO.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 if (SW_NG.Checked == true)
                 {
                     L_STATUS_NG.Text = "Connecting...";
-                    L_STATUS_NG.ForeColor = Color.DarkOrange;
+                    L_STATUS_NG.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 if (SW_S.Checked == true)
                 {
                     L_STATUS_S.Text = "Connecting...";
-                    L_STATUS_S.ForeColor = Color.DarkOrange;
+                    L_STATUS_S.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 if (SW_ADD1.Checked == true)
                 {
                     L_STATUS_ADD1.Text = "Connecting...";
-                    L_STATUS_ADD1.ForeColor = Color.DarkOrange;
+                    L_STATUS_ADD1.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 if (SW_ADD2.Checked == true)
                 {
                     L_STATUS_ADD2.Text = "Connecting...";
-                    L_STATUS_ADD2.ForeColor = Color.DarkOrange;
+                    L_STATUS_ADD2.ForeColor = System.Drawing.Color.DarkOrange;
                 }
             }
         }
@@ -746,7 +878,7 @@ namespace ServerDesktopBingX
             L_LOG_ADD2.Visible = true;
             L_CHANGE_ADD2.Visible = true;
             SW_ADD2.Visible = true;
-            SW_DB_ADD2.Visible = true; 
+            SW_DB_ADD2.Visible = true;
             BT_ADD_ADD2.Visible = false;
             BT_ADD_ADD2.Enabled = false;
             BT_DELETE_ADD1.Visible = false;
@@ -844,13 +976,13 @@ namespace ServerDesktopBingX
             if ((SW_LCO.Checked == true) && (SW_MAIN.Checked == true))
             {
                 L_STATUS_LCO.Text = "Connecting...";
-                L_STATUS_LCO.ForeColor = Color.DarkOrange;
+                L_STATUS_LCO.ForeColor = System.Drawing.Color.DarkOrange;
 
             }
             else
             {
                 L_STATUS_LCO.Text = "Stopped";
-                L_STATUS_LCO.ForeColor = Color.Red;
+                L_STATUS_LCO.ForeColor = System.Drawing.Color.Red;
             }
         }
 
@@ -859,13 +991,13 @@ namespace ServerDesktopBingX
             if ((SW_NG.Checked == true) && (SW_MAIN.Checked == true))
             {
                 L_STATUS_NG.Text = "Connecting...";
-                L_STATUS_NG.ForeColor = Color.DarkOrange;
+                L_STATUS_NG.ForeColor = System.Drawing.Color.DarkOrange;
 
             }
             else
             {
                 L_STATUS_NG.Text = "Stopped";
-                L_STATUS_NG.ForeColor = Color.Red;
+                L_STATUS_NG.ForeColor = System.Drawing.Color.Red;
             }
         }
 
@@ -874,13 +1006,13 @@ namespace ServerDesktopBingX
             if ((SW_S.Checked == true) && (SW_MAIN.Checked == true))
             {
                 L_STATUS_S.Text = "Connecting...";
-                L_STATUS_S.ForeColor = Color.DarkOrange;
+                L_STATUS_S.ForeColor = System.Drawing.Color.DarkOrange;
 
             }
             else
             {
                 L_STATUS_S.Text = "Stopped";
-                L_STATUS_S.ForeColor = Color.Red;
+                L_STATUS_S.ForeColor = System.Drawing.Color.Red;
             }
         }
 
@@ -889,13 +1021,13 @@ namespace ServerDesktopBingX
             if ((SW_ADD1.Checked == true) && (SW_MAIN.Checked == true))
             {
                 L_STATUS_ADD1.Text = "Connecting...";
-                L_STATUS_ADD1.ForeColor = Color.DarkOrange;
+                L_STATUS_ADD1.ForeColor = System.Drawing.Color.DarkOrange;
 
             }
             else
             {
                 L_STATUS_ADD1.Text = "Stopped";
-                L_STATUS_ADD1.ForeColor = Color.Red;
+                L_STATUS_ADD1.ForeColor = System.Drawing.Color.Red;
             }
         }
 
@@ -904,13 +1036,13 @@ namespace ServerDesktopBingX
             if ((SW_ADD2.Checked == true) && (SW_MAIN.Checked == true))
             {
                 L_STATUS_ADD2.Text = "Connecting...";
-                L_STATUS_ADD2.ForeColor = Color.DarkOrange;
+                L_STATUS_ADD2.ForeColor = System.Drawing.Color.DarkOrange;
 
             }
             else
             {
                 L_STATUS_ADD2.Text = "Stopped";
-                L_STATUS_ADD2.ForeColor = Color.Red;
+                L_STATUS_ADD2.ForeColor = System.Drawing.Color.Red;
             }
         }
 
@@ -918,16 +1050,16 @@ namespace ServerDesktopBingX
         {
             TB_NAME_ADD1.Text = "";
             TB_OPEN_ADD1.Text = "";
-            TB_OPEN_ADD1.BackColor = Color.WhiteSmoke;
+            TB_OPEN_ADD1.BackColor = System.Drawing.Color.WhiteSmoke;
             TB_CLOSE_ADD1.Text = "";
-            TB_CLOSE_ADD1.BackColor = Color.WhiteSmoke;
+            TB_CLOSE_ADD1.BackColor = System.Drawing.Color.WhiteSmoke;
             TB_MAX_ADD1.Text = "";
-            TB_MAX_ADD1.BackColor = Color.WhiteSmoke;
+            TB_MAX_ADD1.BackColor = System.Drawing.Color.WhiteSmoke;
             TB_MIN_ADD1.Text = "";
-            TB_MIN_ADD1.BackColor = Color.WhiteSmoke;
+            TB_MIN_ADD1.BackColor = System.Drawing.Color.WhiteSmoke;
             L_CHANGE_ADD1.Text = "";
             L_STATUS_ADD1.Text = "Stopped";
-            L_STATUS_ADD1.ForeColor = Color.Red;
+            L_STATUS_ADD1.ForeColor = System.Drawing.Color.Red;
             L_LOG_ADD1.Text = "";
             SW_ADD1.Checked = false;
             SW_DB_ADD1.Checked = false;
@@ -960,7 +1092,7 @@ namespace ServerDesktopBingX
                 TB_NAME_ADD1.Text = null;
                 SW_ADD1.Checked = false;
                 L_STATUS_ADD1.Text = "Stopped";
-                L_STATUS_ADD1.ForeColor = Color.Red;
+                L_STATUS_ADD1.ForeColor = System.Drawing.Color.Red;
                 TB_NAME_ADD1.Visible = false;
                 BT_CHECK_ADD1.Visible = false;
                 BT_CHECK_ADD1.Enabled = false;
@@ -988,19 +1120,19 @@ namespace ServerDesktopBingX
         {
             TB_NAME_ADD2.Text = "";
             TB_OPEN_ADD2.Text = "";
-            TB_OPEN_ADD2.BackColor = Color.WhiteSmoke;
+            TB_OPEN_ADD2.BackColor = System.Drawing.Color.WhiteSmoke;
             TB_CLOSE_ADD2.Text = "";
-            TB_CLOSE_ADD2.BackColor = Color.WhiteSmoke;
+            TB_CLOSE_ADD2.BackColor = System.Drawing.Color.WhiteSmoke;
             TB_MAX_ADD2.Text = "";
-            TB_MAX_ADD2.BackColor = Color.WhiteSmoke;
+            TB_MAX_ADD2.BackColor = System.Drawing.Color.WhiteSmoke;
             TB_MIN_ADD2.Text = "";
-            TB_MIN_ADD2.BackColor = Color.WhiteSmoke;
+            TB_MIN_ADD2.BackColor = System.Drawing.Color.WhiteSmoke;
             L_CHANGE_ADD2.Text = "";
             L_LOG_ADD2.Text = "";
             SW_ADD2.Checked = false;
             SW_DB_ADD2.Checked = false;
             L_STATUS_ADD2.Text = "Stopped";
-            L_STATUS_ADD2.ForeColor = Color.Red;
+            L_STATUS_ADD2.ForeColor = System.Drawing.Color.Red;
             TB_NAME_ADD2.Visible = false;
             BT_CHECK_ADD2.Visible = false;
             BT_CHECK_ADD2.Enabled = false;
@@ -1064,6 +1196,80 @@ namespace ServerDesktopBingX
             BT_CHECK_LOCALHOST.Enabled = false;
         }
 
+        private void BT_EDIT_NOT_BOT_TELEGRAM_TOKEN_Click(object sender, EventArgs e)
+        {
+            TB_NOT_BOT_TELEGRAM_TOKEN.ReadOnly = false;
+            TB_NOT_BOT_TELEGRAM_TOKEN.Enabled = true;
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Visible = false;
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Enabled = false;
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Visible = true;
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Enabled = true;
+        }
+
+        private void BT_CHECK_NOT_BOT_TELEGRAM_TOKEN_Click(object sender, EventArgs e)
+        {
+            TB_NOT_BOT_TELEGRAM_TOKEN.ReadOnly = true;
+            TB_NOT_BOT_TELEGRAM_TOKEN.Enabled = false;
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Visible = true;
+            BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Enabled = true;
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Visible = false;
+            BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Enabled = false;
+
+            try
+            {
+                if (TB_NOT_BOT_TELEGRAM_TOKEN.Text != "" && SW_NOT_BOT_TELEGRAM.Checked)
+                {
+                    NotificationTelegramBot.Init(TB_NOT_BOT_TELEGRAM_TOKEN.Text);
+                }
+                else
+                {
+                    NotificationTelegramBot.Stop();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка при проверке токена, проверьте введенный TOKEN");
+                LogTelegramBot.Send("Произошла ошибка при проверке токена Notification Bot, проверьте введенный TOKEN").ConfigureAwait(false);
+            }
+        }
+
+
+        private void TB_EDIT_LOG_BOT_TELEGRAM_Click(object sender, EventArgs e)
+        {
+            TB_LOG_BOT_TELEGRAM_TOKEN.ReadOnly = false;
+            TB_LOG_BOT_TELEGRAM_TOKEN.Enabled = true;
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Visible = false;
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Enabled = false;
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Visible = true;
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Enabled = true;
+        }
+
+        private void BT_CHECK_LOG_BOT_TELEGRAM_TOKEN_Click(object sender, EventArgs e)
+        {
+            TB_LOG_BOT_TELEGRAM_TOKEN.ReadOnly = true;
+            TB_LOG_BOT_TELEGRAM_TOKEN.Enabled = false;
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Visible = true;
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Enabled = true;
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Visible = false;
+            BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Enabled = false;
+            try
+            {
+                if (TB_LOG_BOT_TELEGRAM_TOKEN.Text != "" && SW_LOG_BOT_TELEGRAM.Checked)
+                {
+                    LogTelegramBot.Init(TB_NOT_BOT_TELEGRAM_TOKEN.Text);
+                }
+                else
+                {
+                    LogTelegramBot.Stop();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка при проверке токена, проверьте введенный TOKEN");
+
+            }
+        }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.SW_MAIN = SW_MAIN.Checked;
@@ -1083,7 +1289,230 @@ namespace ServerDesktopBingX
             Properties.Settings.Default.SW_ADD2 = SW_ADD2.Checked;
             Properties.Settings.Default.SW_DB_ADD1 = SW_DB_ADD1.Checked;
             Properties.Settings.Default.SW_DB_ADD2 = SW_DB_ADD2.Checked;
+
+
+            //Телега и уведомления
+            Properties.Settings.Default.SW_NOT_BOT_TELEGRAM = SW_NOT_BOT_TELEGRAM.Checked;
+            Properties.Settings.Default.SW_LOG_BOT_TELEGRAM = SW_LOG_BOT_TELEGRAM.Checked;
+            Properties.Settings.Default.TB_NOT_BOT_TELEGRAM_TOKEN = TB_NOT_BOT_TELEGRAM_TOKEN.Text;
+            Properties.Settings.Default.TB_LOG_BOT_TELEGRAM_TOKEN = TB_LOG_BOT_TELEGRAM_TOKEN.Text;
+            Properties.Settings.Default.SW_NOT_CHANGE_LCO = SW_NOT_CHANGE_LCO.Checked;
+            Properties.Settings.Default.SW_NOT_CHANGE_NG = SW_NOT_CHANGE_NG.Checked;
+            Properties.Settings.Default.SW_NOT_CHANGE_S = SW_NOT_CHANGE_S.Checked;
+            Properties.Settings.Default.SW_NOT_CHANGE_ADD1 = SW_NOT_CHANGE_ADD1.Checked;
+            Properties.Settings.Default.SW_NOT_CHANGE_ADD2 = SW_NOT_CHANGE_ADD2.Checked;
+            Properties.Settings.Default.SW_LOG_LCO = SW_LOG_LCO.Checked;
+            Properties.Settings.Default.SW_LOG_NG = SW_LOG_NG.Checked;
+            Properties.Settings.Default.SW_LOG_S = SW_LOG_S.Checked;
+            Properties.Settings.Default.SW_LOG_ADD1 = SW_LOG_ADD1.Checked;
+            Properties.Settings.Default.SW_LOG_ADD2 = SW_LOG_ADD2.Checked;
+            Properties.Settings.Default.UD_NOT_CHANGE_LCO = UD_NOT_CHANGE_LCO.Value;
+            Properties.Settings.Default.UD_NOT_CHANGE_NG = UD_NOT_CHANGE_NG.Value;
+            Properties.Settings.Default.UD_NOT_CHANGE_S = UD_NOT_CHANGE_S.Value;
+            Properties.Settings.Default.UD_NOT_CHANGE_ADD1 = UD_NOT_CHANGE_ADD1.Value;
+            Properties.Settings.Default.UD_NOT_CHANGE_ADD2 = UD_NOT_CHANGE_ADD2.Value;
+
+
             Properties.Settings.Default.Save();
+        }
+
+        private void BT_TELEGRAM_Click(object sender, EventArgs e)
+        {
+            NotificationTelegramBot.Send("Тестовое сообщение");
+        }
+    }
+    // Класс для управления ботом
+    public static class NotificationTelegramBot
+    {
+        private static CancellationTokenSource _cts;
+        private static TelegramBotClient _bot;
+        private static long? _chatId;
+        private static readonly string ConfigFile = "telegram.cfg";
+        private static readonly object LockObject = new object();
+
+        // Инициализация бота
+        public static void Init(string token)
+        {
+            LoadConfig();
+
+            _bot = new TelegramBotClient(token);
+            _cts = new CancellationTokenSource(); // Инициализируем токен
+
+            _bot.StartReceiving(
+                HandleUpdate,
+                HandleError,
+                cancellationToken: _cts.Token // Передаем токен
+            );
+        }
+
+        public static void Stop()
+        {
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = null;
+            _bot = null;
+            _chatId = null;
+        }
+
+        // Загрузка сохраненного chat ID
+        private static void LoadConfig()
+        {
+            if (File.Exists(ConfigFile))
+            {
+                var content = File.ReadAllText(ConfigFile);
+                if (long.TryParse(content, out long savedId))
+                {
+                    _chatId = savedId;
+                }
+            }
+        }
+
+        // Сохранение chat ID
+        private static void SaveChatId(long id)
+        {
+            lock (LockObject)
+            {
+                _chatId = id;
+                File.WriteAllText(ConfigFile, id.ToString());
+            }
+        }
+
+        // Отправка сообщения
+        public static async Task Send(string message)
+        {
+            if (_chatId.HasValue && _bot != null)
+            {
+                try
+                {
+                    await _bot.SendMessage(
+                        chatId: _chatId.Value,
+                        text: message
+                    );
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка отправки: {ex.Message}");
+                }
+            }
+        }
+
+        // Обработка входящих сообщений
+        private static async Task HandleUpdate(ITelegramBotClient bot, Update update, CancellationToken ct)
+        {
+            if (update.Message?.Text == "/start" && !_chatId.HasValue)
+            {
+                var newChatId = update.Message.Chat.Id;
+                SaveChatId(newChatId);
+                await bot.SendMessage(
+                    chatId: newChatId,
+                    text: "Вы стали получателем уведомлений!"
+                );
+            }
+        }
+
+        // Обработка ошибок
+        private static Task HandleError(ITelegramBotClient bot, Exception ex, CancellationToken ct)
+        {
+            Console.WriteLine($"Ошибка бота: {ex.Message}");
+            return Task.CompletedTask;
+        }
+    }
+
+
+
+    public static class LogTelegramBot
+    {
+        private static CancellationTokenSource _cts;
+        private static TelegramBotClient _bot;
+        private static long? _chatId;
+        private static readonly string ConfigFile = "log_telegram.cfg";
+        private static readonly object LockObject = new object();
+
+        // Инициализация бота
+        public static void Init(string token)
+        {
+            LoadConfig();
+
+            _bot = new TelegramBotClient(token);
+            _cts = new CancellationTokenSource(); // Инициализируем токен
+
+            _bot.StartReceiving(
+                HandleUpdate,
+                HandleError,
+                cancellationToken: _cts.Token // Передаем токен
+            );
+        }
+
+        public static void Stop()
+        {
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = null;
+            _bot = null;
+            _chatId = null;
+        }
+
+        // Загрузка сохраненного chat ID
+        private static void LoadConfig()
+        {
+            if (File.Exists(ConfigFile))
+            {
+                var content = File.ReadAllText(ConfigFile);
+                if (long.TryParse(content, out long savedId))
+                {
+                    _chatId = savedId;
+                }
+            }
+        }
+
+        // Сохранение chat ID
+        private static void SaveChatId(long id)
+        {
+            lock (LockObject)
+            {
+                _chatId = id;
+                File.WriteAllText(ConfigFile, id.ToString());
+            }
+        }
+
+        // Отправка сообщения
+        public static async Task Send(string message)
+        {
+            if (_chatId.HasValue && _bot != null)
+            {
+                try
+                {
+                    await _bot.SendMessage(
+                        chatId: _chatId.Value,
+                        text: message
+                    );
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка отправки: {ex.Message}");
+                }
+            }
+        }
+
+        // Обработка входящих сообщений
+        private static async Task HandleUpdate(ITelegramBotClient bot, Update update, CancellationToken ct)
+        {
+            if (update.Message?.Text == "/start" && !_chatId.HasValue)
+            {
+                var newChatId = update.Message.Chat.Id;
+                SaveChatId(newChatId);
+                await bot.SendMessage(
+                    chatId: newChatId,
+                    text: "Вы стали получателем уведомлений!"
+                );
+            }
+        }
+
+        // Обработка ошибок
+        private static Task HandleError(ITelegramBotClient bot, Exception ex, CancellationToken ct)
+        {
+            Console.WriteLine($"Ошибка бота: {ex.Message}");
+            return Task.CompletedTask;
         }
     }
 }

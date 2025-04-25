@@ -226,5 +226,233 @@ namespace ServerDesktopBingX.Properties {
                 this["TB_NAME_ADD2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TB_NOT_BOT_TELEGRAM_TOKEN {
+            get {
+                return ((string)(this["TB_NOT_BOT_TELEGRAM_TOKEN"]));
+            }
+            set {
+                this["TB_NOT_BOT_TELEGRAM_TOKEN"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TB_LOG_BOT_TELEGRAM_TOKEN {
+            get {
+                return ((string)(this["TB_LOG_BOT_TELEGRAM_TOKEN"]));
+            }
+            set {
+                this["TB_LOG_BOT_TELEGRAM_TOKEN"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_NOT_CHANGE_LCO {
+            get {
+                return ((bool)(this["SW_NOT_CHANGE_LCO"]));
+            }
+            set {
+                this["SW_NOT_CHANGE_LCO"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_NOT_CHANGE_NG {
+            get {
+                return ((bool)(this["SW_NOT_CHANGE_NG"]));
+            }
+            set {
+                this["SW_NOT_CHANGE_NG"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_NOT_CHANGE_ADD1 {
+            get {
+                return ((bool)(this["SW_NOT_CHANGE_ADD1"]));
+            }
+            set {
+                this["SW_NOT_CHANGE_ADD1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_NOT_CHANGE_ADD2 {
+            get {
+                return ((bool)(this["SW_NOT_CHANGE_ADD2"]));
+            }
+            set {
+                this["SW_NOT_CHANGE_ADD2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_NOT_CHANGE_S {
+            get {
+                return ((bool)(this["SW_NOT_CHANGE_S"]));
+            }
+            set {
+                this["SW_NOT_CHANGE_S"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_LOG_LCO {
+            get {
+                return ((bool)(this["SW_LOG_LCO"]));
+            }
+            set {
+                this["SW_LOG_LCO"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_LOG_NG {
+            get {
+                return ((bool)(this["SW_LOG_NG"]));
+            }
+            set {
+                this["SW_LOG_NG"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_LOG_S {
+            get {
+                return ((bool)(this["SW_LOG_S"]));
+            }
+            set {
+                this["SW_LOG_S"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_LOG_ADD1 {
+            get {
+                return ((bool)(this["SW_LOG_ADD1"]));
+            }
+            set {
+                this["SW_LOG_ADD1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_LOG_ADD2 {
+            get {
+                return ((bool)(this["SW_LOG_ADD2"]));
+            }
+            set {
+                this["SW_LOG_ADD2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal UD_NOT_CHANGE_LCO {
+            get {
+                return ((decimal)(this["UD_NOT_CHANGE_LCO"]));
+            }
+            set {
+                this["UD_NOT_CHANGE_LCO"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal UD_NOT_CHANGE_NG {
+            get {
+                return ((decimal)(this["UD_NOT_CHANGE_NG"]));
+            }
+            set {
+                this["UD_NOT_CHANGE_NG"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal UD_NOT_CHANGE_S {
+            get {
+                return ((decimal)(this["UD_NOT_CHANGE_S"]));
+            }
+            set {
+                this["UD_NOT_CHANGE_S"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal UD_NOT_CHANGE_ADD1 {
+            get {
+                return ((decimal)(this["UD_NOT_CHANGE_ADD1"]));
+            }
+            set {
+                this["UD_NOT_CHANGE_ADD1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal UD_NOT_CHANGE_ADD2 {
+            get {
+                return ((decimal)(this["UD_NOT_CHANGE_ADD2"]));
+            }
+            set {
+                this["UD_NOT_CHANGE_ADD2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_NOT_BOT_TELEGRAM {
+            get {
+                return ((bool)(this["SW_NOT_BOT_TELEGRAM"]));
+            }
+            set {
+                this["SW_NOT_BOT_TELEGRAM"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_LOG_BOT_TELEGRAM {
+            get {
+                return ((bool)(this["SW_LOG_BOT_TELEGRAM"]));
+            }
+            set {
+                this["SW_LOG_BOT_TELEGRAM"] = value;
+            }
+        }
     }
 }
