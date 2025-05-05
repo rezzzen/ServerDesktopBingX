@@ -37,7 +37,7 @@ namespace ServerDesktopBingX
             //TB_LOCALHOST.Text = "27017";
             
 
-            L_VERSION.Text = "24.04.2025";
+            L_VERSION.Text = "25.04.2025";
             string API_KEY = TB_KEY.Text;
             string API_SECRET = TB_SECRET.Text;
             string HOST = "open-api.bingx.com";
@@ -445,7 +445,7 @@ namespace ServerDesktopBingX
 
             TimeSpan time = moscowTime.TimeOfDay;
             DayOfWeek day = moscowTime.DayOfWeek;
-            return time >= new TimeSpan(4, 0, 0) && time < new TimeSpan(24, 0, 0);
+            return time >= new TimeSpan(4, 0, 0) || time < new TimeSpan(0, 0, 0);
 
         }
 
@@ -458,7 +458,7 @@ namespace ServerDesktopBingX
 
             TimeSpan time = moscowTime.TimeOfDay;
             DayOfWeek day = moscowTime.DayOfWeek;
-            return time >= new TimeSpan(2, 0, 0) && time < new TimeSpan(24, 0, 0);
+            return time >= new TimeSpan(2, 0, 0) || time < new TimeSpan(0, 0, 0);
 
         }
 
@@ -470,13 +470,14 @@ namespace ServerDesktopBingX
 
         async void UpdateUIElements(string suffix, dynamic item)
         {
+
             var moscowTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Russian Standard Time");
             DateTime now = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, moscowTimeZone);
 
             var currentPrice = item.currentPrice.ToString();
             // ¬ычисл€ем начало текущего п€тиминутного бара
             int minutes = now.Minute - (now.Minute % 5);
-            DateTime currentBarStart = new DateTime(now.Year, now.Month, now.Day, now.Hour, minutes, 0);
+            DateTime currentBarStart = now.Date.AddHours(now.Hour).AddMinutes(minutes - now.Minute % 5);
 
             // Ѕлокируем дл€ потокобезопасности
             lock (_lock)
@@ -493,6 +494,8 @@ namespace ServerDesktopBingX
             {
                 lastSaved = _lastSavedBarTimes[suffix];
             }
+
+
 
             if (currentBarStart > lastSaved)
             {
@@ -1204,6 +1207,7 @@ namespace ServerDesktopBingX
             BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Enabled = false;
             BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Visible = true;
             BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Enabled = true;
+            TB_NOT_BOT_TELEGRAM_TOKEN.UseSystemPasswordChar = false;
         }
 
         private void BT_CHECK_NOT_BOT_TELEGRAM_TOKEN_Click(object sender, EventArgs e)
@@ -1214,6 +1218,7 @@ namespace ServerDesktopBingX
             BT_EDIT_NOT_BOT_TELEGRAM_TOKEN.Enabled = true;
             BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Visible = false;
             BT_CHECK_NOT_BOT_TELEGRAM_TOKEN.Enabled = false;
+            TB_NOT_BOT_TELEGRAM_TOKEN.UseSystemPasswordChar = true;
 
             try
             {
@@ -1242,6 +1247,7 @@ namespace ServerDesktopBingX
             BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Enabled = false;
             BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Visible = true;
             BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Enabled = true;
+            TB_LOG_BOT_TELEGRAM_TOKEN.UseSystemPasswordChar = false;
         }
 
         private void BT_CHECK_LOG_BOT_TELEGRAM_TOKEN_Click(object sender, EventArgs e)
@@ -1252,6 +1258,7 @@ namespace ServerDesktopBingX
             BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Enabled = true;
             BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Visible = false;
             BT_CHECK_LOG_BOT_TELEGRAM_TOKEN.Enabled = false;
+            TB_LOG_BOT_TELEGRAM_TOKEN.UseSystemPasswordChar = true;
             try
             {
                 if (TB_LOG_BOT_TELEGRAM_TOKEN.Text != "" && SW_LOG_BOT_TELEGRAM.Checked)
