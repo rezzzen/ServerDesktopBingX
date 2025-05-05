@@ -172,6 +172,16 @@ namespace ServerDesktopBingX
                 SW_BACKUP.Checked = Properties.Settings.Default.SW_BACKUP;
                 SW_BACKUP_TELEGRAM.Checked = Properties.Settings.Default.SW_BACKUP_TELEGRAM;
 
+                if (Properties.Settings.Default.DTP_BACKUP == "")
+                {
+                    DTP_BACKUP.Value = DateTime.Parse("1:00");
+                }
+                else
+                {
+                    DTP_BACKUP.Value = DateTime.Parse(Properties.Settings.Default.DTP_BACKUP);
+                }
+                
+
 
                 try
                 {
@@ -1654,6 +1664,8 @@ namespace ServerDesktopBingX
 
             Properties.Settings.Default.SW_BACKUP = SW_BACKUP.Checked;
             Properties.Settings.Default.SW_BACKUP_TELEGRAM = SW_BACKUP_TELEGRAM.Checked;
+
+            Properties.Settings.Default.DTP_BACKUP = (DTP_BACKUP.Value).ToString();
 
             Properties.Settings.Default.Save();
         }

@@ -514,5 +514,17 @@ namespace ServerDesktopBingX.Properties {
                 this["SW_BACKUP_TELEGRAM"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DTP_BACKUP {
+            get {
+                return ((string)(this["DTP_BACKUP"]));
+            }
+            set {
+                this["DTP_BACKUP"] = value;
+            }
+        }
     }
 }
