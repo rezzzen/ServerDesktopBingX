@@ -5,7 +5,9 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Linq;
 using Newtonsoft.Json;
-
+using System.IO.Compression;
+using Telegram.Bot;
+using Telegram.Bot.Types;
 using System.Security.Cryptography;
 using System.Runtime.CompilerServices;
 using System.Globalization;
@@ -16,6 +18,9 @@ using MongoDB.Bson;
 using Telegram.Bot.Types;
 using Telegram.Bot;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
+using System.IO.Compression;
 
 
 
@@ -26,18 +31,20 @@ namespace ServerDesktopBingX
     public partial class Form1 : Form
     {
 
+
         public Form1()
         {
             InitializeComponent();
+            InitializeBackupSystem();
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
             UpdateDateTimeAsync();
             //TB_KEY.Text = "w1RI3Q6HD5Q5Xu2bphWC6G1YnKRl6xR6pZvlbbWhGIxc68yhHg8B6pIwoWd8nrxyYPxpLydOPrsDWz0KAVHBw";
             //TB_SECRET.Text = "O7bPmfWDsIrEn5NO4mE0kNSjVQMj7P66NzJPrI1TjN1HoA9hDLCrtgBKleU5KGwt5XhwH9z8coLUz6vSg";
             //TB_DBNAME.Text = "CDA";
             //TB_LOCALHOST.Text = "27017";
-            
 
-            L_VERSION.Text = "25.04.2025";
+
+            L_VERSION.Text = "05.05.2025";
             string API_KEY = TB_KEY.Text;
             string API_SECRET = TB_SECRET.Text;
             string HOST = "open-api.bingx.com";
@@ -162,6 +169,8 @@ namespace ServerDesktopBingX
                 UD_NOT_CHANGE_ADD1.Value = Properties.Settings.Default.UD_NOT_CHANGE_ADD1;
                 UD_NOT_CHANGE_ADD2.Value = Properties.Settings.Default.UD_NOT_CHANGE_ADD2;
 
+                SW_BACKUP.Checked = Properties.Settings.Default.SW_BACKUP;
+                SW_BACKUP_TELEGRAM.Checked = Properties.Settings.Default.SW_BACKUP_TELEGRAM;
 
 
                 try
@@ -269,6 +278,280 @@ namespace ServerDesktopBingX
 
 
         }
+
+        private System.Timers.Timer backupTimer;
+        private BackupManager backupManager;
+        // В классе BackupManager:
+        private readonly string backupDirectory = "DB_Backups"; // Путь по умолчанию
+
+        private void InitializeBackupSystem()
+        {
+            // Инициализация таймера
+            backupTimer = new System.Timers.Timer(CalculateInterval());
+            backupTimer.Elapsed += BackupTimerElapsed;
+            backupTimer.AutoReset = true;
+            backupTimer.Start();
+
+            // Загрузка сохраненных настроек
+            LoadBackupSettings();
+        }
+
+        private void LoadBackupSettings()
+        {
+            TB_DIRECTORY_BACKUP.Text = Properties.Settings.Default.TB_DIRECTORY_BACKUP;
+            UD_DAYS_BACKUP.Value = Properties.Settings.Default.UD_DAYS_BACKUP;
+            UD_STORE_BACKUP.Value = Properties.Settings.Default.UD_STORE_BACKUP;
+        }
+
+        private void SaveBackupSettings()
+        {
+            Properties.Settings.Default.TB_DIRECTORY_BACKUP = TB_DIRECTORY_BACKUP.Text;
+            Properties.Settings.Default.UD_DAYS_BACKUP = (int)UD_DAYS_BACKUP.Value;
+            Properties.Settings.Default.UD_STORE_BACKUP = (int)UD_STORE_BACKUP.Value;
+            Properties.Settings.Default.Save();
+        }
+
+        private async void BackupTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            backupTimer.Interval = CalculateInterval();
+
+            if (DateTime.Now.TimeOfDay >= DTP_BACKUP.Value.TimeOfDay &&
+                DateTime.Now.TimeOfDay < DTP_BACKUP.Value.TimeOfDay.Add(TimeSpan.FromMinutes(1)))
+            {
+                await PerformScheduledBackup(1);
+            }
+        }
+
+        private async Task PerformScheduledBackup(int a)
+        {
+            if (SW_BACKUP.Checked == true)
+            {
+                try
+                {
+                    // Уничтожаем предыдущий экземпляр
+                    if (backupManager != null)
+                    {
+                        backupManager.Dispose();
+                        backupManager = null;
+                    }
+                    if (a == 1)
+                    {
+                        // Создаем новый экземпляр
+                        backupManager = new BackupManager(
+                            TB_DIRECTORY_BACKUP.Text,
+                            (int)UD_DAYS_BACKUP.Value,
+                            (int)UD_STORE_BACKUP.Value,
+                            SW_BACKUP_TELEGRAM.Checked && SW_LOG_BOT_TELEGRAM.Checked
+                        );
+
+                        var result = await backupManager.PerformBackup(
+                            TB_LOCALHOST.Text,
+                            TB_DBNAME.Text
+                        );
+
+                        // Освобождаем ресурсы после выполнения
+                        backupManager.Dispose();
+                        backupManager = null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Освобождаем ресурсы даже при ошибке
+                    backupManager?.Dispose();
+                    backupManager = null;
+
+                    if (SW_LOG_BOT_TELEGRAM.Checked == true)
+                    {
+                        await NotificationTelegramBot.Send($"Ошибка бэкапа: {ex.Message}");
+                    }
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private class BackupManager : IDisposable
+        {
+            private readonly string backupDirectory;
+            private readonly int backupFrequency;
+            private readonly int backupsToKeep;
+            private readonly bool backupsTg;
+
+            public bool IsDisposed { get; private set; }
+
+            public BackupManager(string directory, int frequency, int keep, bool tg)
+            {
+                backupDirectory = directory;
+                backupFrequency = frequency;
+                backupsToKeep = keep;
+                backupsTg = tg;
+            }
+
+
+            public async Task<bool> PerformBackup(string port, string dbName)
+            {
+                if (DateTime.Now.Day % backupFrequency != 0)
+                    return false;
+
+                var backupPath = Path.Combine(
+                    backupDirectory,
+                    $"{dbName}_{DateTime.Now:yyyyMMdd_HHmmss}"
+                );
+
+                Directory.CreateDirectory(backupPath);
+                string zipPath = null;
+
+                try
+                {
+                    // Выполняем mongodump
+                    var processInfo = new ProcessStartInfo
+                    {
+                        FileName = @"C:\Program Files\MongoDB\Tools\100\bin\mongodump.exe",
+                        Arguments = $"--host localhost --port {port} --db {dbName} --out {backupPath}",
+                        CreateNoWindow = true,
+                    };
+
+                    using (var process = Process.Start(processInfo))
+                    {
+                        CleanOldBackups();
+                        string error = await process.StandardError.ReadToEndAsync();
+
+                        await process.WaitForExitAsync();
+
+                        if (process.ExitCode != 0)
+                            throw new Exception($"Mongodump error: {error}");
+                    }
+
+                    if (backupsTg == true)
+                    {
+                        // Архивируем результат
+                        zipPath = $"{backupPath}.zip";
+                        ZipFile.CreateFromDirectory(backupPath, zipPath);
+                        Directory.Delete(backupPath, true);
+                        await SendBackupToTelegram(zipPath);
+                    }
+
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    // Очистка в случае ошибки
+                    if (Directory.Exists(backupPath))
+                        Directory.Delete(backupPath, true);
+
+                    if (File.Exists(zipPath))
+                        File.Delete(zipPath);
+
+                    await LogTelegramBot.Send($"Ошибка бэкапа: {ex.Message}");
+                    return false;
+                }
+            }
+
+
+            public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+
+            protected virtual void Dispose(bool disposing)
+            {
+                if (!IsDisposed)
+                {
+                    if (disposing)
+                    {
+                        // Освобождение управляемых ресурсов (если есть)
+                    }
+
+                    IsDisposed = true;
+                }
+            }
+
+            ~BackupManager()
+            {
+                Dispose(false);
+            }
+
+
+
+
+            private async Task SendBackupToTelegram(string filePath)
+            {
+                try
+                {
+                    using (var stream = File.OpenRead(filePath))
+                    {
+                        await LogTelegramBot.SendDocument(
+                            document: new InputFileStream(stream, Path.GetFileName(filePath)),
+                            caption: $"Бэкап {DateTime.Now:yyyy-MM-dd HH:mm}"
+                        );
+                    }
+                    File.Delete(filePath); // Удаляем архив после отправки
+                }
+                catch (Exception ex)
+                {
+                    await LogTelegramBot.Send($"Ошибка отправки архива: {ex.Message}");
+                    throw;
+                }
+            }
+
+            private void CleanOldBackups()
+            {
+                try
+                {
+                    // Получаем все поддиректории с проверкой формата имени
+                    var backups = Directory.GetDirectories(backupDirectory)
+                        .Select(d => new
+                        {
+                            Path = d,
+                            Name = Path.GetFileName(d)
+                        })
+                        .Where(d => IsValidBackupName(d.Name))
+                        .OrderByDescending(d => d.Name) // Сортировка по убыванию
+                        .ToList();
+
+                    // Удаляем все, кроме первых backupsToKeep бэкапов
+                    var backupsToDelete = backups.Skip(backupsToKeep);
+
+                    foreach (var dir in backupsToDelete)
+                    {
+                        Directory.Delete(dir.Path, recursive: true);
+                        Console.WriteLine($"Удален бэкап: {dir.Path}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ошибка при удалении старых бэкапов: {ex.Message}");
+                }
+            }
+
+            private bool IsValidBackupName(string name)
+            {
+                // Регулярное выражение для проверки формата имени (пример: CDA_20231201_120000)
+                return Regex.IsMatch(name, @"^[a-zA-Z0-9]+_\d{8}_\d{6}$");
+            }
+
+
+        }
+
+
+
+
+
+        private double CalculateInterval()
+        {
+            var now = DateTime.Now;
+            var targetTime = DTP_BACKUP.Value.TimeOfDay; // Берём время из DateTimePicker
+            var nextRun = now.Date.Add(targetTime);
+
+            if (now > nextRun)
+                nextRun = nextRun.AddDays(1);
+
+            return (nextRun - now).TotalMilliseconds;
+        }
+
+
+
+
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -568,7 +851,7 @@ namespace ServerDesktopBingX
                                     await LogTelegramBot.Send($"Бар по инструменту {instrumentName} в {lastSaved:HH:mm} сохранён")
                                         .ConfigureAwait(false);
                                 }
-                                
+
 
                             }
                             catch (Exception ex)
@@ -589,7 +872,7 @@ namespace ServerDesktopBingX
                                     await LogTelegramBot.Send($"Произошла ошибка при сохранении бара в {lastSaved:HH:mm} по инструменту {instrumentName}")
                                         .ConfigureAwait(false);
                                 }
-                                
+
                             }
                             decimal change = Convert.ToDecimal(Math.Round(
                                 (Convert.ToDouble(previousClose) - Convert.ToDouble(previousOpen)) /
@@ -1277,6 +1560,55 @@ namespace ServerDesktopBingX
             }
         }
 
+
+        private void BT_EDIT_BACKUP_Click(object sender, EventArgs e)
+        {
+            TB_DIRECTORY_BACKUP.ReadOnly = false;
+            TB_DIRECTORY_BACKUP.Enabled = true;
+            BT_EDIT_BACKUP.Visible = false;
+            BT_EDIT_BACKUP.Enabled = false;
+            BT_CHECK_BACKUP.Visible = true;
+            BT_CHECK_BACKUP.Enabled = true;
+            using (var fbd = new FolderBrowserDialog())
+            {
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    TB_DIRECTORY_BACKUP.Text = fbd.SelectedPath;
+                    SaveBackupSettings();
+                }
+            }
+        }
+
+        private void BT_CHECK_BACKUP_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                if (!Directory.Exists(TB_DIRECTORY_BACKUP.Text))
+                {
+                    TB_DIRECTORY_BACKUP.ReadOnly = true;
+                    TB_DIRECTORY_BACKUP.Enabled = false;
+                    BT_EDIT_BACKUP.Visible = true;
+                    BT_EDIT_BACKUP.Enabled = true;
+                    BT_CHECK_BACKUP.Visible = false;
+                    BT_CHECK_BACKUP.Enabled = false;
+                    Directory.CreateDirectory(TB_DIRECTORY_BACKUP.Text);
+                    MessageBox.Show("Директория успешно создана!");
+                }
+                TB_DIRECTORY_BACKUP.ReadOnly = true;
+                TB_DIRECTORY_BACKUP.Enabled = false;
+                BT_EDIT_BACKUP.Visible = true;
+                BT_EDIT_BACKUP.Enabled = true;
+                BT_CHECK_BACKUP.Visible = false;
+                BT_CHECK_BACKUP.Enabled = false;
+                SaveBackupSettings();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка создания директории: {ex.Message}");
+            }
+        }
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Properties.Settings.Default.SW_MAIN = SW_MAIN.Checked;
@@ -1320,12 +1652,56 @@ namespace ServerDesktopBingX
             Properties.Settings.Default.UD_NOT_CHANGE_ADD2 = UD_NOT_CHANGE_ADD2.Value;
 
 
+            Properties.Settings.Default.SW_BACKUP = SW_BACKUP.Checked;
+            Properties.Settings.Default.SW_BACKUP_TELEGRAM = SW_BACKUP_TELEGRAM.Checked;
+
             Properties.Settings.Default.Save();
         }
 
         private void BT_TELEGRAM_Click(object sender, EventArgs e)
         {
             NotificationTelegramBot.Send("Тестовое сообщение");
+        }
+
+        private void UD_DAYS_BACKUP_ValueChanged(object sender, EventArgs e)
+        {
+            if (UD_DAYS_BACKUP.Value == 1)
+            {
+                label26.Text = " day in ";
+            }
+            else
+            {
+                label26.Text = "days in";
+            }
+            Properties.Settings.Default.UD_DAYS_BACKUP = (int)UD_DAYS_BACKUP.Value;
+            Properties.Settings.Default.Save();
+        }
+        private void UD_STORE_BACKUP_ValueChanged(object sender, EventArgs e)
+        {
+            if (UD_STORE_BACKUP.Value == 1)
+            {
+                label28.Text = "backup";
+            }
+            else
+            {
+                label28.Text = "backups";
+            }
+            Properties.Settings.Default.UD_STORE_BACKUP = (int)UD_STORE_BACKUP.Value;
+            Properties.Settings.Default.Save();
+            PerformScheduledBackup(0);
+
+
+        }
+
+        private void DTP_BACKUP_ValueChanged(object sender, EventArgs e)
+        {
+            backupTimer.Interval = CalculateInterval();
+            backupTimer.Start(); // Перезапускаем таймер
+        }
+
+        private void SW_BACKUP_TELEGRAM_EnabledChanged(object sender, EventArgs e)
+        {
+            PerformScheduledBackup(0);
         }
     }
     // Класс для управления ботом
@@ -1501,6 +1877,26 @@ namespace ServerDesktopBingX
             }
         }
 
+        public static async Task SendDocument(InputFileStream document, string caption = "")
+        {
+            if (_chatId.HasValue && _bot != null)
+            {
+                try
+                {
+                    await _bot.SendDocument(
+                    chatId: _chatId.Value,
+                    document: document,
+                    caption: caption
+                );
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка отправки: {ex.Message}");
+                }
+            }
+            
+        }
+
         // Обработка входящих сообщений
         private static async Task HandleUpdate(ITelegramBotClient bot, Update update, CancellationToken ct)
         {
@@ -1521,5 +1917,11 @@ namespace ServerDesktopBingX
             Console.WriteLine($"Ошибка бота: {ex.Message}");
             return Task.CompletedTask;
         }
+
+
+
+
+
+
     }
 }

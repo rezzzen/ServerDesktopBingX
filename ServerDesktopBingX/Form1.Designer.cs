@@ -152,6 +152,21 @@
             SW_NOT_CHANGE_LCO = new Controls.ToggleSwitch();
             label23 = new Label();
             label22 = new Label();
+            groupBox4 = new GroupBox();
+            label29 = new Label();
+            SW_BACKUP_TELEGRAM = new Controls.ToggleSwitch();
+            DTP_BACKUP = new DateTimePicker();
+            UD_STORE_BACKUP = new NumericUpDown();
+            label28 = new Label();
+            label27 = new Label();
+            label26 = new Label();
+            UD_DAYS_BACKUP = new NumericUpDown();
+            label25 = new Label();
+            BT_CHECK_BACKUP = new Button();
+            BT_EDIT_BACKUP = new Button();
+            TB_DIRECTORY_BACKUP = new TextBox();
+            label24 = new Label();
+            SW_BACKUP = new Controls.ToggleSwitch();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -160,6 +175,9 @@
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_S).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_NG).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_LCO).BeginInit();
+            groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)UD_STORE_BACKUP).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)UD_DAYS_BACKUP).BeginInit();
             SuspendLayout();
             // 
             // TB_KEY
@@ -1094,7 +1112,7 @@
             groupBox2.Controls.Add(BT_CHECK_NOT_BOT_TELEGRAM_TOKEN);
             groupBox2.Controls.Add(TB_NOT_BOT_TELEGRAM_TOKEN);
             groupBox2.Controls.Add(label7);
-            groupBox2.Location = new Point(13, 310);
+            groupBox2.Location = new Point(13, 320);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(698, 152);
             groupBox2.TabIndex = 111;
@@ -1104,7 +1122,7 @@
             // BT_EDIT_LOG_BOT_TELEGRAM_TOKEN
             // 
             BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Image = (Image)resources.GetObject("BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Image");
-            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Location = new Point(648, 114);
+            BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Location = new Point(648, 113);
             BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Name = "BT_EDIT_LOG_BOT_TELEGRAM_TOKEN";
             BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.Size = new Size(32, 32);
             BT_EDIT_LOG_BOT_TELEGRAM_TOKEN.TabIndex = 119;
@@ -1445,11 +1463,173 @@
             label22.TabIndex = 113;
             label22.Text = "CHANGE > (%)";
             // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(label29);
+            groupBox4.Controls.Add(SW_BACKUP_TELEGRAM);
+            groupBox4.Controls.Add(DTP_BACKUP);
+            groupBox4.Controls.Add(UD_STORE_BACKUP);
+            groupBox4.Controls.Add(label28);
+            groupBox4.Controls.Add(label27);
+            groupBox4.Controls.Add(label26);
+            groupBox4.Controls.Add(UD_DAYS_BACKUP);
+            groupBox4.Controls.Add(label25);
+            groupBox4.Controls.Add(BT_CHECK_BACKUP);
+            groupBox4.Controls.Add(BT_EDIT_BACKUP);
+            groupBox4.Controls.Add(TB_DIRECTORY_BACKUP);
+            groupBox4.Controls.Add(label24);
+            groupBox4.Controls.Add(SW_BACKUP);
+            groupBox4.Location = new Point(728, 320);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(448, 152);
+            groupBox4.TabIndex = 113;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Backup Database Settings";
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(279, 28);
+            label29.Name = "label29";
+            label29.Size = new Size(126, 20);
+            label29.TabIndex = 131;
+            label29.Text = "Send to Telegram";
+            // 
+            // SW_BACKUP_TELEGRAM
+            // 
+            SW_BACKUP_TELEGRAM.BackColor = Color.White;
+            SW_BACKUP_TELEGRAM.BackColorOFF = Color.Red;
+            SW_BACKUP_TELEGRAM.BackColorON = Color.YellowGreen;
+            SW_BACKUP_TELEGRAM.Checked = false;
+            SW_BACKUP_TELEGRAM.Font = new Font("Verdana", 9F);
+            SW_BACKUP_TELEGRAM.Location = new Point(230, 23);
+            SW_BACKUP_TELEGRAM.Name = "SW_BACKUP_TELEGRAM";
+            SW_BACKUP_TELEGRAM.Size = new Size(43, 27);
+            SW_BACKUP_TELEGRAM.TabIndex = 130;
+            SW_BACKUP_TELEGRAM.TextOnChecked = "";
+            SW_BACKUP_TELEGRAM.EnabledChanged += SW_BACKUP_TELEGRAM_EnabledChanged;
+            // 
+            // DTP_BACKUP
+            // 
+            DTP_BACKUP.CustomFormat = "HH:mm:ss";
+            DTP_BACKUP.Format = DateTimePickerFormat.Custom;
+            DTP_BACKUP.Location = new Point(215, 88);
+            DTP_BACKUP.Name = "DTP_BACKUP";
+            DTP_BACKUP.ShowUpDown = true;
+            DTP_BACKUP.Size = new Size(84, 27);
+            DTP_BACKUP.TabIndex = 129;
+            DTP_BACKUP.ValueChanged += DTP_BACKUP_ValueChanged;
+            // 
+            // UD_STORE_BACKUP
+            // 
+            UD_STORE_BACKUP.Location = new Point(157, 118);
+            UD_STORE_BACKUP.Name = "UD_STORE_BACKUP";
+            UD_STORE_BACKUP.Size = new Size(50, 27);
+            UD_STORE_BACKUP.TabIndex = 128;
+            UD_STORE_BACKUP.ValueChanged += UD_STORE_BACKUP_ValueChanged;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new Point(210, 121);
+            label28.Name = "label28";
+            label28.Size = new Size(63, 20);
+            label28.TabIndex = 127;
+            label28.Text = "backups";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Location = new Point(17, 121);
+            label27.Name = "label27";
+            label27.Size = new Size(137, 20);
+            label27.TabIndex = 125;
+            label27.Text = "Store no more than";
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Location = new Point(154, 91);
+            label26.Name = "label26";
+            label26.Size = new Size(55, 20);
+            label26.TabIndex = 124;
+            label26.Text = "days in";
+            // 
+            // UD_DAYS_BACKUP
+            // 
+            UD_DAYS_BACKUP.Location = new Point(98, 88);
+            UD_DAYS_BACKUP.Name = "UD_DAYS_BACKUP";
+            UD_DAYS_BACKUP.Size = new Size(50, 27);
+            UD_DAYS_BACKUP.TabIndex = 123;
+            UD_DAYS_BACKUP.ValueChanged += UD_DAYS_BACKUP_ValueChanged;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(17, 91);
+            label25.Name = "label25";
+            label25.Size = new Size(79, 20);
+            label25.TabIndex = 122;
+            label25.Text = "Save every";
+            // 
+            // BT_CHECK_BACKUP
+            // 
+            BT_CHECK_BACKUP.Image = (Image)resources.GetObject("BT_CHECK_BACKUP.Image");
+            BT_CHECK_BACKUP.Location = new Point(410, 55);
+            BT_CHECK_BACKUP.Name = "BT_CHECK_BACKUP";
+            BT_CHECK_BACKUP.Size = new Size(32, 32);
+            BT_CHECK_BACKUP.TabIndex = 108;
+            BT_CHECK_BACKUP.UseVisualStyleBackColor = true;
+            BT_CHECK_BACKUP.Visible = false;
+            BT_CHECK_BACKUP.Click += BT_CHECK_BACKUP_Click;
+            // 
+            // BT_EDIT_BACKUP
+            // 
+            BT_EDIT_BACKUP.Image = (Image)resources.GetObject("BT_EDIT_BACKUP.Image");
+            BT_EDIT_BACKUP.Location = new Point(410, 54);
+            BT_EDIT_BACKUP.Name = "BT_EDIT_BACKUP";
+            BT_EDIT_BACKUP.Size = new Size(32, 32);
+            BT_EDIT_BACKUP.TabIndex = 108;
+            BT_EDIT_BACKUP.UseVisualStyleBackColor = true;
+            BT_EDIT_BACKUP.Click += BT_EDIT_BACKUP_Click;
+            // 
+            // TB_DIRECTORY_BACKUP
+            // 
+            TB_DIRECTORY_BACKUP.Enabled = false;
+            TB_DIRECTORY_BACKUP.Location = new Point(98, 57);
+            TB_DIRECTORY_BACKUP.Name = "TB_DIRECTORY_BACKUP";
+            TB_DIRECTORY_BACKUP.ReadOnly = true;
+            TB_DIRECTORY_BACKUP.Size = new Size(308, 27);
+            TB_DIRECTORY_BACKUP.TabIndex = 120;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(17, 60);
+            label24.Name = "label24";
+            label24.Size = new Size(70, 20);
+            label24.TabIndex = 121;
+            label24.Text = "Directory";
+            // 
+            // SW_BACKUP
+            // 
+            SW_BACKUP.BackColor = Color.White;
+            SW_BACKUP.BackColorOFF = Color.Red;
+            SW_BACKUP.BackColorON = Color.YellowGreen;
+            SW_BACKUP.Checked = false;
+            SW_BACKUP.Font = new Font("Verdana", 9F);
+            SW_BACKUP.Location = new Point(14, 23);
+            SW_BACKUP.Name = "SW_BACKUP";
+            SW_BACKUP.Size = new Size(43, 27);
+            SW_BACKUP.TabIndex = 120;
+            SW_BACKUP.TextOnChecked = "";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1386, 472);
+            ClientSize = new Size(1386, 484);
+            Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(SW_DB_ADD2);
@@ -1552,6 +1732,10 @@
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_S).EndInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_NG).EndInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_LCO).EndInit();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)UD_STORE_BACKUP).EndInit();
+            ((System.ComponentModel.ISupportInitialize)UD_DAYS_BACKUP).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1679,5 +1863,20 @@
         private NumericUpDown UD_NOT_CHANGE_ADD1;
         private NumericUpDown UD_NOT_CHANGE_S;
         private NumericUpDown UD_NOT_CHANGE_NG;
+        private GroupBox groupBox4;
+        private Controls.ToggleSwitch SW_BACKUP;
+        private Label label24;
+        private Label label26;
+        private NumericUpDown UD_DAYS_BACKUP;
+        private Label label25;
+        private Button BT_CHECK_BACKUP;
+        private Button BT_EDIT_BACKUP;
+        private TextBox TB_DIRECTORY_BACKUP;
+        private Label label28;
+        private Label label27;
+        private NumericUpDown UD_STORE_BACKUP;
+        private DateTimePicker DTP_BACKUP;
+        private Label label29;
+        private Controls.ToggleSwitch SW_BACKUP_TELEGRAM;
     }
 }

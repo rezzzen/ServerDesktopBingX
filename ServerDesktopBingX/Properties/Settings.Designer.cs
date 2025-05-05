@@ -454,5 +454,65 @@ namespace ServerDesktopBingX.Properties {
                 this["SW_LOG_BOT_TELEGRAM"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_BACKUP {
+            get {
+                return ((bool)(this["SW_BACKUP"]));
+            }
+            set {
+                this["SW_BACKUP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TB_DIRECTORY_BACKUP {
+            get {
+                return ((string)(this["TB_DIRECTORY_BACKUP"]));
+            }
+            set {
+                this["TB_DIRECTORY_BACKUP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal UD_DAYS_BACKUP {
+            get {
+                return ((decimal)(this["UD_DAYS_BACKUP"]));
+            }
+            set {
+                this["UD_DAYS_BACKUP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal UD_STORE_BACKUP {
+            get {
+                return ((decimal)(this["UD_STORE_BACKUP"]));
+            }
+            set {
+                this["UD_STORE_BACKUP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_BACKUP_TELEGRAM {
+            get {
+                return ((bool)(this["SW_BACKUP_TELEGRAM"]));
+            }
+            set {
+                this["SW_BACKUP_TELEGRAM"] = value;
+            }
+        }
     }
 }
