@@ -48,7 +48,7 @@ namespace ServerDesktopBingX
             //TB_LOCALHOST.Text = "27017";
 
 
-            L_VERSION.Text = "05.05.2025";
+            L_VERSION.Text = "07.05.2025";
             string API_KEY = TB_KEY.Text;
             string API_SECRET = TB_SECRET.Text;
             string HOST = "open-api.bingx.com";
@@ -305,7 +305,7 @@ namespace ServerDesktopBingX
 
         // В классе формы
         private System.Timers.Timer dailyReportTimer;
-        private TimeSpan reportTime = new TimeSpan(17, 19, 0);
+        private TimeSpan reportTime = new TimeSpan(0, 35, 0);
 
         private void InitializeDailyReport()
         {
@@ -326,7 +326,7 @@ namespace ServerDesktopBingX
         private double CalculateIntervalToNextReport(TimeSpan reportTime)
         {
             DateTime now = DateTime.Now;
-            DateTime targetTime = now.Date.Add(reportTime); // Устанавливаем желаемое время
+            DateTime targetTime = now.Date.Add(reportTime).AddDays(reportTime.Days); // Учет времени с переходом через полночь
 
             // Если указанное время уже прошло сегодня, планируем на завтра
             if (targetTime < now)
@@ -369,8 +369,8 @@ namespace ServerDesktopBingX
 
                 // Формирование сообщения
                 var message = new StringBuilder();
-                message.AppendLine($"Отчет за {today:dd.MM.yyyy}");
-                message.AppendLine("============================");
+                message.AppendLine($"Отчет по потерям данных за {today:dd.MM.yyyy}");
+                message.AppendLine("===================================");
 
                 double totalLoss = 0;
                 foreach (var item in reportData)
@@ -380,7 +380,7 @@ namespace ServerDesktopBingX
                 }
 
                 double averageLoss = reportData.Count > 0 ? totalLoss / reportData.Count : 0;
-                message.AppendLine("============================");
+                message.AppendLine("===================================");
                 message.AppendLine($"Средние потери: {averageLoss:F1}%");
 
                 // Отправка в Telegram
@@ -492,6 +492,7 @@ namespace ServerDesktopBingX
             if (DateTime.Now.TimeOfDay >= DTP_BACKUP.Value.TimeOfDay &&
                 DateTime.Now.TimeOfDay < DTP_BACKUP.Value.TimeOfDay.Add(TimeSpan.FromMinutes(1)))
             {
+                
                 await PerformScheduledBackup(1);
             }
         }
