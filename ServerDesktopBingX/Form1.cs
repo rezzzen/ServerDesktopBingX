@@ -21,6 +21,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.IO.Compression;
+using static System.Collections.Specialized.BitVector32;
 
 
 
@@ -418,17 +419,19 @@ namespace ServerDesktopBingX
                         FileName = @"C:\Program Files\MongoDB\Tools\100\bin\mongodump.exe",
                         Arguments = $"--host localhost --port {port} --db {dbName} --out {backupPath}",
                         CreateNoWindow = true,
+                        RedirectStandardError = true,
                     };
 
                     using (var process = Process.Start(processInfo))
                     {
-                        CleanOldBackups();
                         string error = await process.StandardError.ReadToEndAsync();
-
                         await process.WaitForExitAsync();
 
                         if (process.ExitCode != 0)
                             throw new Exception($"Mongodump error: {error}");
+
+                        // Перенесите очистку старых бэкапов сюда
+                        CleanOldBackups();
                     }
 
                     if (backupsTg == true)
@@ -436,7 +439,6 @@ namespace ServerDesktopBingX
                         // Архивируем результат
                         zipPath = $"{backupPath}.zip";
                         ZipFile.CreateFromDirectory(backupPath, zipPath);
-                        Directory.Delete(backupPath, true);
                         await SendBackupToTelegram(zipPath);
                     }
 
@@ -792,6 +794,29 @@ namespace ServerDesktopBingX
 
             if (currentBarStart > lastSaved)
             {
+                if (suffix == "S" || suffix == "G" || suffix == "P")
+                {
+                    if (!IsTradingTimeMetal(lastSaved) && IsTradingTimeMetal(now))
+                    {
+                        lock (_lock)
+                        {
+                            _lastSavedBarTimes[suffix] = currentBarStart;
+                        }
+                        return;
+                    }
+                }
+                else if (suffix == "LCO" || suffix == "NG")
+                {
+                    if (!IsTradingTimeResources(lastSaved) && IsTradingTimeResources(now))
+                    {
+                        lock (_lock)
+                        {
+                            _lastSavedBarTimes[suffix] = currentBarStart;
+                        }
+                        return;
+                    }
+                }
+                
                 // Основная логика сохранения
                 var previousOpen = GetTextBoxValue("OPEN");
                 var previousClose = GetTextBoxValue("CLOSE");
