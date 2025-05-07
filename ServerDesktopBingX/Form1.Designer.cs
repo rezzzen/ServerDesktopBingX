@@ -135,6 +135,8 @@
             TB_NOT_BOT_TELEGRAM_TOKEN = new TextBox();
             label7 = new Label();
             groupBox3 = new GroupBox();
+            label30 = new Label();
+            SW_DAILYREPORT = new Controls.ToggleSwitch();
             UD_NOT_CHANGE_ADD2 = new NumericUpDown();
             UD_NOT_CHANGE_ADD1 = new NumericUpDown();
             UD_NOT_CHANGE_S = new NumericUpDown();
@@ -167,6 +169,10 @@
             TB_DIRECTORY_BACKUP = new TextBox();
             label24 = new Label();
             SW_BACKUP = new Controls.ToggleSwitch();
+            label31 = new Label();
+            label32 = new Label();
+            L_LOG_TELEGRAM = new Label();
+            L_LOG_BACKUP = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -1100,6 +1106,8 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(L_LOG_TELEGRAM);
+            groupBox2.Controls.Add(label31);
             groupBox2.Controls.Add(BT_EDIT_LOG_BOT_TELEGRAM_TOKEN);
             groupBox2.Controls.Add(BT_CHECK_LOG_BOT_TELEGRAM_TOKEN);
             groupBox2.Controls.Add(TB_LOG_BOT_TELEGRAM_TOKEN);
@@ -1114,7 +1122,7 @@
             groupBox2.Controls.Add(label7);
             groupBox2.Location = new Point(13, 320);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(698, 152);
+            groupBox2.Size = new Size(698, 179);
             groupBox2.TabIndex = 111;
             groupBox2.TabStop = false;
             groupBox2.Text = "Telegram settings";
@@ -1245,6 +1253,8 @@
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(label30);
+            groupBox3.Controls.Add(SW_DAILYREPORT);
             groupBox3.Controls.Add(UD_NOT_CHANGE_ADD2);
             groupBox3.Controls.Add(UD_NOT_CHANGE_ADD1);
             groupBox3.Controls.Add(UD_NOT_CHANGE_S);
@@ -1268,6 +1278,27 @@
             groupBox3.TabIndex = 112;
             groupBox3.TabStop = false;
             groupBox3.Text = "Notifications settings";
+            // 
+            // label30
+            // 
+            label30.Location = new Point(60, 26);
+            label30.Name = "label30";
+            label30.Size = new Size(126, 86);
+            label30.TabIndex = 132;
+            label30.Text = "Daily report to Telegram on the application's operation";
+            // 
+            // SW_DAILYREPORT
+            // 
+            SW_DAILYREPORT.BackColor = Color.White;
+            SW_DAILYREPORT.BackColorOFF = Color.Red;
+            SW_DAILYREPORT.BackColorON = Color.YellowGreen;
+            SW_DAILYREPORT.Checked = false;
+            SW_DAILYREPORT.Font = new Font("Verdana", 9F);
+            SW_DAILYREPORT.Location = new Point(14, 53);
+            SW_DAILYREPORT.Name = "SW_DAILYREPORT";
+            SW_DAILYREPORT.Size = new Size(43, 27);
+            SW_DAILYREPORT.TabIndex = 132;
+            SW_DAILYREPORT.TextOnChecked = "";
             // 
             // UD_NOT_CHANGE_ADD2
             // 
@@ -1465,6 +1496,8 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(L_LOG_BACKUP);
+            groupBox4.Controls.Add(label32);
             groupBox4.Controls.Add(label29);
             groupBox4.Controls.Add(SW_BACKUP_TELEGRAM);
             groupBox4.Controls.Add(DTP_BACKUP);
@@ -1481,7 +1514,7 @@
             groupBox4.Controls.Add(SW_BACKUP);
             groupBox4.Location = new Point(728, 320);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(448, 152);
+            groupBox4.Size = new Size(448, 179);
             groupBox4.TabIndex = 113;
             groupBox4.TabStop = false;
             groupBox4.Text = "Backup Database Settings";
@@ -1624,11 +1657,47 @@
             SW_BACKUP.TabIndex = 120;
             SW_BACKUP.TextOnChecked = "";
             // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Location = new Point(20, 150);
+            label31.Name = "label31";
+            label31.Size = new Size(36, 20);
+            label31.TabIndex = 114;
+            label31.Text = "LOG";
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Location = new Point(21, 150);
+            label32.Name = "label32";
+            label32.Size = new Size(36, 20);
+            label32.TabIndex = 120;
+            label32.Text = "LOG";
+            // 
+            // L_LOG_TELEGRAM
+            // 
+            L_LOG_TELEGRAM.ImageAlign = ContentAlignment.MiddleLeft;
+            L_LOG_TELEGRAM.Location = new Point(62, 150);
+            L_LOG_TELEGRAM.Name = "L_LOG_TELEGRAM";
+            L_LOG_TELEGRAM.Size = new Size(618, 20);
+            L_LOG_TELEGRAM.TabIndex = 114;
+            L_LOG_TELEGRAM.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // L_LOG_BACKUP
+            // 
+            L_LOG_BACKUP.ImageAlign = ContentAlignment.MiddleLeft;
+            L_LOG_BACKUP.Location = new Point(64, 150);
+            L_LOG_BACKUP.Name = "L_LOG_BACKUP";
+            L_LOG_BACKUP.Size = new Size(378, 20);
+            L_LOG_BACKUP.TabIndex = 120;
+            L_LOG_BACKUP.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1386, 484);
+            ClientSize = new Size(1386, 504);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
@@ -1878,5 +1947,11 @@
         private DateTimePicker DTP_BACKUP;
         private Label label29;
         private Controls.ToggleSwitch SW_BACKUP_TELEGRAM;
+        private Label label30;
+        private Controls.ToggleSwitch SW_DAILYREPORT;
+        private Label L_LOG_TELEGRAM;
+        private Label label31;
+        private Label L_LOG_BACKUP;
+        private Label label32;
     }
 }

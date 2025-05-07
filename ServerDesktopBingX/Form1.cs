@@ -22,6 +22,9 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.IO.Compression;
 using static System.Collections.Specialized.BitVector32;
+using MongoDB.Driver.Core.Configuration;
+using System.Text;
+using System.Reflection;
 
 
 
@@ -49,6 +52,10 @@ namespace ServerDesktopBingX
             string API_KEY = TB_KEY.Text;
             string API_SECRET = TB_SECRET.Text;
             string HOST = "open-api.bingx.com";
+
+
+            LogTelegramBot.Initialize(L_LOG_TELEGRAM);
+            NotificationTelegramBot.Initialize(L_LOG_TELEGRAM);
 
 
             async Task UpdateDateTimeAsync()
@@ -173,6 +180,9 @@ namespace ServerDesktopBingX
                 SW_BACKUP.Checked = Properties.Settings.Default.SW_BACKUP;
                 SW_BACKUP_TELEGRAM.Checked = Properties.Settings.Default.SW_BACKUP_TELEGRAM;
 
+
+                SW_DAILYREPORT.Checked = Properties.Settings.Default.SW_DAILYREPORT;
+
                 if (Properties.Settings.Default.DTP_BACKUP == "")
                 {
                     DTP_BACKUP.Value = DateTime.Parse("1:00");
@@ -237,7 +247,7 @@ namespace ServerDesktopBingX
                 {
                     BT_ADD_ADD1.Visible = false;
                     BT_ADD_ADD1.Enabled = false;
-                    this.Size = new System.Drawing.Size(1404, 519);
+                    this.Size = new System.Drawing.Size(1404, 551);
                     BT_DELETE_ADD1.Visible = true;
                     BT_DELETE_ADD1.Enabled = true;
 
@@ -290,10 +300,163 @@ namespace ServerDesktopBingX
 
         }
 
+
+
+
+        // В классе формы
+        private System.Timers.Timer dailyReportTimer;
+        private TimeSpan reportTime = new TimeSpan(17, 19, 0);
+
+        private void InitializeDailyReport()
+        {
+            if (SW_DAILYREPORT.Checked && SW_NOT_BOT_TELEGRAM.Checked)
+            {
+                dailyReportTimer = new System.Timers.Timer();
+                dailyReportTimer.Interval = CalculateIntervalToNextReport(reportTime);
+                dailyReportTimer.Elapsed += async (s, e) =>
+                {
+                    await SendDailyReport();
+                    dailyReportTimer.Interval = CalculateIntervalToNextReport(reportTime); // Пересчет для следующего дня
+                };
+                dailyReportTimer.Start();
+            }
+
+        }
+
+        private double CalculateIntervalToNextReport(TimeSpan reportTime)
+        {
+            DateTime now = DateTime.Now;
+            DateTime targetTime = now.Date.Add(reportTime); // Устанавливаем желаемое время
+
+            // Если указанное время уже прошло сегодня, планируем на завтра
+            if (targetTime < now)
+            {
+                targetTime = targetTime.AddDays(1);
+            }
+
+            return (targetTime - now).TotalMilliseconds;
+        }
+
+
+
+
+
+
+
+        public async Task SendDailyReport()
+        {
+            try
+            {
+                var reportData = new Dictionary<string, double>();
+                string[] instruments = { "LCO", "NG", "S", "G", "P", "ADD1", "ADD2" };
+                DateTime today = DateTime.Today;
+                DateTime tomorrow = today.AddDays(1);
+
+                foreach (var instrument in instruments)
+                {
+                    // Расчет ожидаемого количества баров
+                    int expectedBars = CalculateExpectedBars(instrument, today);
+
+                    // Получение фактического количества баров из MongoDB
+                    int actualBars = await GetActualBarsCount(instrument, today);
+
+                    // Расчет процента потерь
+                    double lossPercentage = (expectedBars == 0) ? 0 :
+                        (double)(expectedBars - actualBars) / expectedBars * 100;
+
+                    reportData.Add(instrument, lossPercentage);
+                }
+
+                // Формирование сообщения
+                var message = new StringBuilder();
+                message.AppendLine($"Отчет за {today:dd.MM.yyyy}");
+                message.AppendLine("============================");
+
+                double totalLoss = 0;
+                foreach (var item in reportData)
+                {
+                    message.AppendLine($"{item.Key} - {item.Value:F1}%");
+                    totalLoss += item.Value;
+                }
+
+                double averageLoss = reportData.Count > 0 ? totalLoss / reportData.Count : 0;
+                message.AppendLine("============================");
+                message.AppendLine($"Средние потери: {averageLoss:F1}%");
+
+                // Отправка в Telegram
+                await NotificationTelegramBot.Send(message.ToString());
+            }
+            catch (Exception ex)
+            {
+                await NotificationTelegramBot.Send($"Ошибка формирования отчета: {ex.Message}");
+            }
+        }
+
+        private int CalculateExpectedBars(string instrument, DateTime date)
+        {
+            // Расчет времени торговли для инструмента
+            TimeSpan tradingHours = GetTradingHours(instrument, date);
+
+            // 5-минутные бары: всего минут / 5
+            return (int)(tradingHours.TotalMinutes / 5);
+        }
+
+        private TimeSpan GetTradingHours(string instrument, DateTime date)
+        {
+            // Определение времени торговли для инструмента
+            if (instrument == "S" || instrument == "G" || instrument == "P")
+            {
+                // Металлы: 2:00 - 00:00 (22 часа)
+                return TimeSpan.FromHours(22);
+            }
+            else if (instrument == "LCO" || instrument == "NG")
+            {
+                // Ресурсы: 4:00 - 00:00 (20 часов)
+                return TimeSpan.FromHours(20);
+            }
+            else
+            {
+                // Для кастомных инструментов (ADD1, ADD2)
+                return TimeSpan.FromHours(24); // Пример
+            }
+        }
+
+        private async Task<int> GetActualBarsCount(string instrument, DateTime date)
+        {
+            var mongoClient = new MongoClient($"mongodb://localhost:{TB_LOCALHOST.Text}");
+            var database = mongoClient.GetDatabase($"{TB_DBNAME.Text}");
+            var collection = database.GetCollection<BsonDocument>($"{instrument}_5M");
+
+            var filter = Builders<BsonDocument>.Filter
+                .Gte("Date", date.ToString("yyyy-MM-dd")) &
+                Builders<BsonDocument>.Filter
+                .Lt("Date", date.AddDays(1).ToString("yyyy-MM-dd"));
+
+            return (int)await collection.CountDocumentsAsync(filter);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         private System.Timers.Timer backupTimer;
         private BackupManager backupManager;
         // В классе BackupManager:
         private readonly string backupDirectory = "DB_Backups"; // Путь по умолчанию
+
+
+
+
+
+
 
         private void InitializeBackupSystem()
         {
@@ -335,7 +498,7 @@ namespace ServerDesktopBingX
 
         private async Task PerformScheduledBackup(int a)
         {
-            if (SW_BACKUP.Checked == true)
+            if (SW_BACKUP.Checked && SW_LOG_BOT_TELEGRAM.Checked)
             {
                 try
                 {
@@ -352,7 +515,9 @@ namespace ServerDesktopBingX
                             TB_DIRECTORY_BACKUP.Text,
                             (int)UD_DAYS_BACKUP.Value,
                             (int)UD_STORE_BACKUP.Value,
-                            SW_BACKUP_TELEGRAM.Checked && SW_LOG_BOT_TELEGRAM.Checked
+                            SW_BACKUP_TELEGRAM.Checked && SW_LOG_BOT_TELEGRAM.Checked,
+                            statusLabel: L_LOG_BACKUP
+
                         );
 
                         var result = await backupManager.PerformBackup(
@@ -374,6 +539,7 @@ namespace ServerDesktopBingX
                     if (SW_LOG_BOT_TELEGRAM.Checked == true)
                     {
                         await NotificationTelegramBot.Send($"Ошибка бэкапа: {ex.Message}");
+                        L_LOG_BACKUP.Text = "Ошибка бэкапа";
                     }
                     MessageBox.Show(ex.Message);
                 }
@@ -382,20 +548,48 @@ namespace ServerDesktopBingX
 
         private class BackupManager : IDisposable
         {
+
+            private readonly Label _statusLabel; // Добавляем поле для Label
             private readonly string backupDirectory;
             private readonly int backupFrequency;
             private readonly int backupsToKeep;
             private readonly bool backupsTg;
 
+            public Action<string> OnError;
+
+
+
+
             public bool IsDisposed { get; private set; }
 
-            public BackupManager(string directory, int frequency, int keep, bool tg)
+            public BackupManager(string directory, int frequency, int keep, bool tg, Label statusLabel)
             {
                 backupDirectory = directory;
                 backupFrequency = frequency;
                 backupsToKeep = keep;
                 backupsTg = tg;
+                _statusLabel = statusLabel; // Сохраняем ссылку на Label
             }
+
+
+            private void UpdateStatus(string message)
+            {
+                if (_statusLabel != null && !_statusLabel.IsDisposed)
+                {
+                    if (_statusLabel.InvokeRequired)
+                    {
+                        _statusLabel.Invoke(new Action(() =>
+                        {
+                            _statusLabel.Text = message;
+                        }));
+                    }
+                    else
+                    {
+                        _statusLabel.Text = message;
+                    }
+                }
+            }
+
 
 
             public async Task<bool> PerformBackup(string port, string dbName)
@@ -413,11 +607,12 @@ namespace ServerDesktopBingX
 
                 try
                 {
-                    // Выполняем mongodump
+                    UpdateStatus($"{DateTime.Now:HH:mm} Начало создания бэкапа...");
+
                     var processInfo = new ProcessStartInfo
                     {
                         FileName = @"C:\Program Files\MongoDB\Tools\100\bin\mongodump.exe",
-                        Arguments = $"--host localhost --port {port} --db {dbName} --out {backupPath}",
+                        Arguments = $"--host localhost --port {port} --db {dbName} --out \"{backupPath}\"",
                         CreateNoWindow = true,
                         RedirectStandardError = true,
                     };
@@ -430,30 +625,32 @@ namespace ServerDesktopBingX
                         if (process.ExitCode != 0)
                             throw new Exception($"Mongodump error: {error}");
 
-                        // Перенесите очистку старых бэкапов сюда
                         CleanOldBackups();
+                        Task.Delay(5000);
+                        UpdateStatus($"Бэкап создан: {DateTime.Now:HH:mm}");
                     }
 
-                    if (backupsTg == true)
+                    if (backupsTg)
                     {
-                        // Архивируем результат
                         zipPath = $"{backupPath}.zip";
                         ZipFile.CreateFromDirectory(backupPath, zipPath);
                         await SendBackupToTelegram(zipPath);
+                        Task.Delay(5000);
+                        UpdateStatus($"{DateTime.Now:HH:mm} Архив отправлен в Telegram");
                     }
 
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    // Очистка в случае ошибки
+                    UpdateStatus($"{DateTime.Now:HH:mm} Ошибка: {ex.Message}");
+
                     if (Directory.Exists(backupPath))
                         Directory.Delete(backupPath, true);
 
                     if (File.Exists(zipPath))
                         File.Delete(zipPath);
 
-                    await LogTelegramBot.Send($"Ошибка бэкапа: {ex.Message}");
                     return false;
                 }
             }
@@ -488,6 +685,7 @@ namespace ServerDesktopBingX
 
             private async Task SendBackupToTelegram(string filePath)
             {
+                
                 try
                 {
                     using (var stream = File.OpenRead(filePath))
@@ -497,6 +695,7 @@ namespace ServerDesktopBingX
                             caption: $"Бэкап {DateTime.Now:yyyy-MM-dd HH:mm}"
                         );
                     }
+                   
                     File.Delete(filePath); // Удаляем архив после отправки
                 }
                 catch (Exception ex)
@@ -510,29 +709,26 @@ namespace ServerDesktopBingX
             {
                 try
                 {
-                    // Получаем все поддиректории с проверкой формата имени
+                    UpdateStatus("Очистка старых бэкапов...");
+
                     var backups = Directory.GetDirectories(backupDirectory)
-                        .Select(d => new
-                        {
-                            Path = d,
-                            Name = Path.GetFileName(d)
-                        })
+                        .Select(d => new { Path = d, Name = Path.GetFileName(d) })
                         .Where(d => IsValidBackupName(d.Name))
-                        .OrderByDescending(d => d.Name) // Сортировка по убыванию
+                        .OrderByDescending(d => d.Name)
                         .ToList();
 
-                    // Удаляем все, кроме первых backupsToKeep бэкапов
-                    var backupsToDelete = backups.Skip(backupsToKeep);
+                    var backupsToDelete = backups.Skip(backupsToKeep).ToList();
 
                     foreach (var dir in backupsToDelete)
                     {
-                        Directory.Delete(dir.Path, recursive: true);
-                        Console.WriteLine($"Удален бэкап: {dir.Path}");
+                        Directory.Delete(dir.Path, true);
                     }
+
+                    UpdateStatus($"Удалено бэкапов: {backupsToDelete.Count}");
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Ошибка при удалении старых бэкапов: {ex.Message}");
+                    UpdateStatus($"Ошибка очистки: {ex.Message}");
                 }
             }
 
@@ -885,6 +1081,7 @@ namespace ServerDesktopBingX
 
                                     await LogTelegramBot.Send($"Бар по инструменту {instrumentName} в {lastSaved:HH:mm} сохранён")
                                         .ConfigureAwait(false);
+                                    
                                 }
 
 
@@ -1690,6 +1887,8 @@ namespace ServerDesktopBingX
             Properties.Settings.Default.SW_BACKUP = SW_BACKUP.Checked;
             Properties.Settings.Default.SW_BACKUP_TELEGRAM = SW_BACKUP_TELEGRAM.Checked;
 
+            Properties.Settings.Default.SW_DAILYREPORT = SW_DAILYREPORT.Checked;
+
             Properties.Settings.Default.DTP_BACKUP = (DTP_BACKUP.Value).ToString();
 
             Properties.Settings.Default.Save();
@@ -1744,6 +1943,7 @@ namespace ServerDesktopBingX
     // Класс для управления ботом
     public static class NotificationTelegramBot
     {
+        private static Label _statusLabel;
         private static CancellationTokenSource _cts;
         private static TelegramBotClient _bot;
         private static long? _chatId;
@@ -1765,6 +1965,13 @@ namespace ServerDesktopBingX
             );
         }
 
+        public static void Initialize(Label statusLabel)
+        {
+            _statusLabel = statusLabel;
+        }
+
+
+
         public static void Stop()
         {
             _cts?.Cancel();
@@ -1808,10 +2015,11 @@ namespace ServerDesktopBingX
                         chatId: _chatId.Value,
                         text: message
                     );
+                    UpdateUI($"NOT_BOT {DateTime.Now:HH:mm} Сообщение отправлено");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка отправки: {ex.Message}");
+                    UpdateUI($"NOT_BOT {DateTime.Now:HH:mm} Ошибка отправки сообщения");
                 }
             }
         }
@@ -1836,12 +2044,32 @@ namespace ServerDesktopBingX
             Console.WriteLine($"Ошибка бота: {ex.Message}");
             return Task.CompletedTask;
         }
+
+
+        private static void UpdateUI(string message)
+        {
+            if (_statusLabel != null && !_statusLabel.IsDisposed)
+            {
+                if (_statusLabel.InvokeRequired)
+                {
+                    _statusLabel.BeginInvoke(new Action(() =>
+                    {
+                        _statusLabel.Text = message;
+                    }));
+                }
+                else
+                {
+                    _statusLabel.Text = message;
+                }
+            }
+        }
     }
 
 
 
     public static class LogTelegramBot
     {
+        private static Label _statusLabel;
         private static CancellationTokenSource _cts;
         private static TelegramBotClient _bot;
         private static long? _chatId;
@@ -1863,6 +2091,12 @@ namespace ServerDesktopBingX
             );
         }
 
+        public static void Initialize(Label statusLabel)
+        {
+            _statusLabel = statusLabel;
+        }
+
+
         public static void Stop()
         {
             _cts?.Cancel();
@@ -1906,13 +2140,15 @@ namespace ServerDesktopBingX
                         chatId: _chatId.Value,
                         text: message
                     );
+                    UpdateUI($"LOG_BOT {DateTime.Now:HH:mm} Сообщение отправлено");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка отправки: {ex.Message}");
+                    UpdateUI($"LOG_BOT {DateTime.Now:HH:mm} Ошибка: {ex.Message}");
                 }
             }
         }
+
 
         public static async Task SendDocument(InputFileStream document, string caption = "")
         {
@@ -1921,17 +2157,17 @@ namespace ServerDesktopBingX
                 try
                 {
                     await _bot.SendDocument(
-                    chatId: _chatId.Value,
-                    document: document,
-                    caption: caption
-                );
+                        chatId: _chatId.Value,
+                        document: document,
+                        caption: caption
+                    );
+                    UpdateUI($"LOG_BOT {DateTime.Now:HH:mm} Документ отправлен");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка отправки: {ex.Message}");
+                    UpdateUI($"LOG_BOT {DateTime.Now:HH:mm} Ошибка: {ex.Message}");
                 }
             }
-            
         }
 
         // Обработка входящих сообщений
@@ -1957,7 +2193,23 @@ namespace ServerDesktopBingX
 
 
 
-
+        private static void UpdateUI(string message)
+        {
+            if (_statusLabel != null && !_statusLabel.IsDisposed)
+            {
+                if (_statusLabel.InvokeRequired)
+                {
+                    _statusLabel.BeginInvoke(new Action(() =>
+                    {
+                        _statusLabel.Text = message;
+                    }));
+                }
+                else
+                {
+                    _statusLabel.Text = message;
+                }
+            }
+        }
 
 
     }

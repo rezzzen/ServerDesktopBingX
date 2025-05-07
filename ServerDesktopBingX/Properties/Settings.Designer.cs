@@ -526,5 +526,17 @@ namespace ServerDesktopBingX.Properties {
                 this["DTP_BACKUP"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_DAILYREPORT {
+            get {
+                return ((bool)(this["SW_DAILYREPORT"]));
+            }
+            set {
+                this["SW_DAILYREPORT"] = value;
+            }
+        }
     }
 }
