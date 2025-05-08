@@ -1051,6 +1051,19 @@ namespace ServerDesktopBingX
                                 var mongoClient = new MongoClient($"mongodb://localhost:{TB_LOCALHOST.Text}");
                                 var database = mongoClient.GetDatabase($"{TB_DBNAME.Text}");
                                 var collection = database.GetCollection<BsonDocument>($"{suffix}_5M");
+                                if (suffix == "ADD1")
+                                {
+                                    collection = database.GetCollection<BsonDocument>($"{TB_NAME_ADD1.Text}_5M");
+                                }
+                                else if (suffix == "ADD2")
+                                {
+                                    collection = database.GetCollection<BsonDocument>($"{TB_NAME_ADD2.Text}_5M");
+                                }
+                                else
+                                {
+                                    collection = database.GetCollection<BsonDocument>($"{suffix}_5M");
+                                }
+                                
 
                                 await collection.InsertOneAsync(document);
                                 log.Text = $"Бар {lastSaved:HH:mm} сохранён";
