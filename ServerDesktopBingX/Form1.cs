@@ -48,7 +48,7 @@ namespace ServerDesktopBingX
             //TB_LOCALHOST.Text = "27017";
 
 
-            L_VERSION.Text = "07.05.2025";
+            L_VERSION.Text = "08.05.2025";
             string API_KEY = TB_KEY.Text;
             string API_SECRET = TB_SECRET.Text;
             string HOST = "open-api.bingx.com";
@@ -305,136 +305,122 @@ namespace ServerDesktopBingX
 
         // В классе формы
         private System.Timers.Timer dailyReportTimer;
-        private TimeSpan reportTime = new TimeSpan(0, 35, 0);
+        private readonly TimeSpan reportTime = new TimeSpan(0, 5, 0); // 01:00 ночи
 
         private void InitializeDailyReport()
         {
-            if (SW_DAILYREPORT.Checked && SW_NOT_BOT_TELEGRAM.Checked)
+            if (!SW_DAILYREPORT.Checked || !SW_NOT_BOT_TELEGRAM.Checked) return;
+
+            dailyReportTimer = new System.Timers.Timer
             {
-                dailyReportTimer = new System.Timers.Timer();
-                dailyReportTimer.Interval = CalculateIntervalToNextReport(reportTime);
-                dailyReportTimer.Elapsed += async (s, e) =>
+                Interval = CalculateIntervalToNextReport(reportTime),
+                AutoReset = false // Ручной перезапуск после обработки
+            };
+
+            dailyReportTimer.Elapsed += async (s, e) =>
+            {
+                try
                 {
                     await SendDailyReport();
-                    dailyReportTimer.Interval = CalculateIntervalToNextReport(reportTime); // Пересчет для следующего дня
-                };
-                dailyReportTimer.Start();
-            }
-
+                }
+                finally
+                {
+                    dailyReportTimer.Interval = CalculateIntervalToNextReport(reportTime);
+                    dailyReportTimer.Start();
+                }
+            };
+            dailyReportTimer.Start();
         }
 
-        private double CalculateIntervalToNextReport(TimeSpan reportTime)
+        private double CalculateIntervalToNextReport(TimeSpan targetTime)
         {
-            DateTime now = DateTime.Now;
-            DateTime targetTime = now.Date.Add(reportTime).AddDays(reportTime.Days); // Учет времени с переходом через полночь
-
-            // Если указанное время уже прошло сегодня, планируем на завтра
-            if (targetTime < now)
-            {
-                targetTime = targetTime.AddDays(1);
-            }
-
-            return (targetTime - now).TotalMilliseconds;
+            var now = DateTime.Now;
+            var targetDate = now.Date.Add(targetTime);
+            if (targetDate < now) targetDate = targetDate.AddDays(1);
+            return (targetDate - now).TotalMilliseconds;
         }
-
-
-
-
-
-
 
         public async Task SendDailyReport()
         {
             try
             {
+                var today = DateTime.Today;
+                var instruments = await GetAvailableInstruments();
                 var reportData = new Dictionary<string, double>();
-                string[] instruments = { "LCO", "NG", "S", "G", "P", "ADD1", "ADD2" };
-                DateTime today = DateTime.Today;
-                DateTime tomorrow = today.AddDays(1);
 
                 foreach (var instrument in instruments)
                 {
-                    // Расчет ожидаемого количества баров
-                    int expectedBars = CalculateExpectedBars(instrument, today);
+                    var actualBars = await GetActualBarsCount(instrument, today);
+                    if (actualBars == 0) continue;
 
-                    // Получение фактического количества баров из MongoDB
-                    int actualBars = await GetActualBarsCount(instrument, today);
-
-                    // Расчет процента потерь
-                    double lossPercentage = (expectedBars == 0) ? 0 :
-                        (double)(expectedBars - actualBars) / expectedBars * 100;
-
-                    reportData.Add(instrument, lossPercentage);
+                    var expectedBars = GetTradingHours(instrument) / 5;
+                    reportData[GetDisplayName(instrument)] = (expectedBars - actualBars) * 100.0 / expectedBars;
                 }
 
-                // Формирование сообщения
-                var message = new StringBuilder();
-                message.AppendLine($"Отчет по потерям данных за {today:dd.MM.yyyy}");
-                message.AppendLine("===================================");
-
-                double totalLoss = 0;
-                foreach (var item in reportData)
-                {
-                    message.AppendLine($"{item.Key} - {item.Value:F1}%");
-                    totalLoss += item.Value;
-                }
-
-                double averageLoss = reportData.Count > 0 ? totalLoss / reportData.Count : 0;
-                message.AppendLine("===================================");
-                message.AppendLine($"Средние потери: {averageLoss:F1}%");
-
-                // Отправка в Telegram
-                await NotificationTelegramBot.Send(message.ToString());
+                await SendReport(reportData, today);
             }
             catch (Exception ex)
             {
-                await NotificationTelegramBot.Send($"Ошибка формирования отчета: {ex.Message}");
+                await NotificationTelegramBot.Send($"Ошибка: {ex.Message}");
             }
         }
 
-        private int CalculateExpectedBars(string instrument, DateTime date)
+        private async Task<List<string>> GetAvailableInstruments()
         {
-            // Расчет времени торговли для инструмента
-            TimeSpan tradingHours = GetTradingHours(instrument, date);
+            var client = new MongoClient($"mongodb://localhost:{TB_LOCALHOST.Text}");
+            var collections = await client.GetDatabase(TB_DBNAME.Text)
+                .ListCollectionNamesAsync(new ListCollectionNamesOptions
+                {
+                    Filter = new BsonDocument("name", new BsonDocument("$regex", "_5M$"))
+                });
 
-            // 5-минутные бары: всего минут / 5
-            return (int)(tradingHours.TotalMinutes / 5);
+            return collections.ToList().Select(x => x[..^3]).ToList();
         }
 
-        private TimeSpan GetTradingHours(string instrument, DateTime date)
+        private string GetDisplayName(string instrument) => instrument switch
         {
-            // Определение времени торговли для инструмента
-            if (instrument == "S" || instrument == "G" || instrument == "P")
+            "ADD1" => TB_NAME_ADD1.Text.Trim(),
+            "ADD2" => TB_NAME_ADD2.Text.Trim(),
+            _ => instrument
+        };
+
+        private async Task SendReport(Dictionary<string, double> data, DateTime date)
+        {
+            if (data.Count == 0)
             {
-                // Металлы: 2:00 - 00:00 (22 часа)
-                return TimeSpan.FromHours(22);
+                await NotificationTelegramBot.Send("Нет данных для отчёта");
+                return;
             }
-            else if (instrument == "LCO" || instrument == "NG")
-            {
-                // Ресурсы: 4:00 - 00:00 (20 часов)
-                return TimeSpan.FromHours(20);
-            }
-            else
-            {
-                // Для кастомных инструментов (ADD1, ADD2)
-                return TimeSpan.FromHours(24); // Пример
-            }
+
+            var message = new StringBuilder()
+                .AppendLine($"Отчёт по потерям данных за {date:dd.MM.yyyy}")
+                .AppendLine("============================")
+                .AppendJoin("\n", data.Select(x => $"{x.Key} - {x.Value:F1}%"))
+                .AppendLine("\n---------------------------")
+                .AppendLine($"Среднее: {data.Values.Average():F1}%")
+                .ToString();
+
+            await NotificationTelegramBot.Send(message);
         }
+
+        private int GetTradingHours(string instrument) => instrument switch
+        {
+            "S" or "G" or "P" => 22 * 60,    // 22 часа
+            "LCO" or "NG" => 20 * 60,        // 20 часов
+            _ => 24 * 60                     // 24 часа
+        };
 
         private async Task<int> GetActualBarsCount(string instrument, DateTime date)
         {
-            var mongoClient = new MongoClient($"mongodb://localhost:{TB_LOCALHOST.Text}");
-            var database = mongoClient.GetDatabase($"{TB_DBNAME.Text}");
-            var collection = database.GetCollection<BsonDocument>($"{instrument}_5M");
+            var collection = new MongoClient($"mongodb://localhost:{TB_LOCALHOST.Text}")
+                .GetDatabase(TB_DBNAME.Text)
+                .GetCollection<BsonDocument>($"{instrument}_5M");
 
             var filter = Builders<BsonDocument>.Filter
-                .Gte("Date", date.ToString("yyyy-MM-dd")) &
-                Builders<BsonDocument>.Filter
-                .Lt("Date", date.AddDays(1).ToString("yyyy-MM-dd"));
+                .Regex("Date", new BsonRegularExpression($"^{date:yyyy-MM-dd}"));
 
             return (int)await collection.CountDocumentsAsync(filter);
         }
-
 
 
 
@@ -492,7 +478,7 @@ namespace ServerDesktopBingX
             if (DateTime.Now.TimeOfDay >= DTP_BACKUP.Value.TimeOfDay &&
                 DateTime.Now.TimeOfDay < DTP_BACKUP.Value.TimeOfDay.Add(TimeSpan.FromMinutes(1)))
             {
-                
+                await SendDailyReport();
                 await PerformScheduledBackup(1);
             }
         }
