@@ -1304,7 +1304,7 @@
             GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_LCO);
             GB_NOT_SETTINGS.Controls.Add(label23);
             GB_NOT_SETTINGS.Controls.Add(label22);
-            GB_NOT_SETTINGS.Location = new Point(1182, 16);
+            GB_NOT_SETTINGS.Location = new Point(1182, 15);
             GB_NOT_SETTINGS.Name = "GB_NOT_SETTINGS";
             GB_NOT_SETTINGS.Size = new Size(198, 297);
             GB_NOT_SETTINGS.TabIndex = 112;

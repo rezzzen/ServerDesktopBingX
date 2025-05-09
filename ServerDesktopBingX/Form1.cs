@@ -307,13 +307,23 @@ namespace ServerDesktopBingX
                     L_LOG_ADD1.Visible = false;
                     SW_ADD1.Visible = false;
                     SW_DB_ADD1.Visible = false;
-                    this.Size = new System.Drawing.Size(1206, 325);
+                    UD_NOT_CHANGE_ADD1.Visible = false;
+                    SW_NOT_CHANGE_ADD1.Visible = false;
+                    SW_LOG_ADD1.Visible = false;
+                    BT_ADD_ADD2.Visible = false;
+                    BT_ADD_ADD2.Enabled = false;
+                    GB_TELEGRAM_SETTINGS.Location = new Point(13, 290);
+                    GB_BACKUP_SETTINGS.Location = new Point(728, 290);
+                    GB_LANGUAGE.Location = new Point(1182, 375);
+                    L_DATE.Location = new Point(1185, 445);
+                    GB_NOT_SETTINGS.Size = new Size(198, 267);
+                    GB_DB_SETTINGS.Size = new Size(204, 268);
+                    this.Size = new Size(1404, 521);
                 }
                 else
                 {
                     BT_ADD_ADD1.Visible = false;
                     BT_ADD_ADD1.Enabled = false;
-                    this.Size = new System.Drawing.Size(1404, 551);
                     BT_DELETE_ADD1.Visible = true;
                     BT_DELETE_ADD1.Enabled = true;
 
@@ -339,8 +349,10 @@ namespace ServerDesktopBingX
                     L_LOG_ADD2.Visible = false;
                     SW_ADD2.Visible = false;
                     SW_DB_ADD2.Visible = false;
-                    BT_ADD_ADD2.Visible = true;
-                    BT_ADD_ADD2.Enabled = true;
+                    UD_NOT_CHANGE_ADD2.Visible = false;
+                    SW_NOT_CHANGE_ADD2.Visible = false;
+                    SW_LOG_ADD2.Visible = false;
+
                 }
                 else
                 {
@@ -1511,11 +1523,20 @@ namespace ServerDesktopBingX
             L_CHANGE_ADD1.Visible = true;
             SW_ADD1.Visible = true;
             SW_DB_ADD1.Visible = true;
+            UD_NOT_CHANGE_ADD1.Visible = true;
+            SW_NOT_CHANGE_ADD1.Visible = true;
+            SW_LOG_ADD1.Visible = true;
             BT_ADD_ADD1.Visible = false;
             BT_ADD_ADD1.Enabled = false;
             BT_ADD_ADD2.Visible = true;
             BT_ADD_ADD2.Enabled = true;
-            this.Size = new System.Drawing.Size(1206, 359);
+            GB_TELEGRAM_SETTINGS.Location = new Point(13, 320);
+            GB_BACKUP_SETTINGS.Location = new Point(728, 320);
+            GB_LANGUAGE.Location = new Point(1182, 405);
+            L_DATE.Location = new Point(1185, 475);
+            GB_NOT_SETTINGS.Size = new Size(198, 297);
+            GB_DB_SETTINGS.Size = new Size(204, 298);
+            this.Size = new Size(1404, 551);
         }
 
         private void BT_ADD_ADD2_Click(object sender, EventArgs e)
@@ -1536,6 +1557,9 @@ namespace ServerDesktopBingX
             L_CHANGE_ADD2.Visible = true;
             SW_ADD2.Visible = true;
             SW_DB_ADD2.Visible = true;
+            UD_NOT_CHANGE_ADD2.Visible = true;
+            SW_NOT_CHANGE_ADD2.Visible = true;
+            SW_LOG_ADD2.Visible = true;
             BT_ADD_ADD2.Visible = false;
             BT_ADD_ADD2.Enabled = false;
             BT_DELETE_ADD1.Visible = false;
@@ -1798,6 +1822,10 @@ namespace ServerDesktopBingX
             L_LOG_ADD1.Text = "";
             SW_ADD1.Checked = false;
             SW_DB_ADD1.Checked = false;
+            UD_NOT_CHANGE_ADD1.Value = 0;
+            SW_NOT_CHANGE_ADD1.Checked = false;
+            SW_LOG_ADD1.Checked = false;
+
             if (TB_NAME_ADD2.Visible == true)
             {
                 TB_NAME_ADD1.Text = TB_NAME_ADD2.Text;
@@ -1816,9 +1844,12 @@ namespace ServerDesktopBingX
                 TB_MIN_ADD2.Visible = false;
                 L_STATUS_ADD2.Visible = false;
                 L_LOG_ADD2.Visible = false;
-                L_CHANGE_ADD1.Visible = false;
+                L_CHANGE_ADD2.Visible = false;
                 SW_ADD2.Visible = false;
                 SW_DB_ADD2.Visible = false;
+                UD_NOT_CHANGE_ADD2.Visible = false;
+                SW_NOT_CHANGE_ADD2.Visible = false;
+                SW_LOG_ADD2.Visible = false;
                 BT_ADD_ADD2.Visible = true;
                 BT_ADD_ADD2.Enabled = true;
             }
@@ -1847,15 +1878,25 @@ namespace ServerDesktopBingX
                 TB_MAX_ADD1.Visible = false;
                 TB_MIN_ADD1.Visible = false;
                 L_STATUS_ADD1.Visible = false;
+                L_CHANGE_ADD1.Visible = false;
                 L_LOG_ADD1.Visible = false;
                 SW_ADD1.Visible = false;
                 SW_DB_ADD1.Visible = false;
+                UD_NOT_CHANGE_ADD1.Visible = false;
+                SW_NOT_CHANGE_ADD1.Visible = false;
+                SW_LOG_ADD1.Visible = false;
                 BT_ADD_ADD1.Visible = true;
                 BT_ADD_ADD1.Enabled = true;
                 BT_ADD_ADD2.Visible = false;
                 BT_ADD_ADD2.Enabled = false;
-                this.Size = new System.Drawing.Size(1206, 325);
             }
+            GB_TELEGRAM_SETTINGS.Location = new Point(13, 290);
+            GB_BACKUP_SETTINGS.Location = new Point(728, 290);
+            GB_LANGUAGE.Location = new Point(1182, 375);
+            L_DATE.Location = new Point(1185, 445);
+            GB_NOT_SETTINGS.Size = new Size(198, 267);
+            GB_DB_SETTINGS.Size = new Size(204, 268);
+            this.Size = new Size(1404, 521);
         }
 
         private void BT_DELETE_ADD2_Click(object sender, EventArgs e)
@@ -1873,6 +1914,9 @@ namespace ServerDesktopBingX
             L_LOG_ADD2.Text = "";
             SW_ADD2.Checked = false;
             SW_DB_ADD2.Checked = false;
+            UD_NOT_CHANGE_ADD2.Value = 0;
+            SW_NOT_CHANGE_ADD2.Checked = false;
+            SW_LOG_ADD2.Checked = false;
             if (SW_LANGUAGE.Checked)
             {
                 L_STATUS_ADD2.Text = "Stopped";
@@ -1898,10 +1942,15 @@ namespace ServerDesktopBingX
             L_CHANGE_ADD2.Visible = false;
             SW_ADD2.Visible = false;
             SW_DB_ADD2.Visible = false;
+            UD_NOT_CHANGE_ADD2.Visible = false;
+            SW_NOT_CHANGE_ADD2.Visible = false;
+            SW_LOG_ADD2.Visible = false;
             BT_ADD_ADD2.Visible = true;
             BT_ADD_ADD2.Enabled = true;
             BT_DELETE_ADD1.Visible = true;
             BT_DELETE_ADD1.Enabled = true;
+
+            
 
         }
 
