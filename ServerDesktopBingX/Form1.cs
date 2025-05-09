@@ -77,20 +77,56 @@ namespace ServerDesktopBingX
                 }
             }
 
+            SW_LANGUAGE.Checked = Properties.Settings.Default.SW_LANGUAGE;
+
+            if (SW_LANGUAGE.Checked)
+            {
+                L_BINGX_STATUS.Text = "Stopped";
+                L_STATUS_LCO.Text = "Stopped";
+                L_STATUS_NG.Text = "Stopped";
+                L_STATUS_S.Text = "Stopped";
+                L_STATUS_ADD1.Text = "Stopped";
+                L_STATUS_ADD2.Text = "Stopped";
+            }
+            else
+            {
+                L_BINGX_STATUS.Text = "Остановлено";
+                L_STATUS_LCO.Text = "Остановлено";
+                L_STATUS_NG.Text = "Остановлено";
+                L_STATUS_S.Text = "Остановлено";
+                L_STATUS_ADD1.Text = "Остановлено";
+                L_STATUS_ADD2.Text = "Остановлено";
+            }
+
 
             if (true)
             {
                 SW_MAIN.Checked = Properties.Settings.Default.SW_MAIN;
+                
                 if (SW_MAIN.Checked == true)
                 {
-                    L_BINGX_STATUS.Text = "Connecting...";
+                    if (SW_LANGUAGE.Checked)
+                    {
+                        L_BINGX_STATUS.Text = "Connecting...";
+                    }
+                    else
+                    {
+                        L_BINGX_STATUS.Text = "Подключение...";
+                    }
                     L_BINGX_STATUS.ForeColor = System.Drawing.Color.DarkOrange;
                 }
 
                 SW_LCO.Checked = Properties.Settings.Default.SW_LCO;
                 if (SW_LCO.Checked == true)
                 {
-                    L_STATUS_LCO.Text = "Connecting...";
+                    if (SW_LANGUAGE.Checked)
+                    {
+                        L_STATUS_LCO.Text = "Connecting...";
+                    }
+                    else
+                    {
+                        L_STATUS_LCO.Text = "Подключение...";
+                    }
                     L_STATUS_LCO.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 SW_DB_LCO.Checked = Properties.Settings.Default.SW_DB_LCO;
@@ -98,7 +134,14 @@ namespace ServerDesktopBingX
                 SW_NG.Checked = Properties.Settings.Default.SW_NG;
                 if (SW_NG.Checked == true)
                 {
-                    L_STATUS_NG.Text = "Connecting...";
+                    if (SW_LANGUAGE.Checked)
+                    {
+                        L_STATUS_NG.Text = "Connecting...";
+                    }
+                    else
+                    {
+                        L_STATUS_NG.Text = "Подключение...";
+                    }
                     L_STATUS_NG.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 SW_DB_NG.Checked = Properties.Settings.Default.SW_DB_NG;
@@ -106,7 +149,14 @@ namespace ServerDesktopBingX
                 SW_S.Checked = Properties.Settings.Default.SW_S;
                 if (SW_S.Checked == true)
                 {
-                    L_STATUS_S.Text = "Connecting...";
+                    if (SW_LANGUAGE.Checked)
+                    {
+                        L_STATUS_S.Text = "Connecting...";
+                    }
+                    else
+                    {
+                        L_STATUS_S.Text = "Подключение...";
+                    }
                     L_STATUS_S.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 SW_DB_S.Checked = Properties.Settings.Default.SW_DB_S;
@@ -117,7 +167,14 @@ namespace ServerDesktopBingX
                     SW_ADD1.Checked = Properties.Settings.Default.SW_ADD1;
                     if (SW_ADD1.Checked == true)
                     {
-                        L_STATUS_ADD1.Text = "Connecting...";
+                        if (SW_LANGUAGE.Checked)
+                        {
+                            L_STATUS_ADD1.Text = "Connecting...";
+                        }
+                        else
+                        {
+                            L_STATUS_ADD1.Text = "Подключение...";
+                        }
                         L_STATUS_ADD1.ForeColor = System.Drawing.Color.DarkOrange;
                     }
                     SW_DB_ADD1.Checked = Properties.Settings.Default.SW_DB_ADD1;
@@ -129,7 +186,14 @@ namespace ServerDesktopBingX
                     SW_ADD2.Checked = Properties.Settings.Default.SW_ADD2;
                     if (SW_ADD1.Checked == true)
                     {
-                        L_STATUS_ADD2.Text = "Connecting...";
+                        if (SW_LANGUAGE.Checked)
+                        {
+                            L_STATUS_ADD2.Text = "Connecting...";
+                        }
+                        else
+                        {
+                            L_STATUS_ADD2.Text = "Подключение...";
+                        }
                         L_STATUS_ADD2.ForeColor = System.Drawing.Color.DarkOrange;
                     }
                     SW_DB_ADD2.Checked = Properties.Settings.Default.SW_DB_ADD2;
@@ -180,6 +244,8 @@ namespace ServerDesktopBingX
                 SW_BACKUP.Checked = Properties.Settings.Default.SW_BACKUP;
                 SW_BACKUP_TELEGRAM.Checked = Properties.Settings.Default.SW_BACKUP_TELEGRAM;
 
+                
+
 
                 SW_DAILYREPORT.Checked = Properties.Settings.Default.SW_DAILYREPORT;
 
@@ -191,7 +257,7 @@ namespace ServerDesktopBingX
                 {
                     DTP_BACKUP.Value = DateTime.Parse(Properties.Settings.Default.DTP_BACKUP);
                 }
-                
+
 
 
                 try
@@ -672,7 +738,7 @@ namespace ServerDesktopBingX
 
             private async Task SendBackupToTelegram(string filePath)
             {
-                
+
                 try
                 {
                     using (var stream = File.OpenRead(filePath))
@@ -682,7 +748,7 @@ namespace ServerDesktopBingX
                             caption: $"Бэкап {DateTime.Now:yyyy-MM-dd HH:mm}"
                         );
                     }
-                   
+
                     File.Delete(filePath); // Удаляем архив после отправки
                 }
                 catch (Exception ex)
@@ -906,6 +972,11 @@ namespace ServerDesktopBingX
                                     label.Text = "Disconnected";
                                     label.ForeColor = System.Drawing.Color.Red;
                                 }
+                                if (label.Text == "Подключено")
+                                {
+                                    label.Text = "Отключено";
+                                    label.ForeColor = System.Drawing.Color.Red;
+                                }
                             }
                         }
                     }
@@ -999,7 +1070,7 @@ namespace ServerDesktopBingX
                         return;
                     }
                 }
-                
+
                 // Основная логика сохранения
                 var previousOpen = GetTextBoxValue("OPEN");
                 var previousClose = GetTextBoxValue("CLOSE");
@@ -1063,7 +1134,7 @@ namespace ServerDesktopBingX
                                 {
                                     collection = database.GetCollection<BsonDocument>($"{suffix}_5M");
                                 }
-                                
+
 
                                 await collection.InsertOneAsync(document);
                                 log.Text = $"Бар {lastSaved:HH:mm} сохранён";
@@ -1081,7 +1152,7 @@ namespace ServerDesktopBingX
 
                                     await LogTelegramBot.Send($"Бар по инструменту {instrumentName} в {lastSaved:HH:mm} сохранён")
                                         .ConfigureAwait(false);
-                                    
+
                                 }
 
 
@@ -1243,10 +1314,25 @@ namespace ServerDesktopBingX
                 {
                     SetColorForAll(System.Drawing.Color.LightGreen);
                 }
-                L_BINGX_STATUS.Text = "Connected";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_BINGX_STATUS.Text = "Connected";
+                }
+                else
+                {
+                    L_BINGX_STATUS.Text = "Подключено";
+                }
                 L_BINGX_STATUS.ForeColor = System.Drawing.Color.Green;
                 var l = Controls.Find($"L_STATUS_{suffix}", true).FirstOrDefault() as Label;
-                l.Text = "Connected";
+                if (SW_LANGUAGE.Checked)
+                {
+                    l.Text = "Connected";
+                }
+                else
+                {
+                    l.Text = "Подключено";
+                }
+                
                 l.ForeColor = System.Drawing.Color.Green;
 
 
@@ -1308,47 +1394,100 @@ namespace ServerDesktopBingX
         {
             if (SW_MAIN.Checked == false)
             {
-                L_BINGX_STATUS.Text = "Stopped";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_BINGX_STATUS.Text = "Stopped";
+                    L_STATUS_LCO.Text = "Stopped";
+                    L_STATUS_NG.Text = "Stopped";
+                    L_STATUS_S.Text = "Stopped";
+                    L_STATUS_ADD1.Text = "Stopped";
+                    L_STATUS_ADD2.Text = "Stopped";
+                }
+                else
+                {
+                    L_BINGX_STATUS.Text = "Остановлено";
+                    L_STATUS_LCO.Text = "Остановлено";
+                    L_STATUS_NG.Text = "Остановлено";
+                    L_STATUS_S.Text = "Остановлено";
+                    L_STATUS_ADD1.Text = "Остановлено";
+                    L_STATUS_ADD2.Text = "Остановлено";
+                }
                 L_BINGX_STATUS.ForeColor = System.Drawing.Color.Red;
-                L_STATUS_LCO.Text = "Stopped";
                 L_STATUS_LCO.ForeColor = System.Drawing.Color.Red;
-                L_STATUS_NG.Text = "Stopped";
                 L_STATUS_NG.ForeColor = System.Drawing.Color.Red;
-                L_STATUS_S.Text = "Stopped";
                 L_STATUS_S.ForeColor = System.Drawing.Color.Red;
-                L_STATUS_ADD1.Text = "Stopped";
                 L_STATUS_ADD1.ForeColor = System.Drawing.Color.Red;
-                L_STATUS_ADD2.Text = "Stopped";
                 L_STATUS_ADD2.ForeColor = System.Drawing.Color.Red;
-
             }
             else
             {
-                L_BINGX_STATUS.Text = "Connecting...";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_BINGX_STATUS.Text = "Connecting...";
+                }
+                else
+                {
+                    L_BINGX_STATUS.Text = "Подключение...";
+                }
                 L_BINGX_STATUS.ForeColor = System.Drawing.Color.DarkOrange;
                 if (SW_LCO.Checked == true)
                 {
-                    L_STATUS_LCO.Text = "Connecting...";
+                    if (SW_LANGUAGE.Checked) 
+                    {
+                        L_STATUS_LCO.Text = "Connecting...";
+                    }
+                    else
+                    {
+                        L_STATUS_LCO.Text = "Подключение...";
+                    }
                     L_STATUS_LCO.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 if (SW_NG.Checked == true)
                 {
-                    L_STATUS_NG.Text = "Connecting...";
+                    if (SW_LANGUAGE.Checked)
+                    {
+                        L_STATUS_NG.Text = "Connecting...";
+                    }
+                    else
+                    {
+                        L_STATUS_NG.Text = "Подключение...";
+                    }
                     L_STATUS_NG.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 if (SW_S.Checked == true)
                 {
-                    L_STATUS_S.Text = "Connecting...";
+                    if (SW_LANGUAGE.Checked)
+                    {
+                        L_STATUS_S.Text = "Connecting...";
+                    }
+                    else
+                    {
+                        L_STATUS_S.Text = "Подключение...";
+                    }
                     L_STATUS_S.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 if (SW_ADD1.Checked == true)
                 {
-                    L_STATUS_ADD1.Text = "Connecting...";
+                    if (SW_LANGUAGE.Checked)
+                    {
+                        L_STATUS_ADD1.Text = "Connecting...";
+                    }
+                    else
+                    {
+                        L_STATUS_ADD1.Text = "Подключение...";
+                    }
                     L_STATUS_ADD1.ForeColor = System.Drawing.Color.DarkOrange;
                 }
                 if (SW_ADD2.Checked == true)
                 {
-                    L_STATUS_ADD2.Text = "Connecting...";
+                    if (SW_LANGUAGE.Checked)
+                    {
+                        L_STATUS_ADD2.Text = "Connecting...";
+                    }
+                    else
+                    {
+                        L_STATUS_ADD2.Text = "Подключение...";
+                    }
                     L_STATUS_ADD2.ForeColor = System.Drawing.Color.DarkOrange;
                 }
             }
@@ -1493,13 +1632,27 @@ namespace ServerDesktopBingX
         {
             if ((SW_LCO.Checked == true) && (SW_MAIN.Checked == true))
             {
-                L_STATUS_LCO.Text = "Connecting...";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_STATUS_LCO.Text = "Connecting...";
+                }
+                else
+                {
+                    L_STATUS_LCO.Text = "Подключение...";
+                }
                 L_STATUS_LCO.ForeColor = System.Drawing.Color.DarkOrange;
 
             }
             else
             {
-                L_STATUS_LCO.Text = "Stopped";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_STATUS_LCO.Text = "Stopped";
+                }
+                else
+                {
+                    L_STATUS_LCO.Text = "Остановлено";
+                }
                 L_STATUS_LCO.ForeColor = System.Drawing.Color.Red;
             }
         }
@@ -1508,13 +1661,27 @@ namespace ServerDesktopBingX
         {
             if ((SW_NG.Checked == true) && (SW_MAIN.Checked == true))
             {
-                L_STATUS_NG.Text = "Connecting...";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_STATUS_NG.Text = "Connecting...";
+                }
+                else
+                {
+                    L_STATUS_NG.Text = "Подключение...";
+                }
                 L_STATUS_NG.ForeColor = System.Drawing.Color.DarkOrange;
 
             }
             else
             {
-                L_STATUS_NG.Text = "Stopped";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_STATUS_NG.Text = "Stopped";
+                }
+                else
+                {
+                    L_STATUS_NG.Text = "Остановлено";
+                }
                 L_STATUS_NG.ForeColor = System.Drawing.Color.Red;
             }
         }
@@ -1523,13 +1690,27 @@ namespace ServerDesktopBingX
         {
             if ((SW_S.Checked == true) && (SW_MAIN.Checked == true))
             {
-                L_STATUS_S.Text = "Connecting...";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_STATUS_S.Text = "Connecting...";
+                }
+                else
+                {
+                    L_STATUS_S.Text = "Подключение...";
+                }
                 L_STATUS_S.ForeColor = System.Drawing.Color.DarkOrange;
 
             }
             else
             {
-                L_STATUS_S.Text = "Stopped";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_STATUS_S.Text = "Stopped";
+                }
+                else
+                {
+                    L_STATUS_S.Text = "Остановлено";
+                }
                 L_STATUS_S.ForeColor = System.Drawing.Color.Red;
             }
         }
@@ -1538,13 +1719,27 @@ namespace ServerDesktopBingX
         {
             if ((SW_ADD1.Checked == true) && (SW_MAIN.Checked == true))
             {
-                L_STATUS_ADD1.Text = "Connecting...";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_STATUS_ADD1.Text = "Connecting...";
+                }
+                else
+                {
+                    L_STATUS_ADD1.Text = "Подключение...";
+                }
                 L_STATUS_ADD1.ForeColor = System.Drawing.Color.DarkOrange;
 
             }
             else
             {
-                L_STATUS_ADD1.Text = "Stopped";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_STATUS_ADD1.Text = "Stopped";
+                }
+                else
+                {
+                    L_STATUS_ADD1.Text = "Остановлено";
+                }
                 L_STATUS_ADD1.ForeColor = System.Drawing.Color.Red;
             }
         }
@@ -1553,13 +1748,28 @@ namespace ServerDesktopBingX
         {
             if ((SW_ADD2.Checked == true) && (SW_MAIN.Checked == true))
             {
-                L_STATUS_ADD2.Text = "Connecting...";
+                if (SW_LANGUAGE.Checked) 
+                {
+                    L_STATUS_ADD2.Text = "Connecting...";
+                }
+                else
+                {
+                    L_STATUS_ADD2.Text = "Подключение...";
+                }
+                
                 L_STATUS_ADD2.ForeColor = System.Drawing.Color.DarkOrange;
 
             }
             else
             {
-                L_STATUS_ADD2.Text = "Stopped";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_STATUS_ADD2.Text = "Stopped";
+                }
+                else
+                {
+                    L_STATUS_ADD2.Text = "Остановлено";
+                }
                 L_STATUS_ADD2.ForeColor = System.Drawing.Color.Red;
             }
         }
@@ -1576,7 +1786,14 @@ namespace ServerDesktopBingX
             TB_MIN_ADD1.Text = "";
             TB_MIN_ADD1.BackColor = System.Drawing.Color.WhiteSmoke;
             L_CHANGE_ADD1.Text = "";
-            L_STATUS_ADD1.Text = "Stopped";
+            if (SW_LANGUAGE.Checked)
+            {
+                L_STATUS_ADD1.Text = "Stopped";
+            }
+            else
+            {
+                L_STATUS_ADD1.Text = "Остановлено";
+            }
             L_STATUS_ADD1.ForeColor = System.Drawing.Color.Red;
             L_LOG_ADD1.Text = "";
             SW_ADD1.Checked = false;
@@ -1609,7 +1826,14 @@ namespace ServerDesktopBingX
             {
                 TB_NAME_ADD1.Text = null;
                 SW_ADD1.Checked = false;
-                L_STATUS_ADD1.Text = "Stopped";
+                if (SW_LANGUAGE.Checked)
+                {
+                    L_STATUS_ADD1.Text = "Stopped";
+                }
+                else
+                {
+                    L_STATUS_ADD1.Text = "Остановлено";
+                }
                 L_STATUS_ADD1.ForeColor = System.Drawing.Color.Red;
                 TB_NAME_ADD1.Visible = false;
                 BT_CHECK_ADD1.Visible = false;
@@ -1649,7 +1873,14 @@ namespace ServerDesktopBingX
             L_LOG_ADD2.Text = "";
             SW_ADD2.Checked = false;
             SW_DB_ADD2.Checked = false;
-            L_STATUS_ADD2.Text = "Stopped";
+            if (SW_LANGUAGE.Checked)
+            {
+                L_STATUS_ADD2.Text = "Stopped";
+            }
+            else
+            {
+                L_STATUS_ADD2.Text = "Остановлено";
+            }
             L_STATUS_ADD2.ForeColor = System.Drawing.Color.Red;
             TB_NAME_ADD2.Visible = false;
             BT_CHECK_ADD2.Visible = false;
@@ -1891,6 +2122,8 @@ namespace ServerDesktopBingX
 
             Properties.Settings.Default.DTP_BACKUP = (DTP_BACKUP.Value).ToString();
 
+            Properties.Settings.Default.SW_LANGUAGE = SW_LANGUAGE.Checked;
+
             Properties.Settings.Default.Save();
         }
 
@@ -1901,27 +2134,56 @@ namespace ServerDesktopBingX
 
         private void UD_DAYS_BACKUP_ValueChanged(object sender, EventArgs e)
         {
-            if (UD_DAYS_BACKUP.Value == 1)
+            if (SW_LANGUAGE.Checked)
             {
-                label26.Text = " day in ";
+                if (UD_DAYS_BACKUP.Value == 1)
+                {
+                    label26.Text = "day in";
+                }
+                else
+                {
+                    label26.Text = "days in";
+                }
             }
             else
             {
-                label26.Text = "days in";
+                if (UD_DAYS_BACKUP.Value == 1)
+                {
+                    label26.Text = "день в";
+                }
+                else
+                {
+                    label26.Text = "дней в";
+                }
             }
             Properties.Settings.Default.UD_DAYS_BACKUP = (int)UD_DAYS_BACKUP.Value;
             Properties.Settings.Default.Save();
         }
         private void UD_STORE_BACKUP_ValueChanged(object sender, EventArgs e)
         {
-            if (UD_STORE_BACKUP.Value == 1)
+            if (SW_LANGUAGE.Checked)
             {
-                label28.Text = "backup";
+                if (UD_STORE_BACKUP.Value == 1)
+                {
+                    label28.Text = "backup";
+                }
+                else
+                {
+                    label28.Text = "backups";
+                }
             }
             else
             {
-                label28.Text = "backups";
+                if (UD_STORE_BACKUP.Value == 1)
+                {
+                    label28.Text = "бэкапа";
+                }
+                else
+                {
+                    label28.Text = "бэкапов";
+                }
             }
+            
             Properties.Settings.Default.UD_STORE_BACKUP = (int)UD_STORE_BACKUP.Value;
             Properties.Settings.Default.Save();
             PerformScheduledBackup(0);
@@ -1938,6 +2200,147 @@ namespace ServerDesktopBingX
         private void SW_BACKUP_TELEGRAM_EnabledChanged(object sender, EventArgs e)
         {
             PerformScheduledBackup(0);
+        }
+
+        private void SW_LANGUAGE_CheckedChanged(object sender)
+        {
+            if (SW_LANGUAGE.Checked == false)
+            {
+                L_BX_STATUS.Text = "Статус подключения к бирже:";
+                L_BX_STATUS.Location = new System.Drawing.Point(140, 15);
+                label16.Text = "Версия от";
+                label16.Location = new System.Drawing.Point(705, 15);
+                GB_DB_SETTINGS.Text = "Настройки БД";
+                label19.Text = "Имя БД";
+                label18.Text = "Порт";
+                GB_NOT_SETTINGS.Text = "Настройки уведомлений";
+                label30.Text = "Ежедневный отчет о работе приложения";
+                label3.Text = "Открытие";
+                label3.Location = new System.Drawing.Point(155, 134);
+                label4.Text = "Закрытие";
+                label4.Location = new System.Drawing.Point(234, 134);
+                label5.Text = "Макс";
+                label5.Location = new System.Drawing.Point(324, 134);
+                label6.Text = "Мин";
+                label6.Location = new System.Drawing.Point(398, 134);
+                label17.Text = "Изменение";
+                label17.Location = new System.Drawing.Point(447, 134);
+                label11.Text = "Статус";
+                label11.Location = new System.Drawing.Point(560, 134);
+                label12.Text = "Лог";
+                label20.Text = "Состояние";
+                label20.Location = new System.Drawing.Point(885, 134);
+                label21.Text = "Сохранение в БД";
+                label21.Location = new System.Drawing.Point(1008, 134);
+                label22.Text = "Изменение (%)";
+                label23.Text = "Лог";
+                GB_TELEGRAM_SETTINGS.Text = "Настройки Telegram";
+                label8.Text = "Бот для уведомлений";
+                label10.Text = "Бот для лога";
+                label7.Text = "Токен";
+                label9.Text = "Токен";
+                label31.Text = "Лог";
+                GB_BACKUP_SETTINGS.Text = "Настройки бэкапа";
+                label29.Text = "Отправлять в TG";
+                label24.Text = "Директория";
+                TB_DIRECTORY_BACKUP.Size = new Size(296, 27);
+                TB_DIRECTORY_BACKUP.Location = new Point(109,57);
+                label25.Text = "Сохранять каждые";
+                UD_DAYS_BACKUP.Location = new Point(156, 88);
+                label26.Text = "дней в";
+                label26.Location = new Point(209, 91);
+                DTP_BACKUP.Location = new Point(263, 88);
+                label27.Text = "Хранить не более";
+                label28.Text = "бэкапов";
+                label32.Text = "Лог";
+                GB_LANGUAGE.Text = "Язык интерфейса";
+                if (L_BINGX_STATUS.Text == "Stopped")
+                    L_BINGX_STATUS.Text = "Остановлено";
+
+                if (L_STATUS_LCO.Text == "Stopped")
+                    L_STATUS_LCO.Text = "Остановлено";
+
+                if (L_STATUS_NG.Text == "Stopped")
+                    L_STATUS_NG.Text = "Остановлено";
+
+                if (L_STATUS_S.Text == "Stopped")
+                    L_STATUS_S.Text = "Остановлено";
+
+                if (L_STATUS_ADD1.Text == "Stopped")
+                    L_STATUS_ADD1.Text = "Остановлено";
+
+                if (L_STATUS_ADD2.Text == "Stopped")
+                    L_STATUS_ADD2.Text = "Остановлено";
+
+            }
+            else
+            {
+                L_BX_STATUS.Text = "BINGX CONNECTION STATUS";
+                label16.Text = "Version from";
+                label16.Location = new Point(695, 16);
+                GB_DB_SETTINGS.Text = "Database settings";
+                label19.Text = "DB Name";
+                label18.Text = "Port";
+                GB_NOT_SETTINGS.Text = "Notifications settings";
+                label30.Text = "Daily report to Telegram on the application's operation";
+                label3.Text = "OPEN";
+                label3.Location = new Point(171, 134);
+                label4.Text = "CLOSE";
+                label4.Location = new Point(245, 134);
+                label5.Text = "MAX";
+                label5.Location = new Point(323, 134);
+                label6.Text = "MIN";
+                label6.Location = new Point(402, 134);
+                label17.Text = "CHANGE";
+                label17.Location = new Point(456, 134);
+                label11.Text = "STATUS";
+                label11.Location = new Point(556, 134);
+                label12.Text = "LOG";
+                label20.Text = "STATE";
+                label20.Location = new Point(902, 134);
+                label21.Text = "SAVE TO DB";
+                label21.Location = new Point(1031, 134);
+                label22.Text = "CHANGE (%)";
+                label22.Location = new Point(14, 118);
+                label23.Text = "LOG";
+                GB_TELEGRAM_SETTINGS.Text = "Telegram settings";
+                label8.Text = "NOTIFICATIONS BOT";
+                label10.Text = "LOG BOT";
+                label7.Text = "TOKEN";
+                label9.Text = "TOKEN";
+                label31.Text = "LOG";
+                GB_BACKUP_SETTINGS.Text = "Backup settings";
+                label29.Text = "Send to TG";
+                label24.Text = "Directory";
+                TB_DIRECTORY_BACKUP.Size = new Size(308, 27);
+                TB_DIRECTORY_BACKUP.Location = new Point(98, 57);
+                label25.Text = "Save every";
+                UD_DAYS_BACKUP.Location = new Point(98, 88);
+                label26.Text = "days in";
+                label26.Location = new Point(154, 91);
+                DTP_BACKUP.Location = new Point(215, 88);
+                label27.Text = "Store no more than";
+                label28.Text = "backups";
+                label32.Text = "LOG";
+                GB_LANGUAGE.Text = "Language UI";
+                if (L_BINGX_STATUS.Text == "Остановлено")
+                    L_BINGX_STATUS.Text = "Stopped";
+
+                if (L_STATUS_LCO.Text == "Остановлено")
+                    L_STATUS_LCO.Text = "Stopped";
+
+                if (L_STATUS_NG.Text == "Остановлено")
+                    L_STATUS_NG.Text = "Stopped";
+
+                if (L_STATUS_S.Text == "Остановлено")
+                    L_STATUS_S.Text = "Stopped";
+
+                if (L_STATUS_ADD1.Text == "Остановлено")
+                    L_STATUS_ADD1.Text = "Stopped";
+
+                if (L_STATUS_ADD2.Text == "Остановлено")
+                    L_STATUS_ADD2.Text = "Stopped";
+            }
         }
     }
     // Класс для управления ботом

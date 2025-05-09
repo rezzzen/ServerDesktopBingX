@@ -107,7 +107,7 @@
             L_CHANGE_ADD2 = new Label();
             label18 = new Label();
             label19 = new Label();
-            groupBox1 = new GroupBox();
+            GB_DB_SETTINGS = new GroupBox();
             BT_EDIT_LOCALHOST = new Button();
             BT_CHECK_LOCALHOST = new Button();
             BT_EDIT_DBNAME = new Button();
@@ -121,7 +121,9 @@
             SW_DB_S = new Controls.ToggleSwitch();
             SW_DB_ADD1 = new Controls.ToggleSwitch();
             SW_DB_ADD2 = new Controls.ToggleSwitch();
-            groupBox2 = new GroupBox();
+            GB_TELEGRAM_SETTINGS = new GroupBox();
+            L_LOG_TELEGRAM = new Label();
+            label31 = new Label();
             BT_EDIT_LOG_BOT_TELEGRAM_TOKEN = new Button();
             BT_CHECK_LOG_BOT_TELEGRAM_TOKEN = new Button();
             TB_LOG_BOT_TELEGRAM_TOKEN = new TextBox();
@@ -134,7 +136,7 @@
             BT_CHECK_NOT_BOT_TELEGRAM_TOKEN = new Button();
             TB_NOT_BOT_TELEGRAM_TOKEN = new TextBox();
             label7 = new Label();
-            groupBox3 = new GroupBox();
+            GB_NOT_SETTINGS = new GroupBox();
             label30 = new Label();
             SW_DAILYREPORT = new Controls.ToggleSwitch();
             UD_NOT_CHANGE_ADD2 = new NumericUpDown();
@@ -154,7 +156,9 @@
             SW_NOT_CHANGE_LCO = new Controls.ToggleSwitch();
             label23 = new Label();
             label22 = new Label();
-            groupBox4 = new GroupBox();
+            GB_BACKUP_SETTINGS = new GroupBox();
+            L_LOG_BACKUP = new Label();
+            label32 = new Label();
             label29 = new Label();
             SW_BACKUP_TELEGRAM = new Controls.ToggleSwitch();
             DTP_BACKUP = new DateTimePicker();
@@ -169,21 +173,22 @@
             TB_DIRECTORY_BACKUP = new TextBox();
             label24 = new Label();
             SW_BACKUP = new Controls.ToggleSwitch();
-            label31 = new Label();
-            label32 = new Label();
-            L_LOG_TELEGRAM = new Label();
-            L_LOG_BACKUP = new Label();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
-            groupBox3.SuspendLayout();
+            GB_LANGUAGE = new GroupBox();
+            label34 = new Label();
+            label33 = new Label();
+            SW_LANGUAGE = new Controls.ToggleSwitch();
+            GB_DB_SETTINGS.SuspendLayout();
+            GB_TELEGRAM_SETTINGS.SuspendLayout();
+            GB_NOT_SETTINGS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_S).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_NG).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_LCO).BeginInit();
-            groupBox4.SuspendLayout();
+            GB_BACKUP_SETTINGS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)UD_STORE_BACKUP).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UD_DAYS_BACKUP).BeginInit();
+            GB_LANGUAGE.SuspendLayout();
             SuspendLayout();
             // 
             // TB_KEY
@@ -274,6 +279,7 @@
             label3.Size = new Size(47, 20);
             label3.TabIndex = 11;
             label3.Text = "OPEN";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
@@ -283,6 +289,7 @@
             label4.Size = new Size(51, 20);
             label4.TabIndex = 12;
             label4.Text = "CLOSE";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -292,6 +299,7 @@
             label5.Size = new Size(41, 20);
             label5.TabIndex = 13;
             label5.Text = "MAX";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
@@ -301,6 +309,7 @@
             label6.Size = new Size(37, 20);
             label6.TabIndex = 14;
             label6.Text = "MIN";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label11
             // 
@@ -310,6 +319,7 @@
             label11.Size = new Size(59, 20);
             label11.TabIndex = 19;
             label11.Text = "STATUS";
+            label11.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label12
             // 
@@ -319,6 +329,7 @@
             label12.Size = new Size(36, 20);
             label12.TabIndex = 20;
             label12.Text = "LOG";
+            label12.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label13
             // 
@@ -867,7 +878,7 @@
             // L_DATE
             // 
             L_DATE.AutoSize = true;
-            L_DATE.Location = new Point(13, 114);
+            L_DATE.Location = new Point(1185, 475);
             L_DATE.Name = "L_DATE";
             L_DATE.Size = new Size(0, 20);
             L_DATE.TabIndex = 94;
@@ -880,6 +891,7 @@
             label17.Size = new Size(68, 20);
             label17.TabIndex = 95;
             label17.Text = "CHANGE";
+            label17.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // L_CHANGE_LCO
             // 
@@ -944,22 +956,22 @@
             label19.TabIndex = 102;
             label19.Text = "DB name";
             // 
-            // groupBox1
+            // GB_DB_SETTINGS
             // 
-            groupBox1.Controls.Add(BT_EDIT_LOCALHOST);
-            groupBox1.Controls.Add(BT_CHECK_LOCALHOST);
-            groupBox1.Controls.Add(BT_EDIT_DBNAME);
-            groupBox1.Controls.Add(TB_LOCALHOST);
-            groupBox1.Controls.Add(BT_CHECK_DBNAME);
-            groupBox1.Controls.Add(TB_DBNAME);
-            groupBox1.Controls.Add(label19);
-            groupBox1.Controls.Add(label18);
-            groupBox1.Location = new Point(972, 15);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(204, 298);
-            groupBox1.TabIndex = 103;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Database settings";
+            GB_DB_SETTINGS.Controls.Add(BT_EDIT_LOCALHOST);
+            GB_DB_SETTINGS.Controls.Add(BT_CHECK_LOCALHOST);
+            GB_DB_SETTINGS.Controls.Add(BT_EDIT_DBNAME);
+            GB_DB_SETTINGS.Controls.Add(TB_LOCALHOST);
+            GB_DB_SETTINGS.Controls.Add(BT_CHECK_DBNAME);
+            GB_DB_SETTINGS.Controls.Add(TB_DBNAME);
+            GB_DB_SETTINGS.Controls.Add(label19);
+            GB_DB_SETTINGS.Controls.Add(label18);
+            GB_DB_SETTINGS.Location = new Point(972, 15);
+            GB_DB_SETTINGS.Name = "GB_DB_SETTINGS";
+            GB_DB_SETTINGS.Size = new Size(204, 298);
+            GB_DB_SETTINGS.TabIndex = 103;
+            GB_DB_SETTINGS.TabStop = false;
+            GB_DB_SETTINGS.Text = "Database settings";
             // 
             // BT_EDIT_LOCALHOST
             // 
@@ -1029,6 +1041,7 @@
             label20.Size = new Size(49, 20);
             label20.TabIndex = 104;
             label20.Text = "STATE";
+            label20.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label21
             // 
@@ -1038,6 +1051,7 @@
             label21.Size = new Size(89, 20);
             label21.TabIndex = 105;
             label21.Text = "SAVE TO DB";
+            label21.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // SW_DB_LCO
             // 
@@ -1104,28 +1118,46 @@
             SW_DB_ADD2.TabIndex = 110;
             SW_DB_ADD2.TextOnChecked = "";
             // 
-            // groupBox2
+            // GB_TELEGRAM_SETTINGS
             // 
-            groupBox2.Controls.Add(L_LOG_TELEGRAM);
-            groupBox2.Controls.Add(label31);
-            groupBox2.Controls.Add(BT_EDIT_LOG_BOT_TELEGRAM_TOKEN);
-            groupBox2.Controls.Add(BT_CHECK_LOG_BOT_TELEGRAM_TOKEN);
-            groupBox2.Controls.Add(TB_LOG_BOT_TELEGRAM_TOKEN);
-            groupBox2.Controls.Add(label10);
-            groupBox2.Controls.Add(label9);
-            groupBox2.Controls.Add(SW_LOG_BOT_TELEGRAM);
-            groupBox2.Controls.Add(SW_NOT_BOT_TELEGRAM);
-            groupBox2.Controls.Add(BT_EDIT_NOT_BOT_TELEGRAM_TOKEN);
-            groupBox2.Controls.Add(label8);
-            groupBox2.Controls.Add(BT_CHECK_NOT_BOT_TELEGRAM_TOKEN);
-            groupBox2.Controls.Add(TB_NOT_BOT_TELEGRAM_TOKEN);
-            groupBox2.Controls.Add(label7);
-            groupBox2.Location = new Point(13, 320);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(698, 179);
-            groupBox2.TabIndex = 111;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Telegram settings";
+            GB_TELEGRAM_SETTINGS.Controls.Add(L_LOG_TELEGRAM);
+            GB_TELEGRAM_SETTINGS.Controls.Add(label31);
+            GB_TELEGRAM_SETTINGS.Controls.Add(BT_EDIT_LOG_BOT_TELEGRAM_TOKEN);
+            GB_TELEGRAM_SETTINGS.Controls.Add(BT_CHECK_LOG_BOT_TELEGRAM_TOKEN);
+            GB_TELEGRAM_SETTINGS.Controls.Add(TB_LOG_BOT_TELEGRAM_TOKEN);
+            GB_TELEGRAM_SETTINGS.Controls.Add(label10);
+            GB_TELEGRAM_SETTINGS.Controls.Add(label9);
+            GB_TELEGRAM_SETTINGS.Controls.Add(SW_LOG_BOT_TELEGRAM);
+            GB_TELEGRAM_SETTINGS.Controls.Add(SW_NOT_BOT_TELEGRAM);
+            GB_TELEGRAM_SETTINGS.Controls.Add(BT_EDIT_NOT_BOT_TELEGRAM_TOKEN);
+            GB_TELEGRAM_SETTINGS.Controls.Add(label8);
+            GB_TELEGRAM_SETTINGS.Controls.Add(BT_CHECK_NOT_BOT_TELEGRAM_TOKEN);
+            GB_TELEGRAM_SETTINGS.Controls.Add(TB_NOT_BOT_TELEGRAM_TOKEN);
+            GB_TELEGRAM_SETTINGS.Controls.Add(label7);
+            GB_TELEGRAM_SETTINGS.Location = new Point(13, 320);
+            GB_TELEGRAM_SETTINGS.Name = "GB_TELEGRAM_SETTINGS";
+            GB_TELEGRAM_SETTINGS.Size = new Size(698, 179);
+            GB_TELEGRAM_SETTINGS.TabIndex = 111;
+            GB_TELEGRAM_SETTINGS.TabStop = false;
+            GB_TELEGRAM_SETTINGS.Text = "Telegram settings";
+            // 
+            // L_LOG_TELEGRAM
+            // 
+            L_LOG_TELEGRAM.ImageAlign = ContentAlignment.MiddleLeft;
+            L_LOG_TELEGRAM.Location = new Point(62, 150);
+            L_LOG_TELEGRAM.Name = "L_LOG_TELEGRAM";
+            L_LOG_TELEGRAM.Size = new Size(618, 20);
+            L_LOG_TELEGRAM.TabIndex = 114;
+            L_LOG_TELEGRAM.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Location = new Point(20, 150);
+            label31.Name = "label31";
+            label31.Size = new Size(36, 20);
+            label31.TabIndex = 114;
+            label31.Text = "LOG";
             // 
             // BT_EDIT_LOG_BOT_TELEGRAM_TOKEN
             // 
@@ -1251,33 +1283,33 @@
             label7.TabIndex = 112;
             label7.Text = "TOKEN";
             // 
-            // groupBox3
+            // GB_NOT_SETTINGS
             // 
-            groupBox3.Controls.Add(label30);
-            groupBox3.Controls.Add(SW_DAILYREPORT);
-            groupBox3.Controls.Add(UD_NOT_CHANGE_ADD2);
-            groupBox3.Controls.Add(UD_NOT_CHANGE_ADD1);
-            groupBox3.Controls.Add(UD_NOT_CHANGE_S);
-            groupBox3.Controls.Add(UD_NOT_CHANGE_NG);
-            groupBox3.Controls.Add(UD_NOT_CHANGE_LCO);
-            groupBox3.Controls.Add(SW_LOG_ADD2);
-            groupBox3.Controls.Add(SW_LOG_ADD1);
-            groupBox3.Controls.Add(SW_LOG_S);
-            groupBox3.Controls.Add(SW_LOG_NG);
-            groupBox3.Controls.Add(SW_LOG_LCO);
-            groupBox3.Controls.Add(SW_NOT_CHANGE_ADD2);
-            groupBox3.Controls.Add(SW_NOT_CHANGE_ADD1);
-            groupBox3.Controls.Add(SW_NOT_CHANGE_S);
-            groupBox3.Controls.Add(SW_NOT_CHANGE_NG);
-            groupBox3.Controls.Add(SW_NOT_CHANGE_LCO);
-            groupBox3.Controls.Add(label23);
-            groupBox3.Controls.Add(label22);
-            groupBox3.Location = new Point(1182, 16);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(198, 297);
-            groupBox3.TabIndex = 112;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Notifications settings";
+            GB_NOT_SETTINGS.Controls.Add(label30);
+            GB_NOT_SETTINGS.Controls.Add(SW_DAILYREPORT);
+            GB_NOT_SETTINGS.Controls.Add(UD_NOT_CHANGE_ADD2);
+            GB_NOT_SETTINGS.Controls.Add(UD_NOT_CHANGE_ADD1);
+            GB_NOT_SETTINGS.Controls.Add(UD_NOT_CHANGE_S);
+            GB_NOT_SETTINGS.Controls.Add(UD_NOT_CHANGE_NG);
+            GB_NOT_SETTINGS.Controls.Add(UD_NOT_CHANGE_LCO);
+            GB_NOT_SETTINGS.Controls.Add(SW_LOG_ADD2);
+            GB_NOT_SETTINGS.Controls.Add(SW_LOG_ADD1);
+            GB_NOT_SETTINGS.Controls.Add(SW_LOG_S);
+            GB_NOT_SETTINGS.Controls.Add(SW_LOG_NG);
+            GB_NOT_SETTINGS.Controls.Add(SW_LOG_LCO);
+            GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_ADD2);
+            GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_ADD1);
+            GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_S);
+            GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_NG);
+            GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_LCO);
+            GB_NOT_SETTINGS.Controls.Add(label23);
+            GB_NOT_SETTINGS.Controls.Add(label22);
+            GB_NOT_SETTINGS.Location = new Point(1182, 16);
+            GB_NOT_SETTINGS.Name = "GB_NOT_SETTINGS";
+            GB_NOT_SETTINGS.Size = new Size(198, 297);
+            GB_NOT_SETTINGS.TabIndex = 112;
+            GB_NOT_SETTINGS.TabStop = false;
+            GB_NOT_SETTINGS.Text = "Notifications settings";
             // 
             // label30
             // 
@@ -1285,7 +1317,8 @@
             label30.Name = "label30";
             label30.Size = new Size(126, 86);
             label30.TabIndex = 132;
-            label30.Text = "Daily report to Telegram on the application's operation";
+            label30.Text = "Daily report to Telegram on the application's operation\r\n";
+            label30.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // SW_DAILYREPORT
             // 
@@ -1484,40 +1517,59 @@
             label23.Size = new Size(36, 20);
             label23.TabIndex = 114;
             label23.Text = "LOG";
+            label23.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label22
             // 
-            label22.AutoSize = true;
-            label22.Location = new Point(11, 118);
+            label22.Location = new Point(14, 118);
             label22.Name = "label22";
-            label22.Size = new Size(108, 20);
+            label22.Size = new Size(94, 20);
             label22.TabIndex = 113;
-            label22.Text = "CHANGE > (%)";
+            label22.Text = "CHANGE (%)";
+            label22.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // groupBox4
+            // GB_BACKUP_SETTINGS
             // 
-            groupBox4.Controls.Add(L_LOG_BACKUP);
-            groupBox4.Controls.Add(label32);
-            groupBox4.Controls.Add(label29);
-            groupBox4.Controls.Add(SW_BACKUP_TELEGRAM);
-            groupBox4.Controls.Add(DTP_BACKUP);
-            groupBox4.Controls.Add(UD_STORE_BACKUP);
-            groupBox4.Controls.Add(label28);
-            groupBox4.Controls.Add(label27);
-            groupBox4.Controls.Add(label26);
-            groupBox4.Controls.Add(UD_DAYS_BACKUP);
-            groupBox4.Controls.Add(label25);
-            groupBox4.Controls.Add(BT_CHECK_BACKUP);
-            groupBox4.Controls.Add(BT_EDIT_BACKUP);
-            groupBox4.Controls.Add(TB_DIRECTORY_BACKUP);
-            groupBox4.Controls.Add(label24);
-            groupBox4.Controls.Add(SW_BACKUP);
-            groupBox4.Location = new Point(728, 320);
-            groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(448, 179);
-            groupBox4.TabIndex = 113;
-            groupBox4.TabStop = false;
-            groupBox4.Text = "Backup Database Settings";
+            GB_BACKUP_SETTINGS.Controls.Add(L_LOG_BACKUP);
+            GB_BACKUP_SETTINGS.Controls.Add(label32);
+            GB_BACKUP_SETTINGS.Controls.Add(label29);
+            GB_BACKUP_SETTINGS.Controls.Add(SW_BACKUP_TELEGRAM);
+            GB_BACKUP_SETTINGS.Controls.Add(DTP_BACKUP);
+            GB_BACKUP_SETTINGS.Controls.Add(UD_STORE_BACKUP);
+            GB_BACKUP_SETTINGS.Controls.Add(label28);
+            GB_BACKUP_SETTINGS.Controls.Add(label27);
+            GB_BACKUP_SETTINGS.Controls.Add(label26);
+            GB_BACKUP_SETTINGS.Controls.Add(UD_DAYS_BACKUP);
+            GB_BACKUP_SETTINGS.Controls.Add(label25);
+            GB_BACKUP_SETTINGS.Controls.Add(BT_CHECK_BACKUP);
+            GB_BACKUP_SETTINGS.Controls.Add(BT_EDIT_BACKUP);
+            GB_BACKUP_SETTINGS.Controls.Add(TB_DIRECTORY_BACKUP);
+            GB_BACKUP_SETTINGS.Controls.Add(label24);
+            GB_BACKUP_SETTINGS.Controls.Add(SW_BACKUP);
+            GB_BACKUP_SETTINGS.Location = new Point(728, 320);
+            GB_BACKUP_SETTINGS.Name = "GB_BACKUP_SETTINGS";
+            GB_BACKUP_SETTINGS.Size = new Size(448, 179);
+            GB_BACKUP_SETTINGS.TabIndex = 113;
+            GB_BACKUP_SETTINGS.TabStop = false;
+            GB_BACKUP_SETTINGS.Text = "Backup Database Settings";
+            // 
+            // L_LOG_BACKUP
+            // 
+            L_LOG_BACKUP.ImageAlign = ContentAlignment.MiddleLeft;
+            L_LOG_BACKUP.Location = new Point(64, 150);
+            L_LOG_BACKUP.Name = "L_LOG_BACKUP";
+            L_LOG_BACKUP.Size = new Size(378, 20);
+            L_LOG_BACKUP.TabIndex = 120;
+            L_LOG_BACKUP.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Location = new Point(21, 150);
+            label32.Name = "label32";
+            label32.Size = new Size(36, 20);
+            label32.TabIndex = 120;
+            label32.Text = "LOG";
             // 
             // label29
             // 
@@ -1657,50 +1709,59 @@
             SW_BACKUP.TabIndex = 120;
             SW_BACKUP.TextOnChecked = "";
             // 
-            // label31
+            // GB_LANGUAGE
             // 
-            label31.AutoSize = true;
-            label31.Location = new Point(20, 150);
-            label31.Name = "label31";
-            label31.Size = new Size(36, 20);
-            label31.TabIndex = 114;
-            label31.Text = "LOG";
+            GB_LANGUAGE.Controls.Add(label34);
+            GB_LANGUAGE.Controls.Add(label33);
+            GB_LANGUAGE.Controls.Add(SW_LANGUAGE);
+            GB_LANGUAGE.Location = new Point(1182, 405);
+            GB_LANGUAGE.Name = "GB_LANGUAGE";
+            GB_LANGUAGE.Size = new Size(192, 61);
+            GB_LANGUAGE.TabIndex = 114;
+            GB_LANGUAGE.TabStop = false;
+            GB_LANGUAGE.Text = "Language";
             // 
-            // label32
+            // label34
             // 
-            label32.AutoSize = true;
-            label32.Location = new Point(21, 150);
-            label32.Name = "label32";
-            label32.Size = new Size(36, 20);
-            label32.TabIndex = 120;
-            label32.Text = "LOG";
+            label34.AutoSize = true;
+            label34.Location = new Point(123, 30);
+            label34.Name = "label34";
+            label34.Size = new Size(38, 20);
+            label34.TabIndex = 133;
+            label34.Text = "ENG";
             // 
-            // L_LOG_TELEGRAM
+            // label33
             // 
-            L_LOG_TELEGRAM.ImageAlign = ContentAlignment.MiddleLeft;
-            L_LOG_TELEGRAM.Location = new Point(62, 150);
-            L_LOG_TELEGRAM.Name = "L_LOG_TELEGRAM";
-            L_LOG_TELEGRAM.Size = new Size(618, 20);
-            L_LOG_TELEGRAM.TabIndex = 114;
-            L_LOG_TELEGRAM.TextAlign = ContentAlignment.MiddleCenter;
+            label33.AutoSize = true;
+            label33.Location = new Point(42, 30);
+            label33.Name = "label33";
+            label33.Size = new Size(36, 20);
+            label33.TabIndex = 132;
+            label33.Text = "RUS";
             // 
-            // L_LOG_BACKUP
+            // SW_LANGUAGE
             // 
-            L_LOG_BACKUP.ImageAlign = ContentAlignment.MiddleLeft;
-            L_LOG_BACKUP.Location = new Point(64, 150);
-            L_LOG_BACKUP.Name = "L_LOG_BACKUP";
-            L_LOG_BACKUP.Size = new Size(378, 20);
-            L_LOG_BACKUP.TabIndex = 120;
-            L_LOG_BACKUP.TextAlign = ContentAlignment.MiddleCenter;
+            SW_LANGUAGE.BackColor = Color.White;
+            SW_LANGUAGE.BackColorOFF = Color.Silver;
+            SW_LANGUAGE.BackColorON = Color.Silver;
+            SW_LANGUAGE.Checked = true;
+            SW_LANGUAGE.Font = new Font("Verdana", 9F);
+            SW_LANGUAGE.Location = new Point(79, 26);
+            SW_LANGUAGE.Name = "SW_LANGUAGE";
+            SW_LANGUAGE.Size = new Size(43, 27);
+            SW_LANGUAGE.TabIndex = 132;
+            SW_LANGUAGE.TextOnChecked = "";
+            SW_LANGUAGE.CheckedChanged += SW_LANGUAGE_CheckedChanged;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1386, 504);
-            Controls.Add(groupBox4);
-            Controls.Add(groupBox3);
-            Controls.Add(groupBox2);
+            Controls.Add(GB_LANGUAGE);
+            Controls.Add(GB_BACKUP_SETTINGS);
+            Controls.Add(GB_NOT_SETTINGS);
+            Controls.Add(GB_TELEGRAM_SETTINGS);
             Controls.Add(SW_DB_ADD2);
             Controls.Add(SW_DB_ADD1);
             Controls.Add(SW_DB_S);
@@ -1708,7 +1769,7 @@
             Controls.Add(SW_DB_LCO);
             Controls.Add(label21);
             Controls.Add(label20);
-            Controls.Add(groupBox1);
+            Controls.Add(GB_DB_SETTINGS);
             Controls.Add(L_CHANGE_ADD2);
             Controls.Add(L_CHANGE_ADD1);
             Controls.Add(L_CHANGE_S);
@@ -1790,21 +1851,23 @@
             Text = "CDA - Commodity Data Analysis";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
-            groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
+            GB_DB_SETTINGS.ResumeLayout(false);
+            GB_DB_SETTINGS.PerformLayout();
+            GB_TELEGRAM_SETTINGS.ResumeLayout(false);
+            GB_TELEGRAM_SETTINGS.PerformLayout();
+            GB_NOT_SETTINGS.ResumeLayout(false);
+            GB_NOT_SETTINGS.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD2).EndInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD1).EndInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_S).EndInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_NG).EndInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_LCO).EndInit();
-            groupBox4.ResumeLayout(false);
-            groupBox4.PerformLayout();
+            GB_BACKUP_SETTINGS.ResumeLayout(false);
+            GB_BACKUP_SETTINGS.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)UD_STORE_BACKUP).EndInit();
             ((System.ComponentModel.ISupportInitialize)UD_DAYS_BACKUP).EndInit();
+            GB_LANGUAGE.ResumeLayout(false);
+            GB_LANGUAGE.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1887,7 +1950,7 @@
         private Label L_CHANGE_ADD2;
         private Label label18;
         private Label label19;
-        private GroupBox groupBox1;
+        private GroupBox GB_DB_SETTINGS;
         private Button BT_CHECK_LOCALHOST;
         private Button BT_CHECK_DBNAME;
         private Button BT_EDIT_LOCALHOST;
@@ -1901,7 +1964,7 @@
         private Controls.ToggleSwitch SW_DB_S;
         private Controls.ToggleSwitch SW_DB_ADD1;
         private Controls.ToggleSwitch SW_DB_ADD2;
-        private GroupBox groupBox2;
+        private GroupBox GB_TELEGRAM_SETTINGS;
         private Label label7;
         private Button BT_EDIT_NOT_BOT_TELEGRAM_TOKEN;
         private Button BT_CHECK_NOT_BOT_TELEGRAM_TOKEN;
@@ -1914,7 +1977,7 @@
         private Label label10;
         private Label label9;
         private Controls.ToggleSwitch SW_LOG_BOT_TELEGRAM;
-        private GroupBox groupBox3;
+        private GroupBox GB_NOT_SETTINGS;
         private Controls.ToggleSwitch SW_NOT_CHANGE_NG;
         private Controls.ToggleSwitch SW_NOT_CHANGE_LCO;
         private Label label23;
@@ -1932,7 +1995,7 @@
         private NumericUpDown UD_NOT_CHANGE_ADD1;
         private NumericUpDown UD_NOT_CHANGE_S;
         private NumericUpDown UD_NOT_CHANGE_NG;
-        private GroupBox groupBox4;
+        private GroupBox GB_BACKUP_SETTINGS;
         private Controls.ToggleSwitch SW_BACKUP;
         private Label label24;
         private Label label26;
@@ -1953,5 +2016,9 @@
         private Label label31;
         private Label L_LOG_BACKUP;
         private Label label32;
+        private GroupBox GB_LANGUAGE;
+        private Label label34;
+        private Label label33;
+        private Controls.ToggleSwitch SW_LANGUAGE;
     }
 }

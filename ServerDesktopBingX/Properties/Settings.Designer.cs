@@ -538,5 +538,17 @@ namespace ServerDesktopBingX.Properties {
                 this["SW_DAILYREPORT"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SW_LANGUAGE {
+            get {
+                return ((bool)(this["SW_LANGUAGE"]));
+            }
+            set {
+                this["SW_LANGUAGE"] = value;
+            }
+        }
     }
 }
