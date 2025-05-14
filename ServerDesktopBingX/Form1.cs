@@ -422,7 +422,7 @@ namespace ServerDesktopBingX
         {
             try
             {
-                var today = DateTime.Today;
+                var today = DateTime.Today.AddDays(-1);
                 var instruments = await GetAvailableInstruments();
                 var reportData = new Dictionary<string, double>();
 
