@@ -17,10 +17,10 @@
     <Setting Name="SW_DB_S" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="SW_NG" Type="System.Boolean" Scope="User">
+    <Setting Name="SW_G" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="SW_DB_NG" Type="System.Boolean" Scope="User">
+    <Setting Name="SW_DB_G" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="SW_ADD1" Type="System.Boolean" Scope="User">
@@ -62,7 +62,7 @@
     <Setting Name="SW_NOT_CHANGE_LCO" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="SW_NOT_CHANGE_NG" Type="System.Boolean" Scope="User">
+    <Setting Name="SW_NOT_CHANGE_G" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="SW_NOT_CHANGE_ADD1" Type="System.Boolean" Scope="User">
@@ -77,7 +77,7 @@
     <Setting Name="SW_LOG_LCO" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="SW_LOG_NG" Type="System.Boolean" Scope="User">
+    <Setting Name="SW_LOG_G" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="SW_LOG_S" Type="System.Boolean" Scope="User">
@@ -92,7 +92,7 @@
     <Setting Name="UD_NOT_CHANGE_LCO" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="UD_NOT_CHANGE_NG" Type="System.Decimal" Scope="User">
+    <Setting Name="UD_NOT_CHANGE_G" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="UD_NOT_CHANGE_S" Type="System.Decimal" Scope="User">

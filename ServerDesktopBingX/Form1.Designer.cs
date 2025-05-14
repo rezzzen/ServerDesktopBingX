@@ -51,10 +51,10 @@
             TB_CLOSE_LCO = new TextBox();
             TB_MAX_LCO = new TextBox();
             TB_MIN_LCO = new TextBox();
-            TB_OPEN_NG = new TextBox();
-            TB_CLOSE_NG = new TextBox();
-            TB_MAX_NG = new TextBox();
-            TB_MIN_NG = new TextBox();
+            TB_OPEN_G = new TextBox();
+            TB_CLOSE_G = new TextBox();
+            TB_MAX_G = new TextBox();
+            TB_MIN_G = new TextBox();
             TB_OPEN_S = new TextBox();
             TB_CLOSE_S = new TextBox();
             TB_MAX_S = new TextBox();
@@ -76,17 +76,17 @@
             BT_CHECK_ADD1 = new Button();
             BT_CHECK_ADD2 = new Button();
             SW_LCO = new Controls.ToggleSwitch();
-            SW_NG = new Controls.ToggleSwitch();
+            SW_G = new Controls.ToggleSwitch();
             SW_S = new Controls.ToggleSwitch();
             SW_ADD1 = new Controls.ToggleSwitch();
             SW_ADD2 = new Controls.ToggleSwitch();
             L_STATUS_LCO = new Label();
-            L_STATUS_NG = new Label();
+            L_STATUS_G = new Label();
             L_STATUS_S = new Label();
             L_STATUS_ADD1 = new Label();
             L_STATUS_ADD2 = new Label();
             L_LOG_LCO = new Label();
-            L_LOG_NG = new Label();
+            L_LOG_G = new Label();
             L_LOG_S = new Label();
             L_LOG_ADD1 = new Label();
             L_LOG_ADD2 = new Label();
@@ -101,7 +101,7 @@
             timer1 = new System.Windows.Forms.Timer(components);
             label17 = new Label();
             L_CHANGE_LCO = new Label();
-            L_CHANGE_NG = new Label();
+            L_CHANGE_G = new Label();
             L_CHANGE_S = new Label();
             L_CHANGE_ADD1 = new Label();
             L_CHANGE_ADD2 = new Label();
@@ -117,7 +117,7 @@
             label20 = new Label();
             label21 = new Label();
             SW_DB_LCO = new Controls.ToggleSwitch();
-            SW_DB_NG = new Controls.ToggleSwitch();
+            SW_DB_G = new Controls.ToggleSwitch();
             SW_DB_S = new Controls.ToggleSwitch();
             SW_DB_ADD1 = new Controls.ToggleSwitch();
             SW_DB_ADD2 = new Controls.ToggleSwitch();
@@ -142,17 +142,17 @@
             UD_NOT_CHANGE_ADD2 = new NumericUpDown();
             UD_NOT_CHANGE_ADD1 = new NumericUpDown();
             UD_NOT_CHANGE_S = new NumericUpDown();
-            UD_NOT_CHANGE_NG = new NumericUpDown();
+            UD_NOT_CHANGE_G = new NumericUpDown();
             UD_NOT_CHANGE_LCO = new NumericUpDown();
             SW_LOG_ADD2 = new Controls.ToggleSwitch();
             SW_LOG_ADD1 = new Controls.ToggleSwitch();
             SW_LOG_S = new Controls.ToggleSwitch();
-            SW_LOG_NG = new Controls.ToggleSwitch();
+            SW_LOG_G = new Controls.ToggleSwitch();
             SW_LOG_LCO = new Controls.ToggleSwitch();
             SW_NOT_CHANGE_ADD2 = new Controls.ToggleSwitch();
             SW_NOT_CHANGE_ADD1 = new Controls.ToggleSwitch();
             SW_NOT_CHANGE_S = new Controls.ToggleSwitch();
-            SW_NOT_CHANGE_NG = new Controls.ToggleSwitch();
+            SW_NOT_CHANGE_G = new Controls.ToggleSwitch();
             SW_NOT_CHANGE_LCO = new Controls.ToggleSwitch();
             label23 = new Label();
             label22 = new Label();
@@ -183,7 +183,7 @@
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_S).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_NG).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_G).BeginInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_LCO).BeginInit();
             GB_BACKUP_SETTINGS.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)UD_STORE_BACKUP).BeginInit();
@@ -343,11 +343,11 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(98, 190);
+            label14.Location = new Point(80, 190);
             label14.Name = "label14";
-            label14.Size = new Size(59, 20);
+            label14.Size = new Size(77, 20);
             label14.TabIndex = 22;
-            label14.Text = "NGUSD";
+            label14.Text = "GOLDUSD";
             // 
             // label15
             // 
@@ -399,45 +399,45 @@
             TB_MIN_LCO.TabIndex = 27;
             TB_MIN_LCO.TextAlign = HorizontalAlignment.Center;
             // 
-            // TB_OPEN_NG
+            // TB_OPEN_G
             // 
-            TB_OPEN_NG.Enabled = false;
-            TB_OPEN_NG.Location = new Point(163, 187);
-            TB_OPEN_NG.Name = "TB_OPEN_NG";
-            TB_OPEN_NG.ReadOnly = true;
-            TB_OPEN_NG.Size = new Size(64, 27);
-            TB_OPEN_NG.TabIndex = 28;
-            TB_OPEN_NG.TextAlign = HorizontalAlignment.Center;
+            TB_OPEN_G.Enabled = false;
+            TB_OPEN_G.Location = new Point(163, 187);
+            TB_OPEN_G.Name = "TB_OPEN_G";
+            TB_OPEN_G.ReadOnly = true;
+            TB_OPEN_G.Size = new Size(64, 27);
+            TB_OPEN_G.TabIndex = 28;
+            TB_OPEN_G.TextAlign = HorizontalAlignment.Center;
             // 
-            // TB_CLOSE_NG
+            // TB_CLOSE_G
             // 
-            TB_CLOSE_NG.Enabled = false;
-            TB_CLOSE_NG.Location = new Point(238, 187);
-            TB_CLOSE_NG.Name = "TB_CLOSE_NG";
-            TB_CLOSE_NG.ReadOnly = true;
-            TB_CLOSE_NG.Size = new Size(64, 27);
-            TB_CLOSE_NG.TabIndex = 29;
-            TB_CLOSE_NG.TextAlign = HorizontalAlignment.Center;
+            TB_CLOSE_G.Enabled = false;
+            TB_CLOSE_G.Location = new Point(238, 187);
+            TB_CLOSE_G.Name = "TB_CLOSE_G";
+            TB_CLOSE_G.ReadOnly = true;
+            TB_CLOSE_G.Size = new Size(64, 27);
+            TB_CLOSE_G.TabIndex = 29;
+            TB_CLOSE_G.TextAlign = HorizontalAlignment.Center;
             // 
-            // TB_MAX_NG
+            // TB_MAX_G
             // 
-            TB_MAX_NG.Enabled = false;
-            TB_MAX_NG.Location = new Point(313, 187);
-            TB_MAX_NG.Name = "TB_MAX_NG";
-            TB_MAX_NG.ReadOnly = true;
-            TB_MAX_NG.Size = new Size(64, 27);
-            TB_MAX_NG.TabIndex = 30;
-            TB_MAX_NG.TextAlign = HorizontalAlignment.Center;
+            TB_MAX_G.Enabled = false;
+            TB_MAX_G.Location = new Point(313, 187);
+            TB_MAX_G.Name = "TB_MAX_G";
+            TB_MAX_G.ReadOnly = true;
+            TB_MAX_G.Size = new Size(64, 27);
+            TB_MAX_G.TabIndex = 30;
+            TB_MAX_G.TextAlign = HorizontalAlignment.Center;
             // 
-            // TB_MIN_NG
+            // TB_MIN_G
             // 
-            TB_MIN_NG.Enabled = false;
-            TB_MIN_NG.Location = new Point(388, 187);
-            TB_MIN_NG.Name = "TB_MIN_NG";
-            TB_MIN_NG.ReadOnly = true;
-            TB_MIN_NG.Size = new Size(64, 27);
-            TB_MIN_NG.TabIndex = 31;
-            TB_MIN_NG.TextAlign = HorizontalAlignment.Center;
+            TB_MIN_G.Enabled = false;
+            TB_MIN_G.Location = new Point(388, 187);
+            TB_MIN_G.Name = "TB_MIN_G";
+            TB_MIN_G.ReadOnly = true;
+            TB_MIN_G.Size = new Size(64, 27);
+            TB_MIN_G.TabIndex = 31;
+            TB_MIN_G.TextAlign = HorizontalAlignment.Center;
             // 
             // TB_OPEN_S
             // 
@@ -653,19 +653,19 @@
             SW_LCO.TextOnChecked = "";
             SW_LCO.Click += SW_LCO_Click;
             // 
-            // SW_NG
+            // SW_G
             // 
-            SW_NG.BackColor = Color.White;
-            SW_NG.BackColorOFF = Color.Red;
-            SW_NG.BackColorON = Color.YellowGreen;
-            SW_NG.Checked = false;
-            SW_NG.Font = new Font("Verdana", 9F);
-            SW_NG.Location = new Point(907, 187);
-            SW_NG.Name = "SW_NG";
-            SW_NG.Size = new Size(43, 27);
-            SW_NG.TabIndex = 73;
-            SW_NG.TextOnChecked = "";
-            SW_NG.Click += SW_NG_Click;
+            SW_G.BackColor = Color.White;
+            SW_G.BackColorOFF = Color.Red;
+            SW_G.BackColorON = Color.YellowGreen;
+            SW_G.Checked = false;
+            SW_G.Font = new Font("Verdana", 9F);
+            SW_G.Location = new Point(907, 187);
+            SW_G.Name = "SW_G";
+            SW_G.Size = new Size(43, 27);
+            SW_G.TabIndex = 73;
+            SW_G.TextOnChecked = "";
+            SW_G.Click += SW_NG_Click;
             // 
             // SW_S
             // 
@@ -719,15 +719,15 @@
             L_STATUS_LCO.Text = "Stopped";
             L_STATUS_LCO.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // L_STATUS_NG
+            // L_STATUS_G
             // 
-            L_STATUS_NG.ForeColor = Color.Red;
-            L_STATUS_NG.Location = new Point(532, 190);
-            L_STATUS_NG.Name = "L_STATUS_NG";
-            L_STATUS_NG.Size = new Size(110, 20);
-            L_STATUS_NG.TabIndex = 78;
-            L_STATUS_NG.Text = "Stopped";
-            L_STATUS_NG.TextAlign = ContentAlignment.MiddleCenter;
+            L_STATUS_G.ForeColor = Color.Red;
+            L_STATUS_G.Location = new Point(532, 190);
+            L_STATUS_G.Name = "L_STATUS_G";
+            L_STATUS_G.Size = new Size(110, 20);
+            L_STATUS_G.TabIndex = 78;
+            L_STATUS_G.Text = "Stopped";
+            L_STATUS_G.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // L_STATUS_S
             // 
@@ -767,13 +767,13 @@
             L_LOG_LCO.TabIndex = 82;
             L_LOG_LCO.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // L_LOG_NG
+            // L_LOG_G
             // 
-            L_LOG_NG.Location = new Point(659, 190);
-            L_LOG_NG.Name = "L_LOG_NG";
-            L_LOG_NG.Size = new Size(217, 20);
-            L_LOG_NG.TabIndex = 83;
-            L_LOG_NG.TextAlign = ContentAlignment.MiddleCenter;
+            L_LOG_G.Location = new Point(659, 190);
+            L_LOG_G.Name = "L_LOG_G";
+            L_LOG_G.Size = new Size(217, 20);
+            L_LOG_G.TabIndex = 83;
+            L_LOG_G.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // L_LOG_S
             // 
@@ -902,14 +902,14 @@
             L_CHANGE_LCO.TabIndex = 96;
             L_CHANGE_LCO.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // L_CHANGE_NG
+            // L_CHANGE_G
             // 
-            L_CHANGE_NG.AutoSize = true;
-            L_CHANGE_NG.Location = new Point(461, 190);
-            L_CHANGE_NG.Name = "L_CHANGE_NG";
-            L_CHANGE_NG.Size = new Size(0, 20);
-            L_CHANGE_NG.TabIndex = 97;
-            L_CHANGE_NG.TextAlign = ContentAlignment.MiddleCenter;
+            L_CHANGE_G.AutoSize = true;
+            L_CHANGE_G.Location = new Point(461, 190);
+            L_CHANGE_G.Name = "L_CHANGE_G";
+            L_CHANGE_G.Size = new Size(0, 20);
+            L_CHANGE_G.TabIndex = 97;
+            L_CHANGE_G.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // L_CHANGE_S
             // 
@@ -1066,18 +1066,18 @@
             SW_DB_LCO.TabIndex = 106;
             SW_DB_LCO.TextOnChecked = "";
             // 
-            // SW_DB_NG
+            // SW_DB_G
             // 
-            SW_DB_NG.BackColor = Color.White;
-            SW_DB_NG.BackColorOFF = Color.Red;
-            SW_DB_NG.BackColorON = Color.YellowGreen;
-            SW_DB_NG.Checked = false;
-            SW_DB_NG.Font = new Font("Verdana", 9F);
-            SW_DB_NG.Location = new Point(1055, 187);
-            SW_DB_NG.Name = "SW_DB_NG";
-            SW_DB_NG.Size = new Size(43, 27);
-            SW_DB_NG.TabIndex = 107;
-            SW_DB_NG.TextOnChecked = "";
+            SW_DB_G.BackColor = Color.White;
+            SW_DB_G.BackColorOFF = Color.Red;
+            SW_DB_G.BackColorON = Color.YellowGreen;
+            SW_DB_G.Checked = false;
+            SW_DB_G.Font = new Font("Verdana", 9F);
+            SW_DB_G.Location = new Point(1055, 187);
+            SW_DB_G.Name = "SW_DB_G";
+            SW_DB_G.Size = new Size(43, 27);
+            SW_DB_G.TabIndex = 107;
+            SW_DB_G.TextOnChecked = "";
             // 
             // SW_DB_S
             // 
@@ -1290,17 +1290,17 @@
             GB_NOT_SETTINGS.Controls.Add(UD_NOT_CHANGE_ADD2);
             GB_NOT_SETTINGS.Controls.Add(UD_NOT_CHANGE_ADD1);
             GB_NOT_SETTINGS.Controls.Add(UD_NOT_CHANGE_S);
-            GB_NOT_SETTINGS.Controls.Add(UD_NOT_CHANGE_NG);
+            GB_NOT_SETTINGS.Controls.Add(UD_NOT_CHANGE_G);
             GB_NOT_SETTINGS.Controls.Add(UD_NOT_CHANGE_LCO);
             GB_NOT_SETTINGS.Controls.Add(SW_LOG_ADD2);
             GB_NOT_SETTINGS.Controls.Add(SW_LOG_ADD1);
             GB_NOT_SETTINGS.Controls.Add(SW_LOG_S);
-            GB_NOT_SETTINGS.Controls.Add(SW_LOG_NG);
+            GB_NOT_SETTINGS.Controls.Add(SW_LOG_G);
             GB_NOT_SETTINGS.Controls.Add(SW_LOG_LCO);
             GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_ADD2);
             GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_ADD1);
             GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_S);
-            GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_NG);
+            GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_G);
             GB_NOT_SETTINGS.Controls.Add(SW_NOT_CHANGE_LCO);
             GB_NOT_SETTINGS.Controls.Add(label23);
             GB_NOT_SETTINGS.Controls.Add(label22);
@@ -1361,14 +1361,14 @@
             UD_NOT_CHANGE_S.Size = new Size(57, 27);
             UD_NOT_CHANGE_S.TabIndex = 126;
             // 
-            // UD_NOT_CHANGE_NG
+            // UD_NOT_CHANGE_G
             // 
-            UD_NOT_CHANGE_NG.DecimalPlaces = 2;
-            UD_NOT_CHANGE_NG.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
-            UD_NOT_CHANGE_NG.Location = new Point(11, 171);
-            UD_NOT_CHANGE_NG.Name = "UD_NOT_CHANGE_NG";
-            UD_NOT_CHANGE_NG.Size = new Size(57, 27);
-            UD_NOT_CHANGE_NG.TabIndex = 125;
+            UD_NOT_CHANGE_G.DecimalPlaces = 2;
+            UD_NOT_CHANGE_G.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            UD_NOT_CHANGE_G.Location = new Point(11, 171);
+            UD_NOT_CHANGE_G.Name = "UD_NOT_CHANGE_G";
+            UD_NOT_CHANGE_G.Size = new Size(57, 27);
+            UD_NOT_CHANGE_G.TabIndex = 125;
             // 
             // UD_NOT_CHANGE_LCO
             // 
@@ -1418,18 +1418,18 @@
             SW_LOG_S.TabIndex = 121;
             SW_LOG_S.TextOnChecked = "";
             // 
-            // SW_LOG_NG
+            // SW_LOG_G
             // 
-            SW_LOG_NG.BackColor = Color.White;
-            SW_LOG_NG.BackColorOFF = Color.Red;
-            SW_LOG_NG.BackColorON = Color.YellowGreen;
-            SW_LOG_NG.Checked = false;
-            SW_LOG_NG.Font = new Font("Verdana", 9F);
-            SW_LOG_NG.Location = new Point(141, 171);
-            SW_LOG_NG.Name = "SW_LOG_NG";
-            SW_LOG_NG.Size = new Size(43, 27);
-            SW_LOG_NG.TabIndex = 120;
-            SW_LOG_NG.TextOnChecked = "";
+            SW_LOG_G.BackColor = Color.White;
+            SW_LOG_G.BackColorOFF = Color.Red;
+            SW_LOG_G.BackColorON = Color.YellowGreen;
+            SW_LOG_G.Checked = false;
+            SW_LOG_G.Font = new Font("Verdana", 9F);
+            SW_LOG_G.Location = new Point(141, 171);
+            SW_LOG_G.Name = "SW_LOG_G";
+            SW_LOG_G.Size = new Size(43, 27);
+            SW_LOG_G.TabIndex = 120;
+            SW_LOG_G.TextOnChecked = "";
             // 
             // SW_LOG_LCO
             // 
@@ -1483,18 +1483,18 @@
             SW_NOT_CHANGE_S.TabIndex = 116;
             SW_NOT_CHANGE_S.TextOnChecked = "";
             // 
-            // SW_NOT_CHANGE_NG
+            // SW_NOT_CHANGE_G
             // 
-            SW_NOT_CHANGE_NG.BackColor = Color.White;
-            SW_NOT_CHANGE_NG.BackColorOFF = Color.Red;
-            SW_NOT_CHANGE_NG.BackColorON = Color.YellowGreen;
-            SW_NOT_CHANGE_NG.Checked = false;
-            SW_NOT_CHANGE_NG.Font = new Font("Verdana", 9F);
-            SW_NOT_CHANGE_NG.Location = new Point(74, 171);
-            SW_NOT_CHANGE_NG.Name = "SW_NOT_CHANGE_NG";
-            SW_NOT_CHANGE_NG.Size = new Size(43, 27);
-            SW_NOT_CHANGE_NG.TabIndex = 115;
-            SW_NOT_CHANGE_NG.TextOnChecked = "";
+            SW_NOT_CHANGE_G.BackColor = Color.White;
+            SW_NOT_CHANGE_G.BackColorOFF = Color.Red;
+            SW_NOT_CHANGE_G.BackColorON = Color.YellowGreen;
+            SW_NOT_CHANGE_G.Checked = false;
+            SW_NOT_CHANGE_G.Font = new Font("Verdana", 9F);
+            SW_NOT_CHANGE_G.Location = new Point(74, 171);
+            SW_NOT_CHANGE_G.Name = "SW_NOT_CHANGE_G";
+            SW_NOT_CHANGE_G.Size = new Size(43, 27);
+            SW_NOT_CHANGE_G.TabIndex = 115;
+            SW_NOT_CHANGE_G.TextOnChecked = "";
             // 
             // SW_NOT_CHANGE_LCO
             // 
@@ -1765,7 +1765,7 @@
             Controls.Add(SW_DB_ADD2);
             Controls.Add(SW_DB_ADD1);
             Controls.Add(SW_DB_S);
-            Controls.Add(SW_DB_NG);
+            Controls.Add(SW_DB_G);
             Controls.Add(SW_DB_LCO);
             Controls.Add(label21);
             Controls.Add(label20);
@@ -1773,7 +1773,7 @@
             Controls.Add(L_CHANGE_ADD2);
             Controls.Add(L_CHANGE_ADD1);
             Controls.Add(L_CHANGE_S);
-            Controls.Add(L_CHANGE_NG);
+            Controls.Add(L_CHANGE_G);
             Controls.Add(L_CHANGE_LCO);
             Controls.Add(label17);
             Controls.Add(L_DATE);
@@ -1794,16 +1794,16 @@
             Controls.Add(L_BX_STATUS);
             Controls.Add(L_LOG_ADD1);
             Controls.Add(L_LOG_S);
-            Controls.Add(L_LOG_NG);
+            Controls.Add(L_LOG_G);
             Controls.Add(L_LOG_LCO);
             Controls.Add(L_STATUS_ADD1);
             Controls.Add(L_STATUS_S);
-            Controls.Add(L_STATUS_NG);
+            Controls.Add(L_STATUS_G);
             Controls.Add(SW_ADD2);
             Controls.Add(L_STATUS_LCO);
             Controls.Add(SW_ADD1);
             Controls.Add(SW_S);
-            Controls.Add(SW_NG);
+            Controls.Add(SW_G);
             Controls.Add(SW_LCO);
             Controls.Add(BT_EDIT_ADD1);
             Controls.Add(BT_ADD_ADD2);
@@ -1817,10 +1817,10 @@
             Controls.Add(TB_MAX_S);
             Controls.Add(TB_CLOSE_S);
             Controls.Add(TB_OPEN_S);
-            Controls.Add(TB_MIN_NG);
-            Controls.Add(TB_MAX_NG);
-            Controls.Add(TB_CLOSE_NG);
-            Controls.Add(TB_OPEN_NG);
+            Controls.Add(TB_MIN_G);
+            Controls.Add(TB_MAX_G);
+            Controls.Add(TB_CLOSE_G);
+            Controls.Add(TB_OPEN_G);
             Controls.Add(TB_MIN_LCO);
             Controls.Add(TB_MAX_LCO);
             Controls.Add(TB_CLOSE_LCO);
@@ -1860,7 +1860,7 @@
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD2).EndInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_ADD1).EndInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_S).EndInit();
-            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_NG).EndInit();
+            ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_G).EndInit();
             ((System.ComponentModel.ISupportInitialize)UD_NOT_CHANGE_LCO).EndInit();
             GB_BACKUP_SETTINGS.ResumeLayout(false);
             GB_BACKUP_SETTINGS.PerformLayout();
@@ -1894,10 +1894,10 @@
         private TextBox TB_CLOSE_LCO;
         private TextBox TB_MAX_LCO;
         private TextBox TB_MIN_LCO;
-        private TextBox TB_OPEN_NG;
-        private TextBox TB_CLOSE_NG;
-        private TextBox TB_MAX_NG;
-        private TextBox TB_MIN_NG;
+        private TextBox TB_OPEN_G;
+        private TextBox TB_CLOSE_G;
+        private TextBox TB_MAX_G;
+        private TextBox TB_MIN_G;
         private TextBox TB_OPEN_S;
         private TextBox TB_CLOSE_S;
         private TextBox TB_MAX_S;
@@ -1919,17 +1919,17 @@
         private Button BT_CHECK_ADD1;
         private Button BT_CHECK_ADD2;
         private Controls.ToggleSwitch SW_LCO;
-        private Controls.ToggleSwitch SW_NG;
+        private Controls.ToggleSwitch SW_G;
         private Controls.ToggleSwitch SW_S;
         private Controls.ToggleSwitch SW_ADD1;
         private Controls.ToggleSwitch SW_ADD2;
         private Label L_STATUS_LCO;
-        private Label L_STATUS_NG;
+        private Label L_STATUS_G;
         private Label L_STATUS_S;
         private Label L_STATUS_ADD1;
         private Label L_STATUS_ADD2;
         private Label L_LOG_LCO;
-        private Label L_LOG_NG;
+        private Label L_LOG_G;
         private Label L_LOG_S;
         private Label L_LOG_ADD1;
         private Label L_LOG_ADD2;
@@ -1944,7 +1944,7 @@
         private System.Windows.Forms.Timer timer1;
         private Label label17;
         private Label L_CHANGE_LCO;
-        private Label L_CHANGE_NG;
+        private Label L_CHANGE_G;
         private Label L_CHANGE_S;
         private Label L_CHANGE_ADD1;
         private Label L_CHANGE_ADD2;
@@ -1960,7 +1960,7 @@
         private Label label20;
         private Label label21;
         private Controls.ToggleSwitch SW_DB_LCO;
-        private Controls.ToggleSwitch SW_DB_NG;
+        private Controls.ToggleSwitch SW_DB_G;
         private Controls.ToggleSwitch SW_DB_S;
         private Controls.ToggleSwitch SW_DB_ADD1;
         private Controls.ToggleSwitch SW_DB_ADD2;
@@ -1978,7 +1978,7 @@
         private Label label9;
         private Controls.ToggleSwitch SW_LOG_BOT_TELEGRAM;
         private GroupBox GB_NOT_SETTINGS;
-        private Controls.ToggleSwitch SW_NOT_CHANGE_NG;
+        private Controls.ToggleSwitch SW_NOT_CHANGE_G;
         private Controls.ToggleSwitch SW_NOT_CHANGE_LCO;
         private Label label23;
         private Label label22;
@@ -1986,7 +1986,7 @@
         private Controls.ToggleSwitch SW_LOG_ADD2;
         private Controls.ToggleSwitch SW_LOG_ADD1;
         private Controls.ToggleSwitch SW_LOG_S;
-        private Controls.ToggleSwitch SW_LOG_NG;
+        private Controls.ToggleSwitch SW_LOG_G;
         private Controls.ToggleSwitch SW_LOG_LCO;
         private Controls.ToggleSwitch SW_NOT_CHANGE_ADD2;
         private Controls.ToggleSwitch SW_NOT_CHANGE_ADD1;
@@ -1994,7 +1994,7 @@
         private NumericUpDown UD_NOT_CHANGE_ADD2;
         private NumericUpDown UD_NOT_CHANGE_ADD1;
         private NumericUpDown UD_NOT_CHANGE_S;
-        private NumericUpDown UD_NOT_CHANGE_NG;
+        private NumericUpDown UD_NOT_CHANGE_G;
         private GroupBox GB_BACKUP_SETTINGS;
         private Controls.ToggleSwitch SW_BACKUP;
         private Label label24;

@@ -86,24 +86,24 @@ namespace ServerDesktopBingX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SW_NG {
+        public bool SW_G {
             get {
-                return ((bool)(this["SW_NG"]));
+                return ((bool)(this["SW_G"]));
             }
             set {
-                this["SW_NG"] = value;
+                this["SW_G"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SW_DB_NG {
+        public bool SW_DB_G {
             get {
-                return ((bool)(this["SW_DB_NG"]));
+                return ((bool)(this["SW_DB_G"]));
             }
             set {
-                this["SW_DB_NG"] = value;
+                this["SW_DB_G"] = value;
             }
         }
         
@@ -266,12 +266,12 @@ namespace ServerDesktopBingX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SW_NOT_CHANGE_NG {
+        public bool SW_NOT_CHANGE_G {
             get {
-                return ((bool)(this["SW_NOT_CHANGE_NG"]));
+                return ((bool)(this["SW_NOT_CHANGE_G"]));
             }
             set {
-                this["SW_NOT_CHANGE_NG"] = value;
+                this["SW_NOT_CHANGE_G"] = value;
             }
         }
         
@@ -326,12 +326,12 @@ namespace ServerDesktopBingX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SW_LOG_NG {
+        public bool SW_LOG_G {
             get {
-                return ((bool)(this["SW_LOG_NG"]));
+                return ((bool)(this["SW_LOG_G"]));
             }
             set {
-                this["SW_LOG_NG"] = value;
+                this["SW_LOG_G"] = value;
             }
         }
         
@@ -386,12 +386,12 @@ namespace ServerDesktopBingX.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public decimal UD_NOT_CHANGE_NG {
+        public decimal UD_NOT_CHANGE_G {
             get {
-                return ((decimal)(this["UD_NOT_CHANGE_NG"]));
+                return ((decimal)(this["UD_NOT_CHANGE_G"]));
             }
             set {
-                this["UD_NOT_CHANGE_NG"] = value;
+                this["UD_NOT_CHANGE_G"] = value;
             }
         }
         
